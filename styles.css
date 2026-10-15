@@ -135,6 +135,20 @@ body {
   gap: 1rem;
 }
 
+.brand-logo-img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.28));
+  transition: transform 0.2s ease;
+}
+
+.brand-logo-img:hover {
+  transform: scale(1.05);
+}
+
 .brand-badge {
   width: 44px;
   height: 44px;
@@ -1795,11 +1809,12 @@ body {
     flex: 1;
   }
 
+  .brand-logo-img,
   .brand-badge {
-    width: 36px;
-    height: 36px;
-    font-size: 1rem;
-    border-radius: 10px;
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    border-radius: 8px;
     flex-shrink: 0;
   }
 
