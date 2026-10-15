@@ -1,6 +1,6 @@
 /**
  * Vyavasaik Prakoshth - Dashboard - Application Logic
- * Jan Suraaj Bihar Pradesh • 2 Tabs: Campaign Committee & Cadre Hierarchy
+ * Jan Suraaj Bihar • 2 Tabs: Campaign Committee & Cadre Hierarchy
  * Strictly Roman English / Hinglish • Highly Responsive & Clean
  */
 
@@ -183,7 +183,8 @@
     if (sanyojak && sanyojakContainer) {
       sanyojakContainer.innerHTML = `
         <div class="sanyojak-glass-card" onclick="window.dashboard.openModal(${JSON.stringify(sanyojak).replace(/"/g, '&quot;')})">
-          <div>
+          <!-- Desktop View -->
+          <div class="cadre-card-desktop">
             <div style="display:flex; align-items:center; gap:0.9rem; margin-bottom:0.75rem;">
               <div class="sanyojak-avatar">⭐</div>
               <div>
@@ -215,18 +216,39 @@
                 <span class="info-text">3 Mahavidyalaya Director &bull; Petroleum & Vyaparik Sansthan</span>
               </div>
             </div>
+
+            <div class="cadre-card-footer" style="margin-top:0.75rem; border-color:rgba(245,158,11,0.25);">
+              ${sanyojak.number ? `
+                <a href="tel:${sanyojak.number}" class="cadre-phone-link" onclick="event.stopPropagation();" style="color:var(--gold-light); font-size:0.85rem;">
+                  <span>📞</span>
+                  <span>${escapeHtml(sanyojak.number)}</span>
+                </a>
+              ` : '<span style="color:var(--text-dim);">Sampark Uplabdh</span>'}
+              <button class="btn-glass btn-glass-primary" style="padding:0.35rem 0.85rem; font-size:0.78rem;" onclick="event.stopPropagation(); window.dashboard.openModal(${JSON.stringify(sanyojak).replace(/"/g, '&quot;')})">
+                Profile &rarr;
+              </button>
+            </div>
           </div>
 
-          <div class="cadre-card-footer" style="margin-top:0.75rem; border-color:rgba(245,158,11,0.25);">
-            ${sanyojak.number ? `
-              <a href="tel:${sanyojak.number}" class="cadre-phone-link" onclick="event.stopPropagation();" style="color:var(--gold-light); font-size:0.85rem;">
-                <span>📞</span>
-                <span>${escapeHtml(sanyojak.number)}</span>
-              </a>
-            ` : '<span style="color:var(--text-dim);">Sampark Uplabdh</span>'}
-            <button class="btn-glass btn-glass-primary" style="padding:0.35rem 0.85rem; font-size:0.78rem;" onclick="event.stopPropagation(); window.dashboard.openModal(${JSON.stringify(sanyojak).replace(/"/g, '&quot;')})">
-              Profile &rarr;
-            </button>
+          <!-- Mobile Compact Single Line View -->
+          <div class="cadre-card-mobile" style="border: 1px solid rgba(245,158,11,0.4); background: rgba(245,158,11,0.08);">
+            <div class="cadre-mobile-avatar" style="background:linear-gradient(135deg,var(--gold),#d97706); color:#fff; font-size:1.05rem;">
+              ⭐
+            </div>
+            <div class="cadre-mobile-center">
+              <div class="cadre-mobile-line-main">
+                <span class="cadre-mobile-name" style="color:var(--gold-light); font-weight:700;">${escapeHtml(sanyojak.name)}</span>
+                <span class="political-pill pill-gold pill-compact">Pradesh Sanyojak</span>
+              </div>
+              <div class="cadre-mobile-line-sub">
+                <span>📍 ${escapeHtml(sanyojak.district)} (${escapeHtml(sanyojak.zone)})</span>
+                <span>&bull; ${escapeHtml(sanyojak.caste)}</span>
+                <span>&bull; ${sanyojak.age || '68'} yr</span>
+              </div>
+            </div>
+            <div class="cadre-mobile-action">
+              <span class="cadre-mobile-pill" style="border-color:var(--gold); color:var(--gold-light);">Profile &rarr;</span>
+            </div>
           </div>
         </div>
       `;
@@ -241,38 +263,62 @@
         const bgSummary = bgList.length > 0 ? bgList.slice(0, 2).join(' • ') : 'Vyapar & Samajik Netritva';
         return `
           <div class="sah-glass-card" onclick="window.dashboard.openModal(${JSON.stringify(m).replace(/"/g, '&quot;')})">
-            <div>
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.4rem;">
-                <span style="font-size:0.68rem; font-weight:700; text-transform:uppercase; color:var(--gold-light); letter-spacing:0.04em;">Sah-Sanyojak</span>
-                ${m.age ? `<span class="cadre-age-text">Age: ${m.age}</span>` : ''}
+            <!-- Desktop Sah Sanyojak Card -->
+            <div class="cadre-card-desktop">
+              <div>
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.4rem;">
+                  <span style="font-size:0.68rem; font-weight:700; text-transform:uppercase; color:var(--gold-light); letter-spacing:0.04em;">Sah-Sanyojak</span>
+                  ${m.age ? `<span class="cadre-age-text">Age: ${m.age}</span>` : ''}
+                </div>
+                <h4 class="cadre-clean-name" style="margin-bottom:0.4rem;">${escapeHtml(m.name)}</h4>
+                
+                <div class="cadre-structured-body">
+                  <div class="cadre-info-row">
+                    <span class="info-icon">📍</span>
+                    <span class="info-text"><strong>${escapeHtml(m.district)}</strong> (${escapeHtml(m.zone)})</span>
+                  </div>
+                  <div class="cadre-info-row">
+                    <span class="info-icon">👥</span>
+                    <span class="info-text">${escapeHtml(m.caste || 'Samaj')} &bull; ${escapeHtml(m.category || 'General')}</span>
+                  </div>
+                  ${bgSummary ? `
+                  <div class="cadre-info-row">
+                    <span class="info-icon">💼</span>
+                    <span class="info-text">${escapeHtml(bgSummary)}</span>
+                  </div>` : ''}
+                </div>
               </div>
-              <h4 class="cadre-clean-name" style="margin-bottom:0.4rem;">${escapeHtml(m.name)}</h4>
-              
-              <div class="cadre-structured-body">
-                <div class="cadre-info-row">
-                  <span class="info-icon">📍</span>
-                  <span class="info-text"><strong>${escapeHtml(m.district)}</strong> (${escapeHtml(m.zone)})</span>
-                </div>
-                <div class="cadre-info-row">
-                  <span class="info-icon">👥</span>
-                  <span class="info-text">${escapeHtml(m.caste || 'Samaj')} &bull; ${escapeHtml(m.category || 'General')}</span>
-                </div>
-                ${bgSummary ? `
-                <div class="cadre-info-row">
-                  <span class="info-icon">💼</span>
-                  <span class="info-text">${escapeHtml(bgSummary)}</span>
-                </div>` : ''}
+
+              <div class="cadre-card-footer" style="margin-top:0.5rem;">
+                ${m.number ? `
+                  <a href="tel:${m.number}" class="cadre-phone-link" onclick="event.stopPropagation();">
+                    <span>📞</span>
+                    <span>${escapeHtml(m.number)}</span>
+                  </a>
+                ` : '<span style="color:var(--text-dim); font-size:0.72rem;">Sampark Uplabdh</span>'}
+                <span class="cadre-details-cta">Profile &rarr;</span>
               </div>
             </div>
 
-            <div class="cadre-card-footer" style="margin-top:0.5rem;">
-              ${m.number ? `
-                <a href="tel:${m.number}" class="cadre-phone-link" onclick="event.stopPropagation();">
-                  <span>📞</span>
-                  <span>${escapeHtml(m.number)}</span>
-                </a>
-              ` : '<span style="color:var(--text-dim); font-size:0.72rem;">Sampark Uplabdh</span>'}
-              <span class="cadre-details-cta">Profile &rarr;</span>
+            <!-- Mobile Compact Single-Line Item -->
+            <div class="cadre-card-mobile">
+              <div class="cadre-mobile-avatar">
+                ${m.name ? m.name.charAt(0) : 'S'}
+              </div>
+              <div class="cadre-mobile-center">
+                <div class="cadre-mobile-line-main">
+                  <span class="cadre-mobile-name">${escapeHtml(m.name)}</span>
+                  <span class="political-pill pill-gold pill-compact">Sah-Sanyojak</span>
+                </div>
+                <div class="cadre-mobile-line-sub">
+                  <span>📍 ${escapeHtml(m.district || m.zone)}</span>
+                  ${m.caste ? `<span>&bull; ${escapeHtml(m.caste)}</span>` : ''}
+                  ${m.age ? `<span>&bull; ${m.age} yr</span>` : ''}
+                </div>
+              </div>
+              <div class="cadre-mobile-action">
+                <span class="cadre-mobile-pill">Profile &rarr;</span>
+              </div>
             </div>
           </div>
         `;
@@ -576,6 +622,7 @@
     const initial = m.name && !isVacant ? m.name.charAt(0) : '?';
     const displayName = isVacant ? '(Rikt Pad)' : escapeHtml(m.name);
     const locText = m.district ? `${m.district} (${m.zone || 'Bihar'})` : (m.zone || 'Samast Bihar');
+    const shortLoc = m.district || m.zone || 'Bihar';
     
     const socialParts = [m.caste, m.category].filter(Boolean);
     const socialText = socialParts.length > 0 ? socialParts.join(' • ') : '';
@@ -585,59 +632,93 @@
 
     return `
       <div class="cadre-clean-card ${isVacant ? 'is-vacant' : ''}" onclick="window.dashboard.openModal(${JSON.stringify(m).replace(/"/g, '&quot;')})">
-        <div class="cadre-header-row">
-          <div class="cadre-avatar-small" style="${isVacant ? 'background:rgba(244,63,94,0.15); color:var(--rose-light); border:1px dashed var(--rose);' : ''}">
+        <!-- Desktop Multi-Row Structured Card -->
+        <div class="cadre-card-desktop">
+          <div class="cadre-header-row">
+            <div class="cadre-avatar-small" style="${isVacant ? 'background:rgba(244,63,94,0.15); color:var(--rose-light); border:1px dashed var(--rose);' : ''}">
+              ${initial}
+            </div>
+            <div style="flex:1; min-width:0;">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:0.4rem;">
+                <h4 class="cadre-clean-name" style="${isVacant ? 'color:var(--rose-light); font-style:italic;' : ''}" title="${displayName}">${displayName}</h4>
+                ${m.age && !isVacant ? `<span class="cadre-age-text">Age: ${m.age}</span>` : ''}
+              </div>
+              <div style="margin-top:0.2rem;">
+                ${getPostBadgeHtml(m.post || roleTitle)}
+              </div>
+            </div>
+          </div>
+
+          <div class="cadre-structured-body">
+            <div class="cadre-info-row">
+              <span class="info-icon">📍</span>
+              <span class="info-text"><strong>${escapeHtml(locText)}</strong></span>
+            </div>
+            ${socialText && !isVacant ? `
+            <div class="cadre-info-row">
+              <span class="info-icon">👥</span>
+              <span class="info-text">${escapeHtml(socialText)}</span>
+            </div>` : ''}
+            ${bgText && !isVacant ? `
+            <div class="cadre-info-row">
+              <span class="info-icon">💼</span>
+              <span class="info-text">${escapeHtml(bgText)}</span>
+            </div>` : ''}
+            ${isVacant ? `
+            <div class="cadre-info-row" style="color:var(--rose-light);">
+              <span class="info-icon">⚠️</span>
+              <span class="info-text">Agami Sangathan Vistar Hetu Rikt Pad</span>
+            </div>` : ''}
+          </div>
+
+          <div class="cadre-card-footer">
+            ${m.number && !isVacant ? `
+              <a href="tel:${m.number}" class="cadre-phone-link" onclick="event.stopPropagation();" title="Sidha Call Karein">
+                <span>📞</span>
+                <span>${escapeHtml(m.number)}</span>
+              </a>
+            ` : `<span style="color:${isVacant ? 'var(--rose-light)' : 'var(--text-dim)'}; font-size:0.75rem;">${isVacant ? 'Rikt Pad' : 'Sampark Uplabdh'}</span>`}
+            <span class="cadre-details-cta">Profile &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Mobile Single-Line Compact Item (Only One Line, Click for Full Details) -->
+        <div class="cadre-card-mobile">
+          <div class="cadre-mobile-avatar" style="${isVacant ? 'background:rgba(244,63,94,0.15); color:var(--rose-light);' : ''}">
             ${initial}
           </div>
-          <div style="flex:1; min-width:0;">
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:0.4rem;">
-              <h4 class="cadre-clean-name" style="${isVacant ? 'color:var(--rose-light); font-style:italic;' : ''}" title="${displayName}">${displayName}</h4>
-              ${m.age && !isVacant ? `<span class="cadre-age-text">Age: ${m.age}</span>` : ''}
+          <div class="cadre-mobile-center">
+            <div class="cadre-mobile-line-main">
+              <span class="cadre-mobile-name ${isVacant ? 'is-vacant-text' : ''}">${displayName}</span>
+              ${getPostBadgeHtml(m.post || roleTitle, true)}
             </div>
-            <div style="margin-top:0.2rem;">
-              ${getPostBadgeHtml(m.post || roleTitle)}
+            <div class="cadre-mobile-line-sub">
+              <span>📍 ${escapeHtml(shortLoc)}</span>
+              ${socialText && !isVacant ? `<span>&bull; ${escapeHtml(m.caste || m.category)}</span>` : ''}
+              ${m.age && !isVacant ? `<span>&bull; ${m.age} yr</span>` : ''}
             </div>
           </div>
-        </div>
-
-        <div class="cadre-structured-body">
-          <div class="cadre-info-row">
-            <span class="info-icon">📍</span>
-            <span class="info-text"><strong>${escapeHtml(locText)}</strong></span>
+          <div class="cadre-mobile-action">
+            <span class="cadre-mobile-pill">Profile &rarr;</span>
           </div>
-          ${socialText && !isVacant ? `
-          <div class="cadre-info-row">
-            <span class="info-icon">👥</span>
-            <span class="info-text">${escapeHtml(socialText)}</span>
-          </div>` : ''}
-          ${bgText && !isVacant ? `
-          <div class="cadre-info-row">
-            <span class="info-icon">💼</span>
-            <span class="info-text">${escapeHtml(bgText)}</span>
-          </div>` : ''}
-          ${isVacant ? `
-          <div class="cadre-info-row" style="color:var(--rose-light);">
-            <span class="info-icon">⚠️</span>
-            <span class="info-text">Agami Sangathan Vistar Hetu Rikt Pad</span>
-          </div>` : ''}
-        </div>
-
-        <div class="cadre-card-footer">
-          ${m.number && !isVacant ? `
-            <a href="tel:${m.number}" class="cadre-phone-link" onclick="event.stopPropagation();" title="Sidha Call Karein">
-              <span>📞</span>
-              <span>${escapeHtml(m.number)}</span>
-            </a>
-          ` : `<span style="color:${isVacant ? 'var(--rose-light)' : 'var(--text-dim)'}; font-size:0.75rem;">${isVacant ? 'Rikt Pad' : 'Sampark Uplabdh'}</span>`}
-          <span class="cadre-details-cta">Profile &rarr;</span>
         </div>
       </div>
     `;
   }
 
-  function getPostBadgeHtml(post) {
+  function getPostBadgeHtml(post, compact = false) {
     if (!post) return '';
     const p = post.trim();
+    if (compact) {
+      if (p === 'State President') return `<span class="political-pill pill-gold pill-compact">Pradesh Adhyaksh</span>`;
+      if (p === 'State Gen Sec') return `<span class="political-pill pill-gold pill-compact">Pradesh Mahasachiv</span>`;
+      if (p === 'State VP') return `<span class="political-pill pill-blue pill-compact">Pradesh VP</span>`;
+      if (p === 'Zonal') return `<span class="political-pill pill-emerald pill-compact">Zonal Prabhari</span>`;
+      if (p === 'District President') return `<span class="political-pill pill-blue pill-compact">Zila Adhyaksh</span>`;
+      if (p === 'District Gen Sec') return `<span class="political-pill pill-gold pill-compact">Zila Mahasachiv</span>`;
+      if (p === 'State Core Committee') return `<span class="political-pill pill-compact">Core Comm.</span>`;
+      return `<span class="political-pill pill-compact">${escapeHtml(p)}</span>`;
+    }
     if (p === 'State President') return `<span class="political-pill pill-gold">Pradesh Adhyaksh</span>`;
     if (p === 'State Gen Sec') return `<span class="political-pill pill-gold">Pradesh Mahasachiv</span>`;
     if (p === 'State VP') return `<span class="political-pill pill-blue">Pradesh VP (Upadhyaksh)</span>`;

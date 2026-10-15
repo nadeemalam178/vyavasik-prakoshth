@@ -108,7 +108,7 @@ body {
   min-height: 100vh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  padding-bottom: 5.5rem; /* Space for bottom dock */
+  padding-bottom: 2rem; /* Clean desktop padding */
 }
 
 /* ==========================================================================
@@ -295,9 +295,9 @@ body {
   color: currentColor;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .desktop-top-tabs {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -1197,6 +1197,19 @@ body {
 /* ==========================================================================
    Floating Bottom Dock (Mobile Optimized)
    ========================================================================== */
+/* Desktop Exclusivity: Strictly Hide Mobile Bottom Dock on Desktop Viewports */
+@media (min-width: 769px) {
+  .floating-bottom-dock {
+    display: none !important;
+  }
+  .cadre-card-mobile {
+    display: none !important;
+  }
+  .cadre-card-desktop {
+    display: block !important;
+  }
+}
+
 .floating-bottom-dock {
   position: fixed;
   bottom: 1.25rem;
@@ -1272,21 +1285,21 @@ body {
 }
 
 /* ==========================================================================
-   Persistent Right Side Panel Trigger (Right-Edge Tab)
+   Persistent Right Side Panel Trigger (Exactly Vertically Centered on Right Edge)
    ========================================================================== */
 .right-edge-drawer-trigger {
   position: fixed;
   right: 0;
-  top: 42%;
+  top: 50%;
   transform: translateY(-50%);
-  z-index: 950;
+  z-index: 1000;
   background: var(--glass-surface);
   backdrop-filter: var(--blur-deep);
   -webkit-backdrop-filter: var(--blur-deep);
   border: 1.5px solid var(--gold);
   border-right: none;
   border-radius: 12px 0 0 12px;
-  padding: 0.75rem 0.55rem;
+  padding: 0.85rem 0.55rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1799,18 +1812,23 @@ body {
   }
 
   .highlight-main-badge {
-    font-size: 0.95rem;
+    font-size: clamp(0.74rem, 3.2vw, 0.94rem);
     font-weight: 800;
-    padding: 0.2rem 0.55rem;
+    padding: 0.22rem 0.5rem;
     border-radius: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 175px;
+    white-space: normal;
+    max-width: none !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    line-height: 1.25;
   }
 
   .tag-badge-bihar {
-    display: none !important;
+    display: inline-flex !important;
+    font-size: 0.65rem;
+    padding: 0.12rem 0.45rem;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
   }
 
   .header-political-subtitle {
@@ -1977,38 +1995,118 @@ body {
     gap: 0.85rem;
   }
 
-  /* Card App Aesthetics */
-  .cadre-clean-card, .sah-glass-card {
-    padding: 0.95rem;
-    border-radius: 16px;
+  /* Mobile View: Hide Desktop Structured Multi-Row Body & Show Compact Single-Line Item */
+  .cadre-card-desktop {
+    display: none !important;
   }
 
-  .cadre-clean-name {
-    font-size: 0.98rem;
+  .cadre-card-mobile {
+    display: flex !important;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 48px;
   }
 
-  .cadre-structured-body {
-    padding: 0.65rem 0.75rem;
-    border-radius: 10px;
+  .cadre-mobile-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .cadre-mobile-center {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .cadre-mobile-line-main {
+    display: flex;
+    align-items: center;
     gap: 0.4rem;
+    min-width: 0;
+    flex-wrap: wrap;
   }
 
-  .cadre-info-row {
-    font-size: 0.8rem;
+  .cadre-mobile-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
   }
 
-  .cadre-card-footer {
-    margin-top: 0.75rem;
-    padding-top: 0.75rem;
+  .cadre-mobile-name.is-vacant-text {
+    color: var(--rose-light);
+    font-style: italic;
   }
 
-  .cadre-phone-link {
-    font-size: 0.82rem;
-    padding: 0.35rem 0.65rem;
+  .cadre-mobile-line-sub {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  .cadre-details-cta {
-    font-size: 0.76rem;
+  .cadre-mobile-action {
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  .cadre-mobile-pill {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.22rem 0.55rem;
+    border-radius: var(--radius-full);
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: var(--primary-light);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  [data-theme="light"] .cadre-mobile-pill {
+    background: rgba(99, 102, 241, 0.08);
+    color: #4338ca;
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+
+  .pill-compact {
+    font-size: 0.65rem !important;
+    padding: 0.1rem 0.4rem !important;
+    border-radius: 6px !important;
+  }
+
+  /* Compact Mobile Card Container (One-Line App Card) */
+  .cadre-clean-card, .sah-glass-card {
+    padding: 0 !important;
+    border-radius: 12px;
+    background: var(--glass-card);
+    border: 1px solid var(--border-glass);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 0.45rem;
+    cursor: pointer;
+    overflow: hidden;
   }
 
   /* Native Mobile Bottom Navigation Bar (Pinned to Viewport Bottom) */
@@ -2076,10 +2174,12 @@ body {
     font-weight: 800;
   }
 
-  /* Right-Edge Floating Filter Handle on Mobile */
+  /* Right-Edge Floating Filter Handle on Mobile (Exact Middle on Right Edge) */
   .right-edge-drawer-trigger {
-    top: 38%;
-    padding: 0.65rem 0.45rem;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    right: 0 !important;
+    padding: 0.7rem 0.45rem;
     font-size: 0.68rem;
   }
 

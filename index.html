@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vyavasaik Prakoshth - Dashboard | Jan Suraaj Bihar</title>
-  <meta name="description" content="Jan Suraaj Vyavasaik Prakoshth - Bihar Pradesh Campaign Committee & 12 Zones, 44 Districts Sangathan Cadre Dashboard.">
+  <meta name="description" content="Jan Suraaj Vyavasaik Prakoshth - Bihar Campaign Committee & 12 Zones, 44 Districts Sangathan Cadre Dashboard.">
   
   <!-- Executive App Typography: Outfit (Headings) & Inter (UI/Data) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +25,7 @@
           <h1 class="header-highlight-title">
             <span class="highlight-main-badge">Vyavasaik Prakoshth - Dashboard</span>
           </h1>
-          <span class="tag-badge-bihar">Jan Suraaj &bull; Bihar Pradesh</span>
+          <span class="tag-badge-bihar">Jan Suraaj &bull; Bihar</span>
         </div>
         <p class="header-political-subtitle">Campaign Committee &bull; 12 Zones &bull; 44 Sangathanik Zile</p>
       </div>
@@ -41,12 +41,6 @@
       <button class="btn-glass" id="syncSheetsBtn" title="Sync Fresh Data from Google Sheets">
         <svg id="syncIcon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
         <span>Sync</span>
-      </button>
-
-      <!-- Side Filter Drawer Trigger Button -->
-      <button class="btn-glass btn-glass-primary" id="openDrawerBtn" title="Sangathanik Chayan & Filter Panel">
-        <span>⚡ Chayan / Filter</span>
-        <span class="filter-badge-counter" id="activeFilterBadge" style="display:none;">0</span>
       </button>
 
       <!-- Theme Switcher (Dark/Light) -->
@@ -80,20 +74,6 @@
       </button>
     </div>
   </nav>
-
-  <!-- Executive Single-Line Contextual Summary Banner (No KPI Tiles) -->
-  <div class="content-canvas" style="padding-bottom: 0;">
-    <div class="political-context-ticker">
-      <div class="ticker-left">
-        <span class="ticker-dot"></span>
-        <span><strong>Sangathanik Vistar:</strong> Jan Suraaj Vyavasaik Prakoshth Bihar &bull; 12 Zonal Sangathan &bull; 44 Sangathanik Zile (100% Bihar Coverage)</span>
-      </div>
-      <div class="ticker-badges">
-        <span class="political-pill pill-gold">🏛️ 80 Sthaniya Nikay & Panchayat Pratinidhi</span>
-        <span class="political-pill pill-party">52 Purv Congress &bull; 37 Purv BJP &bull; 26 Purv JDU</span>
-      </div>
-    </div>
-  </div>
 
   <!-- Main Content Canvas -->
   <main class="content-canvas">
@@ -143,15 +123,11 @@
         <div class="zonal-chips-scroll" id="ccZoneChipsContainer"></div>
       </div>
 
-      <!-- Clean Filter Search for Campaign Members -->
+      <!-- Clean Search for Campaign Members -->
       <div class="clean-filter-bar">
-        <div class="clean-search-capsule">
+        <div class="clean-search-capsule" style="width: 100%;">
           <span class="clean-search-icon">🔍</span>
           <input type="text" id="campaignSearchInput" class="clean-search-input" placeholder="Search member by name, district, caste or sector...">
-        </div>
-        <div style="display: flex; gap: 0.6rem;">
-          <button class="btn-glass" id="openDrawerFromCcBtn">⚡ Vistrit Filter</button>
-          <button class="btn-glass" id="resetCcFiltersBtn" style="display: none;">Reset Filter</button>
         </div>
       </div>
 
@@ -221,31 +197,11 @@
         </button>
       </div>
 
-      <!-- Quick Cadre Filter Bar -->
+      <!-- Clean Cadre Search Bar (All Filtering Managed in Right-Side Panel) -->
       <div class="clean-filter-bar">
-        <div class="clean-search-capsule">
+        <div class="clean-search-capsule" style="width: 100%;">
           <span class="clean-search-icon">🔍</span>
           <input type="text" id="cadreSearchInput" class="clean-search-input" placeholder="Search by name, post, phone, district, caste or sector...">
-        </div>
-        <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-          <!-- Quick District Dropdown -->
-          <select id="cadreDistrictQuickSelect" class="drawer-select" style="width: auto; padding: 0.6rem 0.9rem; font-size: 0.82rem;">
-            <option value="ALL">All 44 Sangathanik Zile</option>
-          </select>
-
-          <!-- Quick Zone Dropdown -->
-          <select id="cadreZoneQuickSelect" class="drawer-select" style="width: auto; padding: 0.6rem 0.9rem; font-size: 0.82rem;">
-            <option value="ALL">All 12 Zones</option>
-          </select>
-
-          <!-- Status Filter -->
-          <select id="cadreStatusQuickSelect" class="drawer-select" style="width: auto; padding: 0.6rem 0.9rem; font-size: 0.82rem;">
-            <option value="ALL">All Posts (Niyukt + Rikt)</option>
-            <option value="FILLED">Niyukt Padadhikari Only</option>
-            <option value="VACANT">Rikt Pad Only</option>
-          </select>
-
-          <button class="btn-glass" id="resetAllCadreFiltersBtn">Reset Filters</button>
         </div>
       </div>
 
@@ -566,7 +522,7 @@
   </div>
 
   <!-- ===================================================================
-       FLOATING BOTTOM DOCK (MOBILE APP NAVIGATION - 3 TABS + FILTER)
+       FLOATING BOTTOM DOCK (MOBILE APP NAVIGATION - EXACTLY 3 TABS)
        =================================================================== -->
   <nav class="floating-bottom-dock" id="floatingBottomDock" aria-label="Mobile Navigation">
     <button class="dock-btn active" data-tab="tab-campaign" id="dockBtnCampaign" title="Campaign Committee">
@@ -582,11 +538,6 @@
     <button class="dock-btn" data-tab="tab-analytics" id="dockBtnAnalytics" title="Sangathanik Analytics & Charts">
       <span class="dock-icon">📊</span>
       <span class="dock-label">Analytics</span>
-    </button>
-    <button class="dock-btn" id="dockBtnFilter" title="Filter Side Panel">
-      <span class="dock-icon">⚡</span>
-      <span class="dock-label">Filter</span>
-      <span class="dock-btn-badge" id="dockFilterBadge" style="display:none;">0</span>
     </button>
   </nav>
 
