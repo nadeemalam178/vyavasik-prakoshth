@@ -35,12 +35,18 @@
       <!-- Live Sync Status Chip -->
       <div class="live-indicator-chip" id="syncStatusChip" title="Google Sheets Live Data Connection">
         <span class="pulsing-dot"></span>
-        <span id="syncStatusText">Sheets Live Connected</span>
+        <span id="syncStatusText" data-i18n="sync_live">Sheets Live Connected</span>
       </div>
 
       <button class="btn-glass" id="syncSheetsBtn" title="Sync Fresh Data from Google Sheets">
         <svg id="syncIcon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
-        <span>Sync</span>
+        <span data-i18n="sync_btn">Sync</span>
+      </button>
+
+      <!-- Language Option (Hindi / English) -->
+      <button class="btn-glass lang-toggle-btn" id="langToggleBtn" title="Switch Language / भाषा बदलें" aria-label="Switch Language">
+        <span class="lang-icon">🌐</span>
+        <span id="langDisplay">हिंदी</span>
       </button>
 
       <!-- Theme Switcher (Dark/Light) -->
@@ -59,18 +65,18 @@
     <div class="desktop-tabs-wrapper">
       <button class="top-tab-btn active" data-tab="tab-campaign">
         <span class="tab-icon">🏛️</span>
-        <span class="tab-text">Campaign Committee</span>
-        <span class="tab-badge">28 Sadasya</span>
+        <span class="tab-text" data-i18n="tab_campaign">Campaign Committee</span>
+        <span class="tab-badge" data-i18n="tab_campaign_badge">28 Sadasya</span>
       </button>
       <button class="top-tab-btn" data-tab="tab-cadre">
         <span class="tab-icon">👥</span>
-        <span class="tab-text">Vyavasik Prakoshth Sangathan / Cadre</span>
-        <span class="tab-badge">423 Pad</span>
+        <span class="tab-text" data-i18n="tab_cadre">Vyavasik Prakoshth Post Holders</span>
+        <span class="tab-badge" data-i18n="tab_cadre_badge">423 Pad</span>
       </button>
       <button class="top-tab-btn" data-tab="tab-analytics">
         <span class="tab-icon">📊</span>
-        <span class="tab-text">Analytics</span>
-        <span class="tab-badge">Charts Suite</span>
+        <span class="tab-text" data-i18n="tab_analytics">Analytics</span>
+        <span class="tab-badge" data-i18n="tab_analytics_badge">Charts Suite</span>
       </button>
     </div>
   </nav>
@@ -86,7 +92,7 @@
       <!-- Section 1: Campaign Committee -->
       <div class="section-headline">
         <div>
-          <h3>⭐ Campaign Committee</h3>
+          <h3 data-i18n="sec_campaign_title">⭐ Campaign Committee</h3>
         </div>
       </div>
 
@@ -98,8 +104,7 @@
         <!-- Right: 3 Sah Sanyojaks Grid -->
         <div class="sah-sanyojaks-slot">
           <div class="slot-title-bar">
-            <h4>Sah-Sanyojak Mandal (3 Pramandaliya Sah-Sanyojak)</h4>
-            <span class="political-pill pill-gold">Pramandaliya Samanvay</span>
+            <h4 data-i18n="sec_sah_sanyojak_title">Pradesh Sah - Sanyojak</h4>
           </div>
           <div class="sah-sanyojaks-stack" id="sahSanyojakContainer"></div>
         </div>
@@ -108,12 +113,12 @@
       <!-- Section 2: Zonal Campaign Committee Members (24 Members across 12 Zones) -->
       <div class="section-headline" style="margin-top: 2rem;">
         <div>
-          <h3>🏛️ Zonal Campaign Committee Sadasya (24 Sadasya)</h3>
-          <p>Bihar ke sabhi 12 Zono evam pramukh zilo ka pratinidhitwa karne wale netritva sadasya</p>
+          <h3 data-i18n="sec_zonal_cc_title">🏛️ Zonal Campaign Committee Sadasya (24 Sadasya)</h3>
+          <p data-i18n="sec_zonal_cc_sub">Bihar ke sabhi 12 Zono evam pramukh zilo ka pratinidhitwa karne wale netritva sadasya</p>
         </div>
         <div class="view-toggle-btns">
-          <button class="view-btn active" id="ccCardViewBtn" title="Card View">🔲 Card View</button>
-          <button class="view-btn" id="ccTableViewBtn" title="List / Table View">📑 Suchi View</button>
+          <button class="view-btn active" id="ccCardViewBtn" title="Card View" data-i18n="card_view">🔲 Card View</button>
+          <button class="view-btn" id="ccTableViewBtn" title="List / Table View" data-i18n="table_view">📑 Suchi View</button>
         </div>
       </div>
 
@@ -126,7 +131,7 @@
       <div class="clean-filter-bar">
         <div class="clean-search-capsule" style="width: 100%;">
           <span class="clean-search-icon">🔍</span>
-          <input type="text" id="campaignSearchInput" class="clean-search-input" placeholder="Search member by name, district, caste or sector...">
+          <input type="text" id="campaignSearchInput" class="clean-search-input" placeholder="Search member by name, district, caste or sector..." data-i18n-ph="search_campaign_ph">
         </div>
       </div>
 
@@ -138,16 +143,16 @@
         <table class="glass-table" id="campaignTable">
           <thead>
             <tr>
-              <th>Sr No</th>
-              <th>Post</th>
-              <th>Name</th>
-              <th>Zone</th>
-              <th>District</th>
-              <th>Category</th>
-              <th>Caste</th>
-              <th>Age</th>
-              <th>Number</th>
-              <th>Profile</th>
+              <th data-i18n="th_srno">Sr No</th>
+              <th data-i18n="th_post">Post</th>
+              <th data-i18n="th_name">Name</th>
+              <th data-i18n="th_zone">Zone</th>
+              <th data-i18n="th_district">District</th>
+              <th data-i18n="th_category">Category</th>
+              <th data-i18n="th_caste">Caste</th>
+              <th data-i18n="th_age">Age</th>
+              <th data-i18n="th_number">Number</th>
+              <th data-i18n="th_profile">Profile</th>
             </tr>
           </thead>
           <tbody id="campaignTableBody"></tbody>
@@ -156,51 +161,51 @@
     </section>
 
     <!-- ===================================================================
-         TAB 2: Vyavasik Prakoshth Sangathan / Cadre (423 Posts Hierarchy)
+         TAB 2: Vyavasik Prakoshth Post Holders (423 Posts Hierarchy)
          =================================================================== -->
     <section class="tab-pane" id="tab-cadre">
       
       <!-- Hierarchy Level Navigation Deck -->
       <div class="section-headline">
         <div>
-          <h3>👥 Vyavasik Prakoshth Sangathan / Cadre Hierarchy</h3>
-          <p>State President &bull; State Gen Sec &bull; State VP &bull; 12 Zonals &bull; 44 District Presidents &bull; 44 District Gen Secs &bull; 7 Core Members per District (308)</p>
+          <h3 data-i18n="sec_cadre_title">👥 Vyavasik Prakoshth Post Holders Hierarchy</h3>
+          <p data-i18n="sec_cadre_sub">State President &bull; State Gen Sec &bull; State VP &bull; 12 Zonals &bull; 44 District Presidents &bull; 44 District Gen Secs &bull; 7 Core Members per District (308)</p>
         </div>
         <div class="view-toggle-btns">
-          <button class="view-btn active" id="cadreCardViewBtn" title="Card View">🔲 Card View</button>
-          <button class="view-btn" id="cadreTableViewBtn" title="List / Table View">📑 Suchi View</button>
+          <button class="view-btn active" id="cadreCardViewBtn" title="Card View" data-i18n="card_view">🔲 Card View</button>
+          <button class="view-btn" id="cadreTableViewBtn" title="List / Table View" data-i18n="table_view">📑 Suchi View</button>
         </div>
       </div>
 
       <!-- Level Switcher Pills -->
       <div class="hierarchy-level-nav" id="hierarchyLevelNav">
         <button class="hierarchy-pill-btn active" data-level="ALL">
-          <span>All Cadre Hierarchy</span>
+          <span data-i18n="pill_all_cadre">All Post Holders</span>
           <span class="pill-count">423 Pad</span>
         </button>
         <button class="hierarchy-pill-btn" data-level="STATE_APEX">
-          <span>State Post Holder</span>
+          <span data-i18n="pill_state_apex">State Post Holder</span>
           <span class="pill-count">15 Pad</span>
         </button>
         <button class="hierarchy-pill-btn" data-level="ZONAL">
-          <span>Zonal Prabhari</span>
+          <span data-i18n="pill_zonal">Zonal Prabhari</span>
           <span class="pill-count">12 Pad</span>
         </button>
         <button class="hierarchy-pill-btn" data-level="DISTRICT_LEADS">
-          <span>Zila Leadership</span>
+          <span data-i18n="pill_dist_leads">Zila Leadership</span>
           <span class="pill-count">88 Pad</span>
         </button>
         <button class="hierarchy-pill-btn" data-level="CORE_COMMITTEE">
-          <span>State Core Committee</span>
+          <span data-i18n="pill_core">State Core Committee</span>
           <span class="pill-count">308 Pad</span>
         </button>
       </div>
 
-      <!-- Clean Cadre Search Bar (All Filtering Managed in Right-Side Panel) -->
+      <!-- Clean Search Bar (All Filtering Managed in Right-Side Panel) -->
       <div class="clean-filter-bar">
         <div class="clean-search-capsule" style="width: 100%;">
           <span class="clean-search-icon">🔍</span>
-          <input type="text" id="cadreSearchInput" class="clean-search-input" placeholder="Search by name, post, phone, district, caste or sector...">
+          <input type="text" id="cadreSearchInput" class="clean-search-input" placeholder="Search by name, post, phone, district, caste or sector..." data-i18n-ph="search_cadre_ph">
         </div>
       </div>
 
@@ -218,17 +223,17 @@
         <table class="glass-table" id="cadreTable">
           <thead>
             <tr>
-              <th>SrNo</th>
-              <th>Post</th>
-              <th>Name</th>
-              <th>Status</th>
-              <th>Zone</th>
-              <th>District</th>
-              <th>Category</th>
-              <th>Caste</th>
-              <th>Age</th>
-              <th>Number</th>
-              <th>Profile</th>
+              <th data-i18n="th_srno">SrNo</th>
+              <th data-i18n="th_post">Post</th>
+              <th data-i18n="th_name">Name</th>
+              <th data-i18n="th_status">Status</th>
+              <th data-i18n="th_zone">Zone</th>
+              <th data-i18n="th_district">District</th>
+              <th data-i18n="th_category">Category</th>
+              <th data-i18n="th_caste">Caste</th>
+              <th data-i18n="th_age">Age</th>
+              <th data-i18n="th_number">Number</th>
+              <th data-i18n="th_profile">Profile</th>
             </tr>
           </thead>
           <tbody id="cadreTableBody"></tbody>
@@ -244,8 +249,8 @@
       <!-- Section Headline -->
       <div class="section-headline">
         <div>
-          <h3>📊 Comprehensive Sangathanik Analytics & Visual Intelligence</h3>
-          <p>Real-time visual analysis of 423 Cadre Posts, 12 Zones, 44 Districts, Social Categories, Castes, Age Cohorts & Political Migrations</p>
+          <h3 data-i18n="sec_analytics_title">📊 Comprehensive Sangathanik Analytics & Visual Intelligence</h3>
+          <p data-i18n="sec_analytics_sub">Real-time visual analysis of 423 Post Holders, 12 Zones, 44 Districts, Social Categories, Castes, Age Cohorts & Political Migrations</p>
         </div>
         <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
           <button class="btn-glass" id="refreshChartsBtn">🔄 Refresh Charts</button>
@@ -256,25 +261,25 @@
       <!-- 4 Executive KPI Intelligence Cards -->
       <div class="analytics-kpi-grid">
         <div class="analytics-kpi-card">
-          <div class="analytics-kpi-label">Niyukti Vistar (Fill Rate)</div>
+          <div class="analytics-kpi-label" data-i18n="kpi_fill_label">Niyukti Vistar (Fill Rate)</div>
           <div class="analytics-kpi-value" id="kpiFillRate" style="color: var(--gold-light);">78.5%</div>
-          <div class="analytics-kpi-sub"><strong>332 Niyukt</strong> • 91 Rikt Pad (Kul 423)</div>
+          <div class="analytics-kpi-sub" data-i18n="kpi_fill_sub"><strong>332 Niyukt</strong> • 91 Rikt Pad (Kul 423)</div>
         </div>
 
         <div class="analytics-kpi-card">
-          <div class="analytics-kpi-label">Bhaugolik Vyapti (Bihar Coverage)</div>
+          <div class="analytics-kpi-label" data-i18n="kpi_geo_label">Bhaugolik Vyapti (Bihar Coverage)</div>
           <div class="analytics-kpi-value" style="color: var(--emerald-light);">100%</div>
-          <div class="analytics-kpi-sub"><strong>12 Zones & 44 Zile</strong> Sakriya</div>
+          <div class="analytics-kpi-sub" data-i18n="kpi_geo_sub"><strong>12 Zones & 44 Zile</strong> Sakriya</div>
         </div>
 
         <div class="analytics-kpi-card">
-          <div class="analytics-kpi-label">Purv Rajnitik Netritva</div>
+          <div class="analytics-kpi-label" data-i18n="kpi_pol_label">Purv Rajnitik Netritva</div>
           <div class="analytics-kpi-value" style="color: var(--primary-light);">132 Political Profiles</div>
           <div class="analytics-kpi-sub">52 Congress • 37 BJP • 26 JDU</div>
         </div>
 
         <div class="analytics-kpi-card">
-          <div class="analytics-kpi-label">Grassroots Elected Reps</div>
+          <div class="analytics-kpi-label" data-i18n="kpi_elected_label">Grassroots Elected Reps</div>
           <div class="analytics-kpi-value" style="color: var(--cyan-light);">80 Pratinidhi</div>
           <div class="analytics-kpi-sub">Mukhiya, Parshad & PACS Adhyaksh</div>
         </div>
@@ -287,8 +292,8 @@
         <div class="chart-card">
           <div class="chart-card-header">
             <div>
-              <div class="chart-card-title">👥 Caste Distribution</div>
-              <div class="chart-card-subtitle">General, OBC, EBC, Minority & SC Representation</div>
+              <div class="chart-card-title" data-i18n="chart_caste_title">👥 Caste Distribution</div>
+              <div class="chart-card-subtitle" data-i18n="chart_caste_sub">General, OBC, EBC, Minority & SC Representation</div>
             </div>
             <span class="political-pill pill-gold">Pie / Doughnut</span>
           </div>
@@ -301,8 +306,8 @@
         <div class="chart-card">
           <div class="chart-card-header">
             <div>
-              <div class="chart-card-title">🏛️ Pad Niyukti evam Riktata</div>
-              <div class="chart-card-subtitle">Fill Rate Status across 7 Hierarchy Tiers</div>
+              <div class="chart-card-title" data-i18n="chart_status_title">🏛️ Pad Niyukti evam Riktata</div>
+              <div class="chart-card-subtitle" data-i18n="chart_status_sub">Fill Rate Status across 7 Hierarchy Tiers</div>
             </div>
             <span class="political-pill pill-emerald">Hierarchy Donut</span>
           </div>
@@ -315,8 +320,8 @@
         <div class="chart-card chart-card-full">
           <div class="chart-card-header">
             <div>
-              <div class="chart-card-title">📍 12 Sangathanik Zones - Filled vs Gaps</div>
-              <div class="chart-card-subtitle">Comparative Cadre Strength across all 12 Operational Zones</div>
+              <div class="chart-card-title" data-i18n="chart_zonal_title">📍 12 Sangathanik Zones - Filled vs Gaps</div>
+              <div class="chart-card-subtitle" data-i18n="chart_zonal_sub">Comparative Post Holder Strength across all 12 Operational Zones</div>
             </div>
             <span class="political-pill pill-blue">Stacked Bar Chart</span>
           </div>
@@ -329,8 +334,8 @@
         <div class="chart-card">
           <div class="chart-card-header">
             <div>
-              <div class="chart-card-title">🏛️ Purv Rajnitik Prishthbhumi</div>
-              <div class="chart-card-subtitle">Senior Leaders Migrated to Jan Suraaj by Party</div>
+              <div class="chart-card-title" data-i18n="chart_pol_title">🏛️ Purv Rajnitik Prishthbhumi</div>
+              <div class="chart-card-subtitle" data-i18n="chart_pol_sub">Senior Leaders Migrated to Jan Suraaj by Party</div>
             </div>
             <span class="political-pill pill-gold">Horizontal Bar</span>
           </div>
@@ -343,8 +348,8 @@
         <div class="chart-card">
           <div class="chart-card-header">
             <div>
-              <div class="chart-card-title">💼 Vyavasaik Kshetr & Udyog</div>
-              <div class="chart-card-subtitle">Key Industries Represented in Business Cell</div>
+              <div class="chart-card-title" data-i18n="chart_sector_title">💼 Vyavasaik Kshetr & Udyog</div>
+              <div class="chart-card-subtitle" data-i18n="chart_sector_sub">Key Industries Represented in Business Cell</div>
             </div>
             <span class="political-pill pill-cyan">Sector Bar</span>
           </div>
@@ -357,8 +362,8 @@
         <div class="chart-card">
           <div class="chart-card-header">
             <div>
-              <div class="chart-card-title">🎂 Aayu Varg & Demographics</div>
-              <div class="chart-card-subtitle">Youth (Under 35), Prime (35-49), Senior (50-59) & Veterans (60+)</div>
+              <div class="chart-card-title" data-i18n="chart_age_title">🎂 Aayu Varg & Demographics</div>
+              <div class="chart-card-subtitle" data-i18n="chart_age_sub">Youth (Under 35), Prime (35-49), Senior (50-59) & Veterans (60+)</div>
             </div>
             <span class="political-pill pill-gold">Age Distribution</span>
           </div>
@@ -385,8 +390,8 @@
         <div class="chart-card chart-card-full">
           <div class="chart-card-header">
             <div>
-              <div class="chart-card-title">📑 44 Sangathanik Zile - Readiness & Action Priority Matrix</div>
-              <div class="chart-card-subtitle">Live tracking of Zila Adhyaksh, Zila Mahasachiv, Core Committee (Target: 7) & Gaps</div>
+              <div class="chart-card-title" data-i18n="matrix_title">📑 44 Sangathanik Zile - Readiness & Action Priority Matrix</div>
+              <div class="chart-card-subtitle" data-i18n="matrix_sub">Live tracking of Zila Adhyaksh, Zila Mahasachiv, Core Committee (Target: 7) & Gaps</div>
             </div>
             <div style="display: flex; gap: 0.5rem; align-items: center;">
               <input type="text" id="districtReadinessSearch" class="clean-search-input" placeholder="Search District..." style="padding: 0.35rem 0.65rem; font-size: 0.78rem; width: 170px;">
@@ -396,13 +401,13 @@
             <table class="glass-table" id="districtReadinessTable">
               <thead>
                 <tr>
-                  <th>District</th>
-                  <th>Zone</th>
-                  <th>District President</th>
-                  <th>District Gen Sec</th>
-                  <th>Core Committee</th>
-                  <th>Fill Rate</th>
-                  <th>Priority Tier</th>
+                  <th data-i18n="th_district">District</th>
+                  <th data-i18n="th_zone">Zone</th>
+                  <th data-i18n="th_dist_pres">District President</th>
+                  <th data-i18n="th_dist_gen_sec">District Gen Sec</th>
+                  <th data-i18n="th_core_comm">Core Committee</th>
+                  <th data-i18n="th_fill_rate">Fill Rate</th>
+                  <th data-i18n="th_priority">Priority Tier</th>
                 </tr>
               </thead>
               <tbody id="districtReadinessBody"></tbody>
@@ -418,7 +423,7 @@
   <!-- Persistent Right-Edge Side Panel Trigger (Always Available on Right Side) -->
   <button class="right-edge-drawer-trigger" id="rightEdgeDrawerTrigger" aria-label="Open Right Side Filter Panel" title="Open Filter Side Panel">
     <span class="trigger-icon">⚡</span>
-    <span class="trigger-text">Filter</span>
+    <span class="trigger-text" data-i18n="drawer_trigger">Filter</span>
     <span class="trigger-badge" id="rightTriggerBadge" style="display:none;">0</span>
   </button>
 
@@ -428,14 +433,14 @@
   <div class="side-drawer-backdrop" id="sideDrawerBackdrop">
     <div class="side-drawer-panel" id="sideDrawerPanel">
       <div class="drawer-header">
-        <h3>⚡ Sangathanik Chayan & Filter</h3>
+        <h3 data-i18n="drawer_title">⚡ Sangathanik Chayan & Filter</h3>
         <button class="modal-close-btn" id="closeDrawerBtn" aria-label="Band Karein">&times;</button>
       </div>
 
       <div class="drawer-body">
-        <!-- Cadre Post -->
+        <!-- Post Hierarchy -->
         <div>
-          <div class="filter-group-title">Sangathanik Pad Star (Post Hierarchy)</div>
+          <div class="filter-group-title" data-i18n="drawer_post_label">Sangathanik Pad Star (Post Hierarchy)</div>
           <select id="drawerPostFilter" class="drawer-select">
             <option value="ALL">All Post Levels</option>
             <option value="State President">State President (1)</option>
@@ -450,7 +455,7 @@
 
         <!-- Appointment Status -->
         <div>
-          <div class="filter-group-title">Niyukti Sthiti (Appointment Status)</div>
+          <div class="filter-group-title" data-i18n="drawer_status_label">Niyukti Sthiti (Appointment Status)</div>
           <select id="drawerStatusFilter" class="drawer-select">
             <option value="ALL">All (Niyukt evam Rikt Pad)</option>
             <option value="FILLED">Keval Niyukt Padadhikari</option>
@@ -460,7 +465,7 @@
 
         <!-- Operational Zone -->
         <div>
-          <div class="filter-group-title">12 Sangathanik Zones</div>
+          <div class="filter-group-title" data-i18n="drawer_zone_label">12 Sangathanik Zones</div>
           <select id="drawerZoneFilter" class="drawer-select">
             <option value="ALL">All 12 Zones</option>
           </select>
@@ -468,7 +473,7 @@
 
         <!-- District -->
         <div>
-          <div class="filter-group-title">44 Sangathanik Zile</div>
+          <div class="filter-group-title" data-i18n="drawer_dist_label">44 Sangathanik Zile</div>
           <select id="drawerDistrictFilter" class="drawer-select">
             <option value="ALL">All 44 Districts</option>
           </select>
@@ -476,7 +481,7 @@
 
         <!-- Social Category -->
         <div>
-          <div class="filter-group-title">Samajik Shreni (Social Category)</div>
+          <div class="filter-group-title" data-i18n="drawer_cat_label">Samajik Shreni (Social Category)</div>
           <select id="drawerCatFilter" class="drawer-select">
             <option value="ALL">All Samajik Shreni</option>
           </select>
@@ -484,7 +489,7 @@
 
         <!-- Political Lineage Cloud -->
         <div>
-          <div class="filter-group-title">Purv Rajnitik Prishthbhumi</div>
+          <div class="filter-group-title" data-i18n="drawer_party_label">Purv Rajnitik Prishthbhumi</div>
           <div class="drawer-pills-cloud" id="drawerPartyPills">
             <button class="drawer-pill-btn active" data-filter="ALL">All</button>
             <button class="drawer-pill-btn" data-filter="Former BJP">Purv BJP (37)</button>
@@ -498,7 +503,7 @@
 
         <!-- Commercial Sector Cloud -->
         <div>
-          <div class="filter-group-title">Vyavasayik & Aarthik Kshetr</div>
+          <div class="filter-group-title" data-i18n="drawer_sector_label">Vyavasayik & Aarthik Kshetr</div>
           <div class="drawer-pills-cloud" id="drawerSectorPills">
             <button class="drawer-pill-btn" data-filter="Logistics">Transport & Logistics (127)</button>
             <button class="drawer-pill-btn" data-filter="Trading">Vyapar & Retail (85)</button>
@@ -514,8 +519,8 @@
       </div>
 
       <div class="drawer-footer">
-        <button class="btn-glass" id="drawerResetBtn" style="flex:1;">Reset Karein</button>
-        <button class="btn-glass btn-glass-primary" id="drawerApplyBtn" style="flex:1.5;">Laagu Karein</button>
+        <button class="btn-glass" id="drawerResetBtn" style="flex:1;" data-i18n="drawer_reset">Reset Karein</button>
+        <button class="btn-glass btn-glass-primary" id="drawerApplyBtn" style="flex:1.5;" data-i18n="drawer_apply">Laagu Karein</button>
       </div>
     </div>
   </div>
@@ -526,17 +531,17 @@
   <nav class="floating-bottom-dock" id="floatingBottomDock" aria-label="Mobile Navigation">
     <button class="dock-btn active" data-tab="tab-campaign" id="dockBtnCampaign" title="Campaign Committee">
       <span class="dock-icon">🏛️</span>
-      <span class="dock-label">Campaign</span>
+      <span class="dock-label" data-i18n="dock_campaign">Campaign Committee</span>
       <span class="dock-btn-badge">28</span>
     </button>
-    <button class="dock-btn" data-tab="tab-cadre" id="dockBtnCadre" title="Vyavasik Sangathan / Cadre">
+    <button class="dock-btn" data-tab="tab-cadre" id="dockBtnCadre" title="Vyavasik Sangathan / Post Holders">
       <span class="dock-icon">👥</span>
-      <span class="dock-label">Cadre</span>
+      <span class="dock-label" data-i18n="dock_cadre">Post Holder</span>
       <span class="dock-btn-badge">423</span>
     </button>
     <button class="dock-btn" data-tab="tab-analytics" id="dockBtnAnalytics" title="Sangathanik Analytics & Charts">
       <span class="dock-icon">📊</span>
-      <span class="dock-label">Analytics</span>
+      <span class="dock-label" data-i18n="dock_analytics">Analytics</span>
     </button>
   </nav>
 

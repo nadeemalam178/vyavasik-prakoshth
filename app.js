@@ -26,11 +26,188 @@
     viewModeCadre: 'cards'
   };
 
+  let currentLang = localStorage.getItem('js_lang') || 'en';
+
+  // Comprehensive Bilingual Dictionary (English & Hindi)
+  const I18N = {
+    en: {
+      header_title: 'Vyavasaik Prakoshth - Dashboard',
+      header_tag: 'Jan Suraaj &bull; Bihar',
+      header_sub: 'Campaign Committee &bull; 12 Zones &bull; 44 Sangathanik Zile',
+      sync_live: 'Sheets Live Connected',
+      sync_btn: 'Sync',
+      lang_btn: 'हिंदी',
+      tab_campaign: 'Campaign Committee',
+      tab_campaign_badge: '28 Sadasya',
+      tab_cadre: 'Vyavasik Prakoshth Post Holders',
+      tab_cadre_badge: '423 Pad',
+      tab_analytics: 'Analytics',
+      tab_analytics_badge: 'Charts Suite',
+      sec_campaign_title: '⭐ Campaign Committee',
+      sec_sah_sanyojak_title: 'Pradesh Sah - Sanyojak',
+      sec_zonal_cc_title: '🏛️ Zonal Campaign Committee Sadasya (24 Sadasya)',
+      sec_zonal_cc_sub: 'Bihar ke sabhi 12 Zono evam pramukh zilo ka pratinidhitwa karne wale netritva sadasya',
+      card_view: '🔲 Card View',
+      table_view: '📑 Suchi View',
+      search_campaign_ph: 'Search member by name, district, caste or sector...',
+      sec_cadre_title: '👥 Vyavasik Prakoshth Post Holders Hierarchy',
+      sec_cadre_sub: 'State President &bull; State Gen Sec &bull; State VP &bull; 12 Zonals &bull; 44 District Presidents &bull; 44 District Gen Secs &bull; 7 Core Members per District (308)',
+      pill_all_cadre: 'All Post Holders',
+      pill_state_apex: 'State Post Holder',
+      pill_zonal: 'Zonal Prabhari',
+      pill_dist_leads: 'Zila Leadership',
+      pill_core: 'State Core Committee',
+      search_cadre_ph: 'Search by name, post, phone, district, caste or sector...',
+      th_srno: 'SrNo',
+      th_post: 'Post',
+      th_name: 'Name',
+      th_status: 'Status',
+      th_zone: 'Zone',
+      th_district: 'District',
+      th_category: 'Category',
+      th_caste: 'Caste',
+      th_age: 'Age',
+      th_number: 'Number',
+      th_profile: 'Profile',
+      th_dist_pres: 'District President',
+      th_dist_gen_sec: 'District Gen Sec',
+      th_core_comm: 'Core Committee',
+      th_fill_rate: 'Fill Rate',
+      th_priority: 'Priority Tier',
+      sec_analytics_title: '📊 Comprehensive Sangathanik Analytics & Visual Intelligence',
+      sec_analytics_sub: 'Real-time visual analysis of 423 Post Holders, 12 Zones, 44 Districts, Social Categories, Castes, Age Cohorts & Political Migrations',
+      kpi_fill_label: 'Niyukti Vistar (Fill Rate)',
+      kpi_fill_sub: '<strong>332 Niyukt</strong> • 91 Rikt Pad (Kul 423)',
+      kpi_geo_label: 'Bhaugolik Vyapti (Bihar Coverage)',
+      kpi_geo_sub: '<strong>12 Zones & 44 Zile</strong> Sakriya',
+      kpi_pol_label: 'Purv Rajnitik Netritva',
+      kpi_pol_val: '132 Political Profiles',
+      kpi_pol_sub: '52 Congress • 37 BJP • 26 JDU',
+      kpi_elected_label: 'Grassroots Elected Reps',
+      kpi_elected_val: '80 Pratinidhi',
+      kpi_elected_sub: 'Mukhiya, Parshad & PACS Adhyaksh',
+      chart_caste_title: '👥 Caste Distribution',
+      chart_caste_sub: 'General, OBC, EBC, Minority & SC Representation',
+      chart_status_title: '🏛️ Pad Niyukti evam Riktata',
+      chart_status_sub: 'Fill Rate Status across 7 Hierarchy Tiers',
+      chart_zonal_title: '📍 12 Sangathanik Zones - Filled vs Gaps',
+      chart_zonal_sub: 'Comparative Post Holder Strength across all 12 Operational Zones',
+      chart_pol_title: '🏛️ Purv Rajnitik Prishthbhumi',
+      chart_pol_sub: 'Senior Leaders Migrated to Jan Suraaj by Party',
+      chart_sector_title: '💼 Vyavasaik Kshetr & Udyog',
+      chart_sector_sub: 'Key Industries Represented in Business Cell',
+      chart_age_title: '🎂 Aayu Varg & Demographics',
+      chart_age_sub: 'Youth (Under 35), Prime (35-49), Senior (50-59) & Veterans (60+)',
+      matrix_title: '📑 44 Sangathanik Zile - Readiness & Action Priority Matrix',
+      matrix_sub: 'Live tracking of Zila Adhyaksh, Zila Mahasachiv, Core Committee (Target: 7) & Gaps',
+      drawer_trigger: 'Filter',
+      drawer_title: '⚡ Sangathanik Chayan & Filter',
+      drawer_post_label: 'Sangathanik Pad Star (Post Hierarchy)',
+      drawer_status_label: 'Niyukti Sthiti (Appointment Status)',
+      drawer_zone_label: '12 Sangathanik Zones',
+      drawer_dist_label: '44 Sangathanik Zile',
+      drawer_cat_label: 'Samajik Shreni (Social Category)',
+      drawer_party_label: 'Purv Rajnitik Prishthbhumi',
+      drawer_sector_label: 'Vyavasayik & Aarthik Kshetr',
+      drawer_reset: 'Reset Karein',
+      drawer_apply: 'Laagu Karein',
+      dock_campaign: 'Campaign Committee',
+      dock_cadre: 'Post Holder',
+      dock_analytics: 'Analytics'
+    },
+    hi: {
+      header_title: 'व्यावसायिक प्रकोष्ठ - डैशबोर्ड',
+      header_tag: 'जन सुराज &bull; बिहार',
+      header_sub: 'अभियान समिति &bull; 12 ज़ोन &bull; 44 सांगठनिक ज़िले',
+      sync_live: 'शीट्स लाइव कनेक्टेड',
+      sync_btn: 'सिंक करें',
+      lang_btn: 'English',
+      tab_campaign: 'अभियान समिति',
+      tab_campaign_badge: '28 सदस्य',
+      tab_cadre: 'व्यावसायिक प्रकोष्ठ पदधारक',
+      tab_cadre_badge: '423 पद',
+      tab_analytics: 'एनालिटिक्स',
+      tab_analytics_badge: 'चार्ट्स सुइट',
+      sec_campaign_title: '⭐ अभियान समिति',
+      sec_sah_sanyojak_title: 'प्रदेश सह - संयोजक',
+      sec_zonal_cc_title: '🏛️ ज़ोनल अभियान समिति सदस्य (24 सदस्य)',
+      sec_zonal_cc_sub: 'बिहार के सभी 12 ज़ोनों एवं प्रमुख ज़िलों का प्रतिनिधित्व करने वाले नेतृत्व सदस्य',
+      card_view: '🔲 कार्ड दृश्य',
+      table_view: '📑 सूची दृश्य',
+      search_campaign_ph: 'नाम, ज़िला, जाति या व्यवसाय से सदस्य खोजें...',
+      sec_cadre_title: '👥 व्यावसायिक प्रकोष्ठ पदधारक संरचना',
+      sec_cadre_sub: 'प्रदेश अध्यक्ष &bull; प्रदेश महासचिव &bull; प्रदेश उपाध्यक्ष &bull; 12 ज़ोनल &bull; 44 ज़िला अध्यक्ष &bull; 44 ज़िला महासचिव &bull; 7 कोर सदस्य प्रति ज़िला (308)',
+      pill_all_cadre: 'सभी पदधारक',
+      pill_state_apex: 'प्रदेश पदधारक',
+      pill_zonal: 'ज़ोनल प्रभारी',
+      pill_dist_leads: 'ज़िला नेतृत्व',
+      pill_core: 'प्रदेश कोर कमेटी',
+      search_cadre_ph: 'नाम, पद, फोन, ज़िला, जाति या व्यवसाय से खोजें...',
+      th_srno: 'क्र.',
+      th_post: 'पद',
+      th_name: 'नाम',
+      th_status: 'स्थिति',
+      th_zone: 'ज़ोन',
+      th_district: 'ज़िला',
+      th_category: 'श्रेणी',
+      th_caste: 'जाति',
+      th_age: 'उम्र',
+      th_number: 'फोन नंबर',
+      th_profile: 'प्रोफ़ाइल',
+      th_dist_pres: 'ज़िला अध्यक्ष',
+      th_dist_gen_sec: 'ज़िला महासचिव',
+      th_core_comm: 'कोर कमेटी',
+      th_fill_rate: 'नियुक्ति दर',
+      th_priority: 'प्राथमिकता स्तर',
+      sec_analytics_title: '📊 समग्र सांगठनिक विश्लेषण एवं विज़ुअल इंटेलिजेंस',
+      sec_analytics_sub: '423 पदधारकों, 12 ज़ोन, 44 ज़िलों, सामाजिक श्रेणियों, जातियों, आयु वर्ग एवं राजनीतिक पृष्ठभूमि का रीयल-टाइम विश्लेषण',
+      kpi_fill_label: 'नियुक्ति विस्तार (Fill Rate)',
+      kpi_fill_sub: '<strong>332 नियुक्त</strong> • 91 रिक्त पद (कुल 423)',
+      kpi_geo_label: 'भौगोलिक व्याप्ति (बिहार कवरेज)',
+      kpi_geo_sub: '<strong>12 ज़ोन एवं 44 ज़िले</strong> सक्रिय',
+      kpi_pol_label: 'पूर्व राजनीतिक नेतृत्व',
+      kpi_pol_val: '132 राजनीतिक प्रोफाइल',
+      kpi_pol_sub: '52 कांग्रेस • 37 भाजपा • 26 जदयू',
+      kpi_elected_label: 'जमीनी निर्वाचित प्रतिनिधि',
+      kpi_elected_val: '80 प्रतिनिधि',
+      kpi_elected_sub: 'मुखिया, पार्षद एवं पैक्स अध्यक्ष',
+      chart_caste_title: '👥 सामाजिक श्रेणी एवं जाति विस्तार',
+      chart_caste_sub: 'सामान्य, ओबीसी, ईबीसी, अल्पसंख्यक एवं एससी प्रतिनिधित्व',
+      chart_status_title: '🏛️ पद नियुक्ति एवं रिक्तता',
+      chart_status_sub: '7 पदानुक्रम स्तरों में नियुक्ति स्थिति',
+      chart_zonal_title: '📍 12 सांगठनिक ज़ोन - नियुक्त बनाम रिक्त',
+      chart_zonal_sub: 'सभी 12 ज़ोनों में पदधारक क्षमता की तुलना',
+      chart_pol_title: '🏛️ पूर्व राजनीतिक पृष्ठभूमि',
+      chart_pol_sub: 'जन सुराज से जुड़े अनुभवी राजनीतिक नेता',
+      chart_sector_title: '💼 व्यावसायिक क्षेत्र एवं उद्योग',
+      chart_sector_sub: 'व्यावसायिक प्रकोष्ठ में प्रतिनिधित्व करने वाले प्रमुख उद्योग',
+      chart_age_title: '🎂 आयु वर्ग जनसांख्यिकी',
+      chart_age_sub: 'युवा (35 से कम), मुख्य (35-49), वरिष्ठ (50-59) एवं अनुभवी (60+)',
+      matrix_title: '📑 44 सांगठनिक ज़िले - तत्परता एवं कार्य प्राथमिकता मैट्रिक्स',
+      matrix_sub: 'ज़िला अध्यक्ष, ज़िला महासचिव, कोर कमेटी (लक्ष्य: 7) एवं रिक्तियों की लाइव ट्रैकिंग',
+      drawer_trigger: 'फ़िल्टर',
+      drawer_title: '⚡ सांगठनिक चयन एवं फ़िल्टर',
+      drawer_post_label: 'सांगठनिक पद स्तर',
+      drawer_status_label: 'नियुक्ति स्थिति',
+      drawer_zone_label: '12 सांगठनिक ज़ोन',
+      drawer_dist_label: '44 सांगठनिक ज़िले',
+      drawer_cat_label: 'सामाजिक श्रेणी',
+      drawer_party_label: 'पूर्व राजनीतिक पृष्ठभूमि',
+      drawer_sector_label: 'व्यावसायिक एवं आर्थिक क्षेत्र',
+      drawer_reset: 'रीसेट करें',
+      drawer_apply: 'लागू करें',
+      dock_campaign: 'अभियान समिति',
+      dock_cadre: 'पदधारक',
+      dock_analytics: 'एनालिटिक्स'
+    }
+  };
+
   // -------------------------------------------------------------
   // INITIALIZATION & DATA FETCHING
   // -------------------------------------------------------------
   async function init() {
     setupTheme();
+    setupLanguage();
     setupNavigation();
     setupSideDrawer();
     setupEventListeners();
@@ -57,6 +234,53 @@
       renderDistrictReadinessMatrix();
       checkSyncStatus();
     }
+  }
+
+  // -------------------------------------------------------------
+  // LANGUAGE MANAGEMENT (ENGLISH / HINDI)
+  // -------------------------------------------------------------
+  function setupLanguage() {
+    applyLanguage(currentLang);
+
+    const langBtn = document.getElementById('langToggleBtn');
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        currentLang = currentLang === 'hi' ? 'en' : 'hi';
+        localStorage.setItem('js_lang', currentLang);
+        applyLanguage(currentLang);
+        if (data) {
+          renderCampaignCommittee();
+          renderCadreHierarchy();
+          renderAnalyticsCharts(true);
+          renderDistrictReadinessMatrix();
+        }
+      });
+    }
+  }
+
+  function applyLanguage(lang) {
+    document.documentElement.setAttribute('lang', lang);
+
+    const langDisplay = document.getElementById('langDisplay');
+    if (langDisplay) {
+      langDisplay.textContent = lang === 'hi' ? 'English' : 'हिंदी';
+    }
+
+    const dict = I18N[lang] || I18N.en;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key]) {
+        el.innerHTML = dict[key];
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const key = el.getAttribute('data-i18n-ph');
+      if (dict[key]) {
+        el.placeholder = dict[key];
+      }
+    });
   }
 
   // -------------------------------------------------------------
@@ -176,6 +400,7 @@
   function renderCampaignCommittee() {
     if (!data || !data.campaign_committee) return;
     const allMembers = data.campaign_committee;
+    const isHi = currentLang === 'hi';
 
     // 1. Pradesh Sanyojak (State Convenor - Hero Card)
     const sanyojak = allMembers.find(m => m.role === 'Sanyojak');
@@ -188,12 +413,12 @@
             <div style="display:flex; align-items:center; gap:0.9rem; margin-bottom:0.75rem;">
               <div class="sanyojak-avatar">⭐</div>
               <div>
-                <span class="badge-sanyojak">Pradesh Sanyojak (State Convenor)</span>
+                <span class="badge-sanyojak">${isHi ? 'प्रदेश संयोजक' : 'Pradesh Sanyojak (State Convenor)'}</span>
                 <h2 style="margin: 0.2rem 0 0.1rem; font-size: 1.35rem; color: var(--text-main);">
                   ${escapeHtml(sanyojak.name)}
                 </h2>
                 <div style="font-size:0.75rem; color:var(--gold-light); font-weight:600;">
-                  Samast Bihar Vyavasaik Prakoshth Abhiyan Pramukh
+                  ${isHi ? 'समस्त बिहार व्यावसायिक प्रकोष्ठ अभियान प्रमुख' : 'Samast Bihar Vyavasaik Prakoshth Abhiyan Pramukh'}
                 </div>
               </div>
             </div>
@@ -205,7 +430,7 @@
               </div>
               <div class="cadre-info-row">
                 <span class="info-icon">👥</span>
-                <span class="info-text"><strong>${escapeHtml(sanyojak.caste)}</strong> &bull; ${escapeHtml(sanyojak.category)} &bull; Age: ${sanyojak.age || '68'}</span>
+                <span class="info-text"><strong>${escapeHtml(sanyojak.caste)}</strong> &bull; ${escapeHtml(sanyojak.category)} &bull; ${isHi ? 'उम्र' : 'Age'}: ${sanyojak.age || '68'}</span>
               </div>
               <div class="cadre-info-row">
                 <span class="info-icon">🏛️</span>
@@ -223,9 +448,9 @@
                   <span>📞</span>
                   <span>${escapeHtml(sanyojak.number)}</span>
                 </a>
-              ` : '<span style="color:var(--text-dim);">Sampark Uplabdh</span>'}
+              ` : `<span style="color:var(--text-dim);">${isHi ? 'संपर्क उपलब्ध' : 'Sampark Uplabdh'}</span>`}
               <button class="btn-glass btn-glass-primary" style="padding:0.35rem 0.85rem; font-size:0.78rem;" onclick="event.stopPropagation(); window.dashboard.openModal(${JSON.stringify(sanyojak).replace(/"/g, '&quot;')})">
-                Profile &rarr;
+                ${isHi ? 'प्रोफ़ाइल' : 'Profile'} &rarr;
               </button>
             </div>
           </div>
@@ -238,7 +463,7 @@
             <div class="cadre-mobile-center">
               <div class="cadre-mobile-line-main">
                 <span class="cadre-mobile-name" style="font-weight:800;">${escapeHtml(sanyojak.name)}</span>
-                <span class="political-pill pill-gold pill-compact">Pradesh Sanyojak</span>
+                <span class="political-pill pill-gold pill-compact">${isHi ? 'प्रदेश संयोजक' : 'Pradesh Sanyojak'}</span>
               </div>
               <div class="cadre-mobile-line-sub">
                 <span>📍 ${escapeHtml(sanyojak.district)} (${escapeHtml(sanyojak.zone)})</span>
@@ -247,7 +472,7 @@
               </div>
             </div>
             <div class="cadre-mobile-action">
-              <span class="cadre-mobile-pill" style="border-color:var(--gold); color:var(--gold-light);">Profile &rarr;</span>
+              <span class="cadre-mobile-pill" style="border-color:var(--gold); color:var(--gold-light);">${isHi ? 'प्रोफ़ाइल' : 'Profile'} &rarr;</span>
             </div>
           </div>
         </div>
@@ -260,15 +485,15 @@
     if (sahContainer) {
       sahContainer.innerHTML = sahSanyojaks.map(m => {
         const bgList = [...(m.parties || []), ...(m.sectors || [])];
-        const bgSummary = bgList.length > 0 ? bgList.slice(0, 2).join(' • ') : 'Vyapar & Samajik Netritva';
+        const bgSummary = bgList.length > 0 ? bgList.slice(0, 2).join(' • ') : (isHi ? 'व्यापार एवं सामाजिक नेतृत्व' : 'Vyapar & Samajik Netritva');
         return `
           <div class="sah-glass-card" onclick="window.dashboard.openModal(${JSON.stringify(m).replace(/"/g, '&quot;')})">
             <!-- Desktop Sah Sanyojak Card -->
             <div class="cadre-card-desktop">
               <div>
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.4rem;">
-                  <span style="font-size:0.68rem; font-weight:700; text-transform:uppercase; color:var(--gold-light); letter-spacing:0.04em;">Sah-Sanyojak</span>
-                  ${m.age ? `<span class="cadre-age-text">Age: ${m.age}</span>` : ''}
+                  <span style="font-size:0.68rem; font-weight:700; text-transform:uppercase; color:var(--gold-light); letter-spacing:0.04em;">${isHi ? 'प्रदेश सह - संयोजक' : 'Pradesh Sah - Sanyojak'}</span>
+                  ${m.age ? `<span class="cadre-age-text">${isHi ? 'उम्र' : 'Age'}: ${m.age}</span>` : ''}
                 </div>
                 <h4 class="cadre-clean-name" style="margin-bottom:0.4rem;">${escapeHtml(m.name)}</h4>
                 
@@ -295,8 +520,8 @@
                     <span>📞</span>
                     <span>${escapeHtml(m.number)}</span>
                   </a>
-                ` : '<span style="color:var(--text-dim); font-size:0.72rem;">Sampark Uplabdh</span>'}
-                <span class="cadre-details-cta">Profile &rarr;</span>
+                ` : `<span style="color:var(--text-dim); font-size:0.72rem;">${isHi ? 'संपर्क उपलब्ध' : 'Sampark Uplabdh'}</span>`}
+                <span class="cadre-details-cta">${isHi ? 'प्रोफ़ाइल' : 'Profile'} &rarr;</span>
               </div>
             </div>
 
@@ -308,7 +533,7 @@
               <div class="cadre-mobile-center">
                 <div class="cadre-mobile-line-main">
                   <span class="cadre-mobile-name">${escapeHtml(m.name)}</span>
-                  <span class="political-pill pill-gold pill-compact">Sah-Sanyojak</span>
+                  <span class="political-pill pill-gold pill-compact">${isHi ? 'सह-संयोजक' : 'Sah-Sanyojak'}</span>
                 </div>
                 <div class="cadre-mobile-line-sub">
                   <span>📍 ${escapeHtml(m.district || m.zone)}</span>
@@ -317,7 +542,7 @@
                 </div>
               </div>
               <div class="cadre-mobile-action">
-                <span class="cadre-mobile-pill">Profile &rarr;</span>
+                <span class="cadre-mobile-pill">${isHi ? 'प्रोफ़ाइल' : 'Profile'} &rarr;</span>
               </div>
             </div>
           </div>
@@ -545,17 +770,19 @@
     if (countLabel) {
       const filled = list.filter(m => !m.is_vacant).length;
       const vacant = list.filter(m => m.is_vacant).length;
-      countLabel.textContent = `Kul ${list.length} Pad Pradarshit (${filled} Niyukt, ${vacant} Rikt)`;
+      countLabel.textContent = currentLang === 'hi'
+        ? `कुल ${list.length} पद प्रदर्शित (${filled} नियुक्त, ${vacant} रिक्त)`
+        : `Total ${list.length} Posts Displayed (${filled} Appointed, ${vacant} Vacant)`;
     }
 
     const contextLabel = document.getElementById('cadreContextLabel');
     if (contextLabel) {
-      let lvlName = 'All Cadre Hierarchy';
-      if (selectedCadreLevel === 'STATE_APEX') lvlName = '1. Pradesh Leadership (15 Pad)';
-      else if (selectedCadreLevel === 'ZONAL') lvlName = '2. Zonal Prabhari (12 Zones)';
-      else if (selectedCadreLevel === 'DISTRICT_LEADS') lvlName = '3. Zila Leadership (88 Pad)';
-      else if (selectedCadreLevel === 'CORE_COMMITTEE') lvlName = '4. Pradesh Core Committee (7 Har Zila)';
-      contextLabel.textContent = `Level: ${lvlName}`;
+      let lvlName = currentLang === 'hi' ? 'सभी पदधारक' : 'All Post Holders';
+      if (selectedCadreLevel === 'STATE_APEX') lvlName = currentLang === 'hi' ? '1. प्रदेश पदधारक (15 पद)' : '1. State Post Holder (15 Posts)';
+      else if (selectedCadreLevel === 'ZONAL') lvlName = currentLang === 'hi' ? '2. ज़ोनल प्रभारी (12 ज़ोन)' : '2. Zonal Prabhari (12 Zones)';
+      else if (selectedCadreLevel === 'DISTRICT_LEADS') lvlName = currentLang === 'hi' ? '3. ज़िला नेतृत्व (88 पद)' : '3. Zila Leadership (88 Posts)';
+      else if (selectedCadreLevel === 'CORE_COMMITTEE') lvlName = currentLang === 'hi' ? '4. प्रदेश कोर कमेटी (7 प्रति ज़िला)' : '4. State Core Committee (7 per District)';
+      contextLabel.textContent = `${currentLang === 'hi' ? 'स्तर' : 'Level'}: ${lvlName}`;
     }
 
     const cardContainer = document.getElementById('cadreMembersCardView');
@@ -564,7 +791,7 @@
 
     if (cardContainer) {
       if (list.length === 0) {
-        cardContainer.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 3.5rem; color: var(--text-muted); font-size: 0.95rem;">Chayanit filter se koi padadhikari ya rikt pad uplabdh nahi hai.</div>`;
+        cardContainer.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 3.5rem; color: var(--text-muted); font-size: 0.95rem;">${currentLang === 'hi' ? 'चयनित फ़िल्टर से कोई पदधारक या रिक्त पद उपलब्ध नहीं है।' : 'No post holders or vacant posts available for selected filter.'}</div>`;
       } else {
         cardContainer.innerHTML = list.map(m => createMemberCardHtml(m, m.post)).join('');
       }
@@ -618,11 +845,12 @@
   // STRUCTURED MEMBER CARD GENERATOR (DECLUTTERED)
   // -------------------------------------------------------------
   function createMemberCardHtml(m, roleTitle) {
+    const isHi = currentLang === 'hi';
     const isVacant = m.is_vacant;
     const initial = m.name && !isVacant ? m.name.charAt(0) : '?';
-    const displayName = isVacant ? '(Rikt Pad)' : escapeHtml(m.name);
-    const locText = m.district ? `${m.district} (${m.zone || 'Bihar'})` : (m.zone || 'Samast Bihar');
-    const shortLoc = m.district || m.zone || 'Bihar';
+    const displayName = isVacant ? (isHi ? '(रिक्त पद)' : '(Vacant Post)') : escapeHtml(m.name);
+    const locText = m.district ? `${m.district} (${m.zone || (isHi ? 'बिहार' : 'Bihar')})` : (m.zone || (isHi ? 'समस्त बिहार' : 'Samast Bihar'));
+    const shortLoc = m.district || m.zone || (isHi ? 'बिहार' : 'Bihar');
     
     const socialParts = [m.caste, m.category].filter(Boolean);
     const socialText = socialParts.length > 0 ? socialParts.join(' • ') : '';
@@ -641,7 +869,7 @@
             <div style="flex:1; min-width:0;">
               <div style="display:flex; align-items:center; justify-content:space-between; gap:0.4rem;">
                 <h4 class="cadre-clean-name" style="${isVacant ? 'color:var(--rose-light); font-style:italic;' : ''}" title="${displayName}">${displayName}</h4>
-                ${m.age && !isVacant ? `<span class="cadre-age-text">Age: ${m.age}</span>` : ''}
+                ${m.age && !isVacant ? `<span class="cadre-age-text">${isHi ? 'उम्र' : 'Age'}: ${m.age}</span>` : ''}
               </div>
               <div style="margin-top:0.2rem;">
                 ${getPostBadgeHtml(m.post || roleTitle)}
@@ -667,18 +895,18 @@
             ${isVacant ? `
             <div class="cadre-info-row" style="color:var(--rose-light);">
               <span class="info-icon">⚠️</span>
-              <span class="info-text">Agami Sangathan Vistar Hetu Rikt Pad</span>
+              <span class="info-text">${isHi ? 'आगामी संगठन विस्तार हेतु रिक्त पद' : 'Open for Upcoming Expansion'}</span>
             </div>` : ''}
           </div>
 
           <div class="cadre-card-footer">
             ${m.number && !isVacant ? `
-              <a href="tel:${m.number}" class="cadre-phone-link" onclick="event.stopPropagation();" title="Sidha Call Karein">
+              <a href="tel:${m.number}" class="cadre-phone-link" onclick="event.stopPropagation();" title="${isHi ? 'सीधा कॉल करें' : 'Call'}">
                 <span>📞</span>
                 <span>${escapeHtml(m.number)}</span>
               </a>
-            ` : `<span style="color:${isVacant ? 'var(--rose-light)' : 'var(--text-dim)'}; font-size:0.75rem;">${isVacant ? 'Rikt Pad' : 'Sampark Uplabdh'}</span>`}
-            <span class="cadre-details-cta">Profile &rarr;</span>
+            ` : `<span style="color:${isVacant ? 'var(--rose-light)' : 'var(--text-dim)'}; font-size:0.75rem;">${isVacant ? (isHi ? 'रिक्त पद' : 'Vacant Post') : (isHi ? 'संपर्क उपलब्ध' : 'Contact Available')}</span>`}
+            <span class="cadre-details-cta">${isHi ? 'प्रोफ़ाइल' : 'Profile'} &rarr;</span>
           </div>
         </div>
 
@@ -699,7 +927,7 @@
             </div>
           </div>
           <div class="cadre-mobile-action">
-            <span class="cadre-mobile-pill">Profile &rarr;</span>
+            <span class="cadre-mobile-pill">${isHi ? 'प्रोफ़ाइल' : 'Profile'} &rarr;</span>
           </div>
         </div>
       </div>
@@ -709,25 +937,30 @@
   function getPostBadgeHtml(post, compact = false) {
     if (!post) return '';
     const p = post.trim();
+    const isHi = currentLang === 'hi';
     if (compact) {
-      if (p === 'Campaign Committe Member' || p === 'Campaign Committee Member' || p === 'Abhiyan Samiti Sadasya') return `<span class="political-pill pill-gold pill-compact">Campaign Member</span>`;
-      if (p === 'State President') return `<span class="political-pill pill-gold pill-compact">Pradesh Adhyaksh</span>`;
-      if (p === 'State Gen Sec') return `<span class="political-pill pill-gold pill-compact">Pradesh Mahasachiv</span>`;
-      if (p === 'State VP') return `<span class="political-pill pill-blue pill-compact">Pradesh VP</span>`;
-      if (p === 'Zonal') return `<span class="political-pill pill-emerald pill-compact">Zonal Prabhari</span>`;
-      if (p === 'District President') return `<span class="political-pill pill-blue pill-compact">Zila Adhyaksh</span>`;
-      if (p === 'District Gen Sec') return `<span class="political-pill pill-gold pill-compact">Zila Mahasachiv</span>`;
-      if (p === 'State Core Committee') return `<span class="political-pill pill-compact">Core Comm.</span>`;
+      if (p === 'Campaign Committe Member' || p === 'Campaign Committee Member' || p === 'Abhiyan Samiti Sadasya') {
+        return `<span class="political-pill pill-gold pill-compact">${isHi ? 'अभियान सदस्य' : 'Campaign Member'}</span>`;
+      }
+      if (p === 'State President') return `<span class="political-pill pill-gold pill-compact">${isHi ? 'प्रदेश अध्यक्ष' : 'Pradesh Adhyaksh'}</span>`;
+      if (p === 'State Gen Sec') return `<span class="political-pill pill-gold pill-compact">${isHi ? 'प्रदेश महासचिव' : 'Pradesh Mahasachiv'}</span>`;
+      if (p === 'State VP') return `<span class="political-pill pill-blue pill-compact">${isHi ? 'प्रदेश उपाध्यक्ष' : 'Pradesh VP'}</span>`;
+      if (p === 'Zonal') return `<span class="political-pill pill-emerald pill-compact">${isHi ? 'ज़ोनल प्रभारी' : 'Zonal Prabhari'}</span>`;
+      if (p === 'District President') return `<span class="political-pill pill-blue pill-compact">${isHi ? 'ज़िला अध्यक्ष' : 'Zila Adhyaksh'}</span>`;
+      if (p === 'District Gen Sec') return `<span class="political-pill pill-gold pill-compact">${isHi ? 'ज़िला महासचिव' : 'Zila Mahasachiv'}</span>`;
+      if (p === 'State Core Committee') return `<span class="political-pill pill-compact">${isHi ? 'कोर कमेटी' : 'Core Comm.'}</span>`;
       return `<span class="political-pill pill-compact">${escapeHtml(p)}</span>`;
     }
-    if (p === 'Campaign Committe Member' || p === 'Campaign Committee Member' || p === 'Abhiyan Samiti Sadasya') return `<span class="political-pill pill-gold">Campaign Committe Member</span>`;
-    if (p === 'State President') return `<span class="political-pill pill-gold">Pradesh Adhyaksh</span>`;
-    if (p === 'State Gen Sec') return `<span class="political-pill pill-gold">Pradesh Mahasachiv</span>`;
-    if (p === 'State VP') return `<span class="political-pill pill-blue">Pradesh VP (Upadhyaksh)</span>`;
-    if (p === 'Zonal') return `<span class="political-pill pill-emerald">Zonal Prabhari</span>`;
-    if (p === 'District President') return `<span class="political-pill pill-blue">Zila Adhyaksh</span>`;
-    if (p === 'District Gen Sec') return `<span class="political-pill pill-gold">Zila Mahasachiv</span>`;
-    if (p === 'State Core Committee') return `<span class="political-pill" style="background:rgba(255,255,255,0.06);">Pradesh Core Committee</span>`;
+    if (p === 'Campaign Committe Member' || p === 'Campaign Committee Member' || p === 'Abhiyan Samiti Sadasya') {
+      return `<span class="political-pill pill-gold">${isHi ? 'अभियान समिति सदस्य' : 'Campaign Committe Member'}</span>`;
+    }
+    if (p === 'State President') return `<span class="political-pill pill-gold">${isHi ? 'प्रदेश अध्यक्ष' : 'Pradesh Adhyaksh'}</span>`;
+    if (p === 'State Gen Sec') return `<span class="political-pill pill-gold">${isHi ? 'प्रदेश महासचिव' : 'Pradesh Mahasachiv'}</span>`;
+    if (p === 'State VP') return `<span class="political-pill pill-blue">${isHi ? 'प्रदेश उपाध्यक्ष' : 'Pradesh VP (Upadhyaksh)'}</span>`;
+    if (p === 'Zonal') return `<span class="political-pill pill-emerald">${isHi ? 'ज़ोनल प्रभारी' : 'Zonal Prabhari'}</span>`;
+    if (p === 'District President') return `<span class="political-pill pill-blue">${isHi ? 'ज़िला अध्यक्ष' : 'Zila Adhyaksh'}</span>`;
+    if (p === 'District Gen Sec') return `<span class="political-pill pill-gold">${isHi ? 'ज़िला महासचिव' : 'Zila Mahasachiv'}</span>`;
+    if (p === 'State Core Committee') return `<span class="political-pill" style="background:rgba(255,255,255,0.06);">${isHi ? 'प्रदेश कोर कमेटी' : 'Pradesh Core Committee'}</span>`;
     return `<span class="political-pill">${escapeHtml(p)}</span>`;
   }
 
@@ -737,14 +970,15 @@
   function openModal(member) {
     if (!member) return;
 
+    const isHi = currentLang === 'hi';
     const isVacant = member.is_vacant;
-    document.getElementById('modalMemberName').textContent = isVacant ? '(Rikt Pad)' : (member.name || '-');
-    document.getElementById('modalMemberPost').textContent = member.post || member.role || 'Sadasya';
+    document.getElementById('modalMemberName').textContent = isVacant ? (isHi ? '(रिक्त पद)' : '(Vacant Post)') : (member.name || '-');
+    document.getElementById('modalMemberPost').textContent = member.post || member.role || (isHi ? 'सदस्य' : 'Member');
     document.getElementById('modalAvatar').textContent = member.name && !isVacant ? member.name.charAt(0) : '?';
-    document.getElementById('modalZone').textContent = member.zone || 'Anirdisht';
-    document.getElementById('modalDistrict').textContent = member.district || 'Anirdisht';
-    document.getElementById('modalCategory').textContent = member.category || 'Anirdisht';
-    document.getElementById('modalCaste').textContent = member.caste || 'Anirdisht';
+    document.getElementById('modalZone').textContent = member.zone || (isHi ? 'अनिर्दिष्ट' : 'Not Specified');
+    document.getElementById('modalDistrict').textContent = member.district || (isHi ? 'अनिर्दिष्ट' : 'Not Specified');
+    document.getElementById('modalCategory').textContent = member.category || (isHi ? 'अनिर्दिष्ट' : 'Not Specified');
+    document.getElementById('modalCaste').textContent = member.caste || (isHi ? 'अनिर्दिष्ट' : 'Not Specified');
     document.getElementById('modalAge').textContent = member.age ? `${member.age}` : '-';
 
     const phoneEl = document.getElementById('modalPhone');
@@ -754,7 +988,7 @@
       callBtn.style.display = 'inline-flex';
       callBtn.href = `tel:${member.number}`;
     } else {
-      phoneEl.textContent = isVacant ? 'Rikt Pad (Sampark Anuplabdh)' : 'Sampark uplabdh nahi hai';
+      phoneEl.textContent = isVacant ? (isHi ? 'रिक्त पद (संपर्क अनुपलब्ध)' : 'Vacant Post (Contact Unavailable)') : (isHi ? 'संपर्क उपलब्ध नहीं है' : 'Contact unavailable');
       callBtn.style.display = 'none';
     }
 
@@ -773,7 +1007,7 @@
     if (isVacant) {
       profileEl.innerHTML = `
         <div style="color:var(--rose-light); font-weight:600; padding:1rem; border:1px dashed var(--rose); border-radius:var(--radius-md);">
-          ⚠️ Yeh pad vartaman me rikt hai. Jan Suraaj Vyavasaik Prakoshth ke agami sangathanik vistar me is pad par yogya vyavsayi netritva ki niyukti prastavit hai.
+          ${isHi ? '⚠️ यह पद वर्तमान में रिक्त है। जन सुराज व्यावसायिक प्रकोष्ठ के आगामी सांगठनिक विस्तार में इस पद पर योग्य व्यावसायिक नेतृत्व की नियुक्ति प्रस्तावित है।' : '⚠️ This post is currently vacant. Appointment of eligible business leadership is proposed in the upcoming organizational expansion of Jan Suraaj Vyavasaik Prakoshth.'}
         </div>
       `;
     } else if (member.profile && member.profile.trim()) {
@@ -783,7 +1017,7 @@
         .map(line => `<p style="margin-bottom:0.5rem;">${escapeHtml(line)}</p>`)
         .join('');
     } else {
-      profileEl.innerHTML = '<p style="color:var(--text-muted); font-style:italic;">Profile will be updated soon from the sheet.</p>';
+      profileEl.innerHTML = `<p style="color:var(--text-muted); font-style:italic;">${isHi ? 'विवरण शीघ्र ही अपडेट किया जाएगा।' : 'Profile will be updated soon from the sheet.'}</p>`;
     }
 
     document.getElementById('memberModal').classList.add('open');
@@ -1112,7 +1346,7 @@
         ]);
       });
     } else {
-      filename = 'Jan_Suraaj_Cadre_Hierarchy.csv';
+      filename = 'Jan_Suraaj_Post_Holders_Hierarchy.csv';
       rows.push(['ID', 'Post', 'Name', 'Status', 'Zone', 'District', 'Age', 'Category', 'Caste', 'Phone', 'Parties', 'Sectors']);
       const members = data.swg_members || [];
       members.forEach((m, idx) => {
@@ -1357,7 +1591,7 @@
         data: {
           labels: topCastes.map(c => c[0]),
           datasets: [{
-            label: 'Cadre Members',
+            label: currentLang === 'hi' ? 'पदधारक संख्या' : 'Post Holders',
             data: topCastes.map(c => c[1]),
             backgroundColor: '#f1c232',
             borderRadius: 6
