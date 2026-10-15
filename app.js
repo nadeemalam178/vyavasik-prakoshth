@@ -370,15 +370,242 @@
     'Active': 'सक्रिय (Active)'
   };
 
+  const SPECIAL_NAMES = {
+    'Ram Krishna Tarun': 'राम कृष्ण तरुण',
+    'Jayant Kumar Singh': 'जयंत कुमार सिंह',
+    'Maniraj Singh': 'मणिराज सिंह',
+    'Dr. Anjana Yadav': 'डॉ. अंजना यादव',
+    'Kamlesh Kant Giri': 'कमलेश कांत गिरि',
+    'Upendra Kumar Vibhuti': 'उपेन्द्र कुमार विभूति',
+    'Kamlesh Kumar': 'कमलेश कुमार',
+    'Sandip Srivastava': 'संदीप श्रीवास्तव',
+    'Shambhu Nath Keshari': 'शंभू नाथ केसरी',
+    'Satyendra Narayan Singh': 'सत्येंद्र नारायण सिंह',
+    'Ramesh Prasad': 'रमेश प्रसाद',
+    'Rikesh Singh (Bhola jha)': 'रिकेश सिंह (भोला झा)',
+    'Rikesh Singh ( urf Bhola jha)': 'रिकेश सिंह (उर्फ भोला झा)',
+    'Rajbhushan Prabhu': 'राजभूषण प्रभु',
+    'Manoj Mishra': 'मनोज मिश्रा',
+    'Subodh Kumar Jha': 'सुबोध कुमार झा',
+    'Ajay Kumar': 'अजय कुमार',
+    'Ravishankar Poddar': 'रविशंकर पोद्दार',
+    'Lakshman Kumar': 'लक्ष्मण कुमार',
+    'Kumar Chanakya Alok': 'कुमार चाणक्य आलोक',
+    'Ashwini Jha': 'अश्विनी झा',
+    'Satyam Chaudhary': 'सत्यम चौधरी',
+    'Saddam Hussain': 'सद्दाम हुसैन',
+    'Sonu Singh': 'सोनू सिंह',
+    'Santosh Kumar Singh': 'संतोष कुमार सिंह',
+    'Narendra Kumar Dev': 'नरेंद्र कुमार देव'
+  };
+
+  const NAME_WORDS = {
+    'a': 'ए', 'abbas': 'अब्बास', 'abhijeet': 'अभिजीत', 'abhinav': 'अभिनव', 'abhishek': 'अभिषेक',
+    'abu': 'अबू', 'achyut': 'अच्युत', 'adarsh': 'आदर्श', 'aditya': 'आदित्य', 'agarwal': 'अग्रवाल',
+    'aggarwal': 'अग्रवाल', 'ahtasham': 'एहतेशाम', 'ajay': 'अजय', 'ajeet': 'अजीत', 'aka': 'उर्फ',
+    'akash': 'आकाश', 'alam': 'आलम', 'alias': 'उर्फ', 'alok': 'आलोक', 'aman': 'अमन',
+    'amarnath': 'अमरनाथ', 'amartya': 'अमर्त्य', 'amin': 'अमीन', 'amit': 'अमित', 'amrendra': 'अमरेन्द्र',
+    'amresh': 'अमरेश', 'amrit': 'अमृत', 'anand': 'आनंद', 'anant': 'अनंत', 'anil': 'अनिल',
+    'anjana': 'अंजना', 'ankit': 'अंकित', 'ansari': 'अंसारी', 'arun': 'अरुण', 'arya': 'आर्य',
+    'ashish': 'आशीष', 'ashok': 'अशोक', 'ashwini': 'अश्विनी', 'atri': 'अत्री', 'atul': 'अतुल',
+    'atuque': 'अतीक', 'awadhesh': 'अवधेश', 'azad': 'आजाद', 'bablu': 'बबलू', 'babu': 'बाबू',
+    'balram': 'बलराम', 'bandhal': 'बंधाल', 'barnawal': 'बरनवाल', 'barnwal': 'बरनवाल', 'basuki': 'बासुकी',
+    'bhagat': 'भगत', 'bhai': 'भाई', 'bharti': 'भारती', 'bhim': 'भीम', 'bhola': 'भोला',
+    'bhushan': 'भूषण', 'bihari': 'बिहारी', 'bimlesh': 'बिमलेश', 'boudha': 'बौद्ध', 'brajendra': 'बृजेंद्र',
+    'brajesh': 'ब्रजेश', 'chanakya': 'चाणक्य', 'chand': 'चंद', 'chandan': 'चंदन', 'chandra': 'चंद्र',
+    'chaudhari': 'चौधरी', 'chaudhary': 'चौधरी', 'chaurasiya': 'चौरसिया', 'chita': 'चीता', 'chotan': 'छोटन',
+    'darda': 'दरदा', 'das': 'दास', 'dayanand': 'दयानंद', 'deepak': 'दीपक', 'dev': 'देव',
+    'devendra': 'देवेंद्र', 'dhananjay': 'धनंजय', 'dhar': 'धर', 'dharmaraj': 'धर्मराज', 'dharmendra': 'धर्मेन्द्र',
+    'dharmveer': 'धर्मवीर', 'dharni': 'धरणी', 'dheerendra': 'धीरेन्द्र', 'digvijay': 'दिग्विजय', 'dileep': 'दिलीप',
+    'dilip': 'दिलीप', 'dinesh': 'दिनेश', 'diwakar': 'दिवाकर', 'dr': 'डॉ.', 'dubey': 'दुबे',
+    'duggal': 'दुग्गल', 'dutt': 'दत्त', 'gaurav': 'गौरव', 'gautam': 'गौतम', 'giri': 'गिरि',
+    'girish': 'गिरीश', 'golden': 'गोल्डन', 'gopal': 'गोपाल', 'gopesh': 'गोपेश', 'goswami': 'गोस्वामी',
+    'govind': 'गोविंद', 'guddu': 'गुड्डू', 'gulab': 'गुलाब', 'gunjan': 'गुंजन', 'gupta': 'गुप्ता',
+    'gupteshwar': 'गुप्तेश्वर', 'gyan': 'ज्ञान', 'hans': 'हंस', 'haque': 'हक', 'harendra': 'हरेंद्र',
+    'harischandra': 'हरीशचंद्र', 'harish': 'हरीश', 'harishankar': 'हरिशंकर', 'harshvardhan': 'हर्षवर्धन', 'hussain': 'हुसैन',
+    'imtiyaz': 'इम्तियाज', 'indrabhushan': 'इंद्रभूषण', 'indrajeet': 'इंद्रजीत', 'jagdeesh': 'जगदीश', 'jai': 'जय',
+    'jain': 'जैन', 'jainendra': 'जैनेंद्र', 'jaiprakash': 'जयप्रकाश', 'jaiswal': 'जायसवाल', 'jamadar': 'जमादार',
+    'jawahar': 'जवाहर', 'jayant': 'जयंत', 'jha': 'झा', 'ji': 'जी', 'jitendra': 'जितेंद्र',
+    'kailu': 'कैलू', 'kalanand': 'कलानंद', 'kamlesh': 'कमलेश', 'kant': 'कांत', 'kanu': 'कानू',
+    'kapri': 'कापरी', 'karan': 'करण', 'kaushal': 'कौशल', 'keshav': 'केशव', 'keshri': 'केसरी',
+    'khanna': 'खन्ना', 'khemka': 'खेमका', 'kishore': 'किशोर', 'kk': 'के.के.', 'kr': 'कुमार',
+    'kripal': 'कृपाल', 'krishna': 'कृष्ण', 'kuma': 'कुमार', 'kumar': 'कुमार', 'kunal': 'कुणाल',
+    'kushwaha': 'कुशवाहा', 'laadh': 'लाध', 'lakhotiya': 'लखोटिया', 'lakshman': 'लक्ष्मण', 'lakshmi': 'लक्ष्मी',
+    'lal': 'लाल', 'lala': 'लाला', 'lalan': 'ललन', 'lalit': 'ललित', 'latth': 'लट्ठा',
+    'madan': 'मदन', 'mahaveer': 'महावीर', 'mahesh': 'महेश', 'mali': 'माली', 'mandal': 'मंडल',
+    'manikant': 'मणिकांत', 'maniraj': 'मणिराज', 'manish': 'मनीष', 'manjeet': 'मनजीत', 'manmohan': 'मनमोहन',
+    'manoj': 'मनोज', 'manoranjan': 'मनोरंजन', 'md': 'मो.', 'mishra': 'मिश्रा', 'mithilesh': 'मिथिलेश',
+    'mithun': 'मिथुन', 'moeem': 'मोईम', 'mohammad': 'मोहम्मद', 'mukesh': 'मुकेश', 'mukhiya': 'मुखिया',
+    'mulchand': 'मूलचंद', 'mumtaz': 'मुमताज', 'munna': 'मुन्ना', 'nalin': 'नलिन', 'nandan': 'नंदन',
+    'narayan': 'नारायण', 'narendra': 'नरेंद्र', 'nasar': 'नासर', 'nirala': 'निराला', 'nirmal': 'निर्मल',
+    'nitesh': 'नितेश', 'nitish': 'नीतीश', 'nizam': 'निजाम', 'ojha': 'ओझा', 'om': 'ओम',
+    'pandey': 'पांडेय', 'pankaj': 'पंकज', 'pannalal': 'पन्नालाल', 'pappu': 'पप्पू', 'parmeshwar': 'परमेश्वर',
+    'parsad': 'प्रसाद', 'paswan': 'पासवान', 'patel': 'पटेल', 'pathak': 'पाठक', 'pawan': 'पवन',
+    'pintu': 'पिंटू', 'poddar': 'पोद्दार', 'prabhakar': 'प्रभाकर', 'prabhansh': 'प्रभांश', 'prabhat': 'प्रभात',
+    'prabhu': 'प्रभु', 'pradeep': 'प्रदीप', 'pradhan': 'प्रधान', 'pradip': 'प्रदीप', 'prakash': 'प्रकाश',
+    'pramod': 'प्रमोद', 'prasad': 'प्रसाद', 'prashant': 'प्रशांत', 'pratyush': 'प्रत्युष', 'praveen': 'प्रवीण',
+    'pravesh': 'प्रवेश', 'pravin': 'प्रवीण', 'purushotam': 'पुरुषोत्तम', 'purve': 'पूर्वे', 'rahul': 'राहुल',
+    'rai': 'राय', 'raj': 'राज', 'rajan': 'राजन', 'rajbhushan': 'राजभूषण', 'rajeev': 'राजीव',
+    'rajendra': 'राजेन्द्र', 'rajesh': 'राजेश', 'rajiv': 'राजीव', 'rajkishore': 'राजकिशोर', 'rajkumar': 'राजकुमार',
+    'rajnandan': 'राजनंदन', 'rajnish': 'रजनीश', 'raju': 'राजू', 'rajv': 'राजीव', 'rakesh': 'राकेश',
+    'ram': 'राम', 'ramesh': 'रमेश', 'rameshwar': 'रामेश्वर', 'ramnath': 'रामनाथ', 'randhir': 'रणधीर',
+    'ranjan': 'रंजन', 'ranjeet': 'रणजीत', 'raut': 'राउत', 'ravi': 'रवि', 'ravinath': 'रविनाथ',
+    'ravindra': 'रवींद्र', 'ravishankar': 'रविशंकर', 'ray': 'राय', 'rikesh': 'रिकेश', 'rishikesh': 'ऋषिकेश',
+    'ritesh': 'रितेश', 'rohit': 'रोहित', 'roushan': 'रौशन', 'roy': 'रॉय', 'rupesh': 'रूपेश',
+    'saddam': 'सद्दाम', 'sah': 'साह', 'sahu': 'साहू', 'sajjan': 'सज्जन', 'samar': 'समर',
+    'sambhu': 'शंभू', 'sandeep': 'संदीप', 'sandip': 'संदीप', 'sanjay': 'संजय', 'sanjeev': 'संजीव',
+    'sanoj': 'सनोज', 'sant': 'संत', 'santosh': 'संतोष', 'saraf': 'सर्राफ', 'saraswati': 'सरस्वती',
+    'saroj': 'सरोज', 'satrughan': 'शत्रुघ्न', 'satya': 'सत्य', 'satyam': 'सत्यम', 'satyendra': 'सत्येंद्र',
+    'saurav': 'सौरव', 'saw': 'साव', 'sen': 'सेन', 'shah': 'शाह', 'shambhu': 'शंभू',
+    'shamim': 'शमीम', 'shamsad': 'शमशाद', 'shankar': 'शंकर', 'sharma': 'शर्मा', 'shashi': 'शशि',
+    'shaw': 'शॉ', 'shekhar': 'शेखर', 'shiromani': 'शिरोमणि', 'shiv': 'शिव', 'shivnath': 'शिवनाथ',
+    'shrivastava': 'श्रीवास्तव', 'shukla': 'शुक्ला', 'sikandar': 'सिकंदर', 'sindhu': 'सिंधु', 'singh': 'सिंह',
+    'sinha': 'सिन्हा', 'sonar': 'सोनार', 'soni': 'सोनी', 'sonu': 'सोनू', 'srivastava': 'श्रीवास्तव',
+    'subodh': 'सुबोध', 'sudama': 'सुदामा', 'sudhir': 'सुधीर', 'sujit': 'सुजीत', 'sultaniya': 'सुलतानिया',
+    'sunil': 'सुनील', 'sunny': 'सनी', 'suresh': 'सुरेश', 'surya': 'सूर्य', 'sushant': 'सुशांत',
+    'sushil': 'सुशील', 'tapeshwar': 'तपेश्वर', 'tarun': 'तरुण', 'thakur': 'ठाकुर', 'thatera': 'ठठेरा',
+    'tikamani': 'टिकमानी', 'tiwari': 'तिवारी', 'tupamari': 'तुपामारी', 'ujjawal': 'उज्ज्वल', 'ujjwal': 'उज्ज्वल',
+    'umesh': 'उमेश', 'upendra': 'उपेन्द्र', 'urf': 'उर्फ', 'utkarsh': 'उत्कर्ष', 'vels': 'वेल्स',
+    'verma': 'वर्मा', 'vibhuti': 'विभूति', 'vijay': 'विजय', 'vijendra': 'विजेंद्र', 'vimal': 'विमल',
+    'vinod': 'विनोद', 'virendra': 'वीरेंद्र', 'vishesh': 'विशेष', 'vishnu': 'विष्णु', 'yadav': 'यादव',
+    'yusuf': 'यूसुफ'
+  };
+
+  function transliterateName(name) {
+    if (!name) return '';
+    const s = String(name).trim();
+    if (SPECIAL_NAMES[s]) return SPECIAL_NAMES[s];
+    
+    let res = s.replace(/\((.*?)\)/g, (match, inner) => {
+      const parts = inner.trim().split(/\s+/).map(word => {
+        const clean = word.replace(/[^\w]/g, '').toLowerCase();
+        return NAME_WORDS[clean] || word;
+      });
+      return '(' + parts.join(' ') + ')';
+    });
+
+    const words = res.split(/\s+/);
+    const translated = words.map(w => {
+      if (w.startsWith('(') && w.endsWith(')')) return w;
+      const clean = w.replace(/[^\w]/g, '').toLowerCase();
+      return NAME_WORDS[clean] || w;
+    });
+
+    return translated.join(' ');
+  }
+
+  function translateProfileClient(profileText, nameHi) {
+    if (!profileText) return '';
+    const lines = String(profileText).split('\n');
+    const translatedLines = [];
+
+    const phrases = [
+      [/Former Congress Member, 1988 To 2022/gi, 'पूर्व कांग्रेस सदस्य, 1988 से 2022'],
+      [/Former Congress Member/gi, 'पूर्व कांग्रेस सदस्य'],
+      [/Former Congress Senior Leader/gi, 'पूर्व कांग्रेस वरिष्ठ नेता'],
+      [/Father was Freedom Fighter/gi, 'पिता स्वतंत्रता सेनानी थे'],
+      [/Freedom Fighter/gi, 'स्वतंत्रता सेनानी'],
+      [/Director Of 3 Colleges/gi, '3 कॉलेजों के निदेशक'],
+      [/Director of 3 Colleges/gi, '3 कॉलेजों के निदेशक'],
+      [/Director of/gi, 'निदेशक'],
+      [/Director/gi, 'निदेशक'],
+      [/Owner Of Petrol Pump/gi, 'पेट्रोल पंप के मालिक'],
+      [/Owner of Petrol Pump/gi, 'पेट्रोल पंप के मालिक'],
+      [/Petrol Pump Owner/gi, 'पेट्रोल पंप मालिक'],
+      [/Gas Agency/gi, 'गैस एजेंसी'],
+      [/Jansuraj ACC from Mahrajganj Assembly/gi, 'जन सुराज ACC महाराजगंज विधानसभा'],
+      [/Maharajganj Vidhan Sabha/gi, 'महाराजगंज विधानसभा'],
+      [/Former BJP/gi, 'पूर्व भाजपा'],
+      [/Former Congress/gi, 'पूर्व कांग्रेस'],
+      [/Former JDU/gi, 'पूर्व जदयू'],
+      [/Former RJD/gi, 'पूर्व राजद'],
+      [/Former LJP/gi, 'पूर्व लोजपा'],
+      [/President of Chamber of Commerce/gi, 'चेंबर ऑफ कॉमर्स अध्यक्ष'],
+      [/Khudra Vyavasayi Sangh Adhyaksh/gi, 'खुदरा व्यवसायी संघ अध्यक्ष'],
+      [/Rashtriya Vaishya Mahasabha/gi, 'राष्ट्रीय वैश्य महासभा'],
+      [/Contractor/gi, 'ठेकेदार'],
+      [/Businessman/gi, 'व्यवसायी'],
+      [/Mukhiya/gi, 'मुखिया'],
+      [/Ward Parshad/gi, 'वार्ड पार्षद'],
+      [/General Secretary/gi, 'महासचिव'],
+      [/Vice President/gi, 'उपाध्यक्ष'],
+      [/President/gi, 'अध्यक्ष'],
+      [/Secretary/gi, 'सचिव'],
+      [/Member/gi, 'सदस्य'],
+      [/Owner/gi, 'मालिक'],
+      [/Male/gi, 'पुरुष'],
+      [/Female/gi, 'महिला'],
+      [/General/gi, 'सामान्य'],
+      [/Years/gi, 'वर्ष']
+    ];
+
+    for (let idx = 0; idx < lines.length; idx++) {
+      let lineStr = lines[idx].trim();
+      if (!lineStr) {
+        translatedLines.push('');
+        continue;
+      }
+
+      if (lineStr.includes('|') && idx < 3) {
+        const parts = lineStr.split('|').map(p => p.trim());
+        const transParts = [];
+        for (const p of parts) {
+          if (!p) continue;
+          const pLow = p.toLowerCase();
+          if (pLow === 'male') transParts.push('पुरुष');
+          else if (pLow === 'female') transParts.push('महिला');
+          else if (pLow === 'gen' || pLow === 'general') transParts.push('सामान्य');
+          else if (pLow === 'obc') transParts.push('ओबीसी');
+          else if (pLow === 'ebc') transParts.push('ईबीसी');
+          else if (pLow === 'sc') transParts.push('एससी');
+          else if (pLow === 'st') transParts.push('एसटी');
+          else if (HINDI_CASTES[p]) transParts.push(HINDI_CASTES[p]);
+          else if (HINDI_DISTRICTS[p]) transParts.push(HINDI_DISTRICTS[p]);
+          else if (/^\d+$/.test(p)) transParts.push(p + ' वर्ष');
+          else if (/^\d{10}$/.test(p)) transParts.push(p);
+          else if (nameHi && (p.toLowerCase().includes(nameHi.toLowerCase()) || (idx === 0 && parts.length > 2))) {
+            transParts.push(nameHi);
+          } else {
+            transParts.push(transliterateName(p));
+          }
+        }
+        translatedLines.push(transParts.join(' | '));
+        continue;
+      }
+
+      let res = lineStr;
+      for (const [pattern, repl] of phrases) {
+        res = res.replace(pattern, repl);
+      }
+      for (const [distEn, distHi] of Object.entries(HINDI_DISTRICTS)) {
+        res = res.replace(new RegExp('\\b' + distEn + '\\b', 'gi'), distHi);
+      }
+      for (const [casteEn, casteHi] of Object.entries(HINDI_CASTES)) {
+        res = res.replace(new RegExp('\\b' + casteEn + '\\b', 'gi'), casteHi);
+      }
+      translatedLines.push(res);
+    }
+
+    return translatedLines.join('\n');
+  }
+
   function getDisplayName(m) {
     if (!m) return '';
     if (m.is_vacant) return currentLang === 'hi' ? '(रिक्त पद)' : '(Vacant Post)';
-    return (currentLang === 'hi' && m.name_hi) ? m.name_hi : (m.name || '');
+    if (currentLang === 'hi') {
+      if (m.name_hi) return m.name_hi;
+      return transliterateName(m.name || '');
+    }
+    return m.name || '';
   }
 
   function getDisplayProfile(m) {
     if (!m) return '';
-    return (currentLang === 'hi' && m.profile_hi) ? m.profile_hi : (m.profile || '');
+    if (currentLang === 'hi') {
+      if (m.profile_hi) return m.profile_hi;
+      return translateProfileClient(m.profile, getDisplayName(m));
+    }
+    return m.profile || '';
   }
 
   function getDisplayDistrict(dist) {
@@ -460,6 +687,8 @@
     }
   }
 
+  let currentModalMember = null;
+
   // -------------------------------------------------------------
   // LANGUAGE MANAGEMENT (ENGLISH / HINDI)
   // -------------------------------------------------------------
@@ -478,6 +707,9 @@
           renderCadreHierarchy();
           renderAnalyticsCharts(true);
           renderDistrictReadinessMatrix();
+        }
+        if (currentModalMember && document.getElementById('memberModal')?.classList.contains('open')) {
+          openModal(currentModalMember);
         }
       });
     }
@@ -1275,6 +1507,7 @@
   // -------------------------------------------------------------
   function openModal(member) {
     if (!member) return;
+    currentModalMember = member;
 
     const isHi = currentLang === 'hi';
     const isVacant = member.is_vacant;
@@ -1288,7 +1521,7 @@
     document.getElementById('modalDistrict').textContent = getDisplayDistrict(member.district) || (isHi ? 'अनिर्दिष्ट' : 'Not Specified');
     document.getElementById('modalCategory').textContent = getDisplayCategory(member.category) || (isHi ? 'अनिर्दिष्ट' : 'Not Specified');
     document.getElementById('modalCaste').textContent = getDisplayCaste(member.caste) || (isHi ? 'अनिर्दिष्ट' : 'Not Specified');
-    document.getElementById('modalAge').textContent = member.age ? `${member.age}` : '-';
+    document.getElementById('modalAge').textContent = member.age ? `${member.age}${isHi ? ' वर्ष' : ''}` : '-';
 
     const phoneEl = document.getElementById('modalPhone');
     const callBtn = document.getElementById('modalCallBtn');
@@ -2053,10 +2286,10 @@
       const zoneName = (isHi && (d.zone_hi || HINDI_ZONES[d.zone])) ? (d.zone_hi || HINDI_ZONES[d.zone]) : d.zone;
       
       const presName = d.district_president && d.district_president !== '(Vacant)'
-        ? (isHi && d.district_president_hi ? d.district_president_hi : d.district_president)
+        ? (isHi ? (d.district_president_hi || transliterateName(d.district_president)) : d.district_president)
         : null;
       const secName = d.district_gen_sec && d.district_gen_sec !== '(Vacant)'
-        ? (isHi && d.district_gen_sec_hi ? d.district_gen_sec_hi : d.district_gen_sec)
+        ? (isHi ? (d.district_gen_sec_hi || transliterateName(d.district_gen_sec)) : d.district_gen_sec)
         : null;
 
       const priorityLabel = (isHi && HINDI_PRIORITIES[d.priority_tier]) 
