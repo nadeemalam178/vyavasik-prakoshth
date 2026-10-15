@@ -158,16 +158,16 @@
         <table class="glass-table" id="campaignTable">
           <thead>
             <tr>
-              <th>Sr. No.</th>
-              <th>Dayitva / Post</th>
-              <th>Naam</th>
+              <th>Sr No</th>
+              <th>Post</th>
+              <th>Name</th>
               <th>Zone</th>
-              <th>Zila</th>
-              <th>Samajik Shreni</th>
-              <th>Jati</th>
-              <th>Purv Dal / Kshetr</th>
-              <th>Sampark</th>
-              <th>Karyawahi</th>
+              <th>District</th>
+              <th>Category</th>
+              <th>Caste</th>
+              <th>Age</th>
+              <th>Number</th>
+              <th>Profile</th>
             </tr>
           </thead>
           <tbody id="campaignTableBody"></tbody>
@@ -258,17 +258,17 @@
         <table class="glass-table" id="cadreTable">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Sangathanik Post / Pad</th>
-              <th>Naam</th>
-              <th>Sthiti</th>
+              <th>SrNo</th>
+              <th>Post</th>
+              <th>Name</th>
+              <th>Status</th>
               <th>Zone</th>
-              <th>Zila</th>
-              <th>Samajik Shreni</th>
-              <th>Jati</th>
-              <th>Purv Dal / Kshetr</th>
-              <th>Sampark</th>
-              <th>Vivaran</th>
+              <th>District</th>
+              <th>Category</th>
+              <th>Caste</th>
+              <th>Age</th>
+              <th>Number</th>
+              <th>Profile</th>
             </tr>
           </thead>
           <tbody id="cadreTableBody"></tbody>
@@ -420,40 +420,40 @@
             <div id="modalZone" style="font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
           </div>
           <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
-            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Zila</div>
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">District</div>
             <div id="modalDistrict" style="font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
           </div>
         </div>
 
-        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Samajik Samikaran & Aayu</div>
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Category, Caste & Age</div>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.25rem;">
           <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
-            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Samajik Shreni</div>
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Category</div>
             <div id="modalCategory" style="font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
           </div>
           <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
-            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Jati</div>
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Caste</div>
             <div id="modalCaste" style="font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
           </div>
           <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
-            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Aayu</div>
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Age</div>
             <div id="modalAge" style="font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
           </div>
         </div>
 
-        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Sidha Sampark</div>
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Contact / Number</div>
         <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.2); padding: 0.75rem 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem;">
           <div style="display: flex; align-items: center; gap: 0.5rem;">
             <span>📱</span>
             <div id="modalPhone" style="font-family: monospace; font-size: 0.95rem; font-weight: 700;"></div>
           </div>
           <div style="display: flex; gap: 0.4rem;">
-            <button class="btn-glass" id="modalCopyPhoneBtn" style="padding: 0.3rem 0.65rem; font-size: 0.75rem;">Copy Karein</button>
-            <a href="#" id="modalCallBtn" class="btn-glass btn-glass-primary" style="padding: 0.3rem 0.65rem; font-size: 0.75rem;">Call Karein</a>
+            <button class="btn-glass" id="modalCopyPhoneBtn" style="padding: 0.3rem 0.65rem; font-size: 0.75rem;">Copy Number</button>
+            <a href="#" id="modalCallBtn" class="btn-glass btn-glass-primary" style="padding: 0.3rem 0.65rem; font-size: 0.75rem;">Call</a>
           </div>
         </div>
 
-        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Rajnitik & Vyavasaik Prishthbhumi Vivaran</div>
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Profile</div>
         <div class="dossier-full-text" id="modalProfile"></div>
       </div>
     </div>

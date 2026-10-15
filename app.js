@@ -194,7 +194,7 @@
               </div>
               <div class="cadre-info-row">
                 <span class="info-icon">👥</span>
-                <span class="info-text"><strong>${escapeHtml(sanyojak.caste)}</strong> &bull; ${escapeHtml(sanyojak.category)} (Aayu: ${sanyojak.age || '68'} Varsh)</span>
+                <span class="info-text"><strong>${escapeHtml(sanyojak.caste)}</strong> &bull; ${escapeHtml(sanyojak.category)} &bull; Age: ${sanyojak.age || '68'}</span>
               </div>
               <div class="cadre-info-row">
                 <span class="info-icon">🏛️</span>
@@ -215,7 +215,7 @@
               </a>
             ` : '<span style="color:var(--text-dim);">Sampark Uplabdh</span>'}
             <button class="btn-glass btn-glass-primary" style="padding:0.35rem 0.85rem; font-size:0.78rem;" onclick="event.stopPropagation(); window.dashboard.openModal(${JSON.stringify(sanyojak).replace(/"/g, '&quot;')})">
-              Rajnitik Vivaran &rarr;
+              Profile &rarr;
             </button>
           </div>
         </div>
@@ -234,7 +234,7 @@
             <div>
               <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.4rem;">
                 <span style="font-size:0.68rem; font-weight:700; text-transform:uppercase; color:var(--gold-light); letter-spacing:0.04em;">Sah-Sanyojak</span>
-                ${m.age ? `<span class="cadre-age-text">${m.age} Varsh</span>` : ''}
+                ${m.age ? `<span class="cadre-age-text">Age: ${m.age}</span>` : ''}
               </div>
               <h4 class="cadre-clean-name" style="margin-bottom:0.4rem;">${escapeHtml(m.name)}</h4>
               
@@ -262,7 +262,7 @@
                   <span>${escapeHtml(m.number)}</span>
                 </a>
               ` : '<span style="color:var(--text-dim); font-size:0.72rem;">Sampark Uplabdh</span>'}
-              <span class="cadre-details-cta">Vivaran &rarr;</span>
+              <span class="cadre-details-cta">Profile &rarr;</span>
             </div>
           </div>
         `;
@@ -378,7 +378,7 @@
             <td>${escapeHtml(m.district)}</td>
             <td>${m.category ? `<span class="political-pill pill-blue">${escapeHtml(m.category)}</span>` : '-'}</td>
             <td>${escapeHtml(m.caste || '-')}</td>
-            <td><span style="font-size:0.78rem; color:var(--text-muted);">${escapeHtml(bgSummary)}</span></td>
+            <td>${m.age ? `<span class="cadre-age-text">${m.age}</span>` : '-'}</td>
             <td>
               ${m.number ? `
                 <a href="tel:${m.number}" class="cadre-phone-link" onclick="event.stopPropagation();">
@@ -386,7 +386,7 @@
                 </a>
               ` : '-'}
             </td>
-            <td><button class="btn-glass" style="padding:0.2rem 0.5rem; font-size:0.72rem;">Vivaran &rarr;</button></td>
+            <td><button class="btn-glass" style="padding:0.2rem 0.5rem; font-size:0.72rem;">Profile &rarr;</button></td>
           </tr>
         `;
       }).join('');
@@ -535,7 +535,7 @@
             <td><strong>${escapeHtml(m.district || '-')}</strong></td>
             <td>${m.category ? `<span class="political-pill pill-blue">${escapeHtml(m.category)}</span>` : '-'}</td>
             <td>${escapeHtml(m.caste || '-')}</td>
-            <td><span style="font-size:0.78rem; color:var(--text-muted);">${escapeHtml(bgSummary)}</span></td>
+            <td>${m.age && !isVacant ? `<span class="cadre-age-text">${m.age}</span>` : '-'}</td>
             <td>
               ${m.number ? `
                 <a href="tel:${m.number}" class="cadre-phone-link" onclick="event.stopPropagation();">
@@ -543,7 +543,7 @@
                 </a>
               ` : '<span style="color:var(--text-dim);">-</span>'}
             </td>
-            <td><button class="btn-glass" style="padding:0.2rem 0.5rem; font-size:0.72rem;">Vivaran &rarr;</button></td>
+            <td><button class="btn-glass" style="padding:0.2rem 0.5rem; font-size:0.72rem;">Profile &rarr;</button></td>
           </tr>
         `;
       }).join('');
@@ -582,7 +582,7 @@
           <div style="flex:1; min-width:0;">
             <div style="display:flex; align-items:center; justify-content:space-between; gap:0.4rem;">
               <h4 class="cadre-clean-name" style="${isVacant ? 'color:var(--rose-light); font-style:italic;' : ''}" title="${displayName}">${displayName}</h4>
-              ${m.age && !isVacant ? `<span class="cadre-age-text">${m.age} Varsh</span>` : ''}
+              ${m.age && !isVacant ? `<span class="cadre-age-text">Age: ${m.age}</span>` : ''}
             </div>
             <div style="margin-top:0.2rem;">
               ${getPostBadgeHtml(m.post || roleTitle)}
@@ -619,7 +619,7 @@
               <span>${escapeHtml(m.number)}</span>
             </a>
           ` : `<span style="color:${isVacant ? 'var(--rose-light)' : 'var(--text-dim)'}; font-size:0.75rem;">${isVacant ? 'Rikt Pad' : 'Sampark Uplabdh'}</span>`}
-          <span class="cadre-details-cta">Purn Vivaran &rarr;</span>
+          <span class="cadre-details-cta">Profile &rarr;</span>
         </div>
       </div>
     `;
@@ -652,7 +652,7 @@
     document.getElementById('modalDistrict').textContent = member.district || 'Anirdisht';
     document.getElementById('modalCategory').textContent = member.category || 'Anirdisht';
     document.getElementById('modalCaste').textContent = member.caste || 'Anirdisht';
-    document.getElementById('modalAge').textContent = member.age ? `${member.age} Varsh` : 'Anirdisht';
+    document.getElementById('modalAge').textContent = member.age ? `${member.age}` : '-';
 
     const phoneEl = document.getElementById('modalPhone');
     const callBtn = document.getElementById('modalCallBtn');
@@ -690,7 +690,7 @@
         .map(line => `<p style="margin-bottom:0.5rem;">${escapeHtml(line)}</p>`)
         .join('');
     } else {
-      profileEl.innerHTML = '<p style="color:var(--text-muted); font-style:italic;">Is padadhikari ka vistrit vivaran sheet par aagami update me joda jayega.</p>';
+      profileEl.innerHTML = '<p style="color:var(--text-muted); font-style:italic;">Profile will be updated soon from the sheet.</p>';
     }
 
     document.getElementById('memberModal').classList.add('open');
