@@ -136,12 +136,12 @@ body {
 }
 
 .brand-logo-img {
-  width: 44px;
-  height: 44px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
   border-radius: var(--radius-md);
   flex-shrink: 0;
-  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.28));
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
   transition: transform 0.2s ease;
 }
 
@@ -1809,12 +1809,18 @@ body {
     flex: 1;
   }
 
-  .brand-logo-img,
-  .brand-badge {
-    width: 34px;
-    height: 34px;
+  .brand-logo-img {
+    width: clamp(44px, 12vw, 60px);
+    height: clamp(44px, 12vw, 60px);
     object-fit: contain;
-    border-radius: 8px;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+
+  .brand-badge {
+    width: clamp(44px, 12vw, 60px);
+    height: clamp(44px, 12vw, 60px);
+    border-radius: 10px;
     flex-shrink: 0;
   }
 
