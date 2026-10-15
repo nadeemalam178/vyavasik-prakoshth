@@ -6,10 +6,10 @@
   <title>Vyavasaik Prakoshth - Dashboard | Jan Suraaj Bihar</title>
   <meta name="description" content="Jan Suraaj Vyavasaik Prakoshth - Bihar Pradesh Campaign Committee & 12 Zones, 44 Districts Sangathan Cadre Dashboard.">
   
-  <!-- Modern Clean Typography (Google Fonts Plus Jakarta Sans & Inter) -->
+  <!-- Executive App Typography: Outfit (Headings) & Inter (UI/Data) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -278,8 +278,15 @@
 
   </main>
 
+  <!-- Persistent Right-Edge Side Panel Trigger (Always Available on Right Side) -->
+  <button class="right-edge-drawer-trigger" id="rightEdgeDrawerTrigger" aria-label="Open Right Side Filter Panel" title="Open Filter Side Panel">
+    <span class="trigger-icon">⚡</span>
+    <span class="trigger-text">Filter</span>
+    <span class="trigger-badge" id="rightTriggerBadge" style="display:none;">0</span>
+  </button>
+
   <!-- ===================================================================
-       SLIDE-OUT FILTER SIDE PANEL (DRAWER) - ROMAN SCRIPT
+       SLIDE-OUT FILTER SIDE PANEL (DRAWER) - RIGHT SIDE SLIDE-OVER
        =================================================================== -->
   <div class="side-drawer-backdrop" id="sideDrawerBackdrop">
     <div class="side-drawer-panel" id="sideDrawerPanel">
@@ -377,22 +384,23 @@
   </div>
 
   <!-- ===================================================================
-       FLOATING BOTTOM DOCK (MOBILE OPTIMIZED - EXACTLY 2 TABS)
+       FLOATING BOTTOM DOCK (MOBILE APP NAVIGATION - EXACTLY 2 TABS + FILTER)
        =================================================================== -->
   <nav class="floating-bottom-dock" id="floatingBottomDock" aria-label="Mobile Navigation">
     <button class="dock-btn active" data-tab="tab-campaign" id="dockBtnCampaign" title="Campaign Committee">
       <span class="dock-icon">🏛️</span>
-      <span>Campaign Committee</span>
+      <span class="dock-label">Campaign</span>
       <span class="dock-btn-badge">28</span>
     </button>
     <button class="dock-btn" data-tab="tab-cadre" id="dockBtnCadre" title="Vyavasik Sangathan / Cadre">
       <span class="dock-icon">👥</span>
-      <span>Sangathan / Cadre</span>
+      <span class="dock-label">Cadre</span>
       <span class="dock-btn-badge">423</span>
     </button>
-    <button class="dock-btn" id="dockBtnFilter" title="Filter Panel">
+    <button class="dock-btn" id="dockBtnFilter" title="Filter Side Panel">
       <span class="dock-icon">⚡</span>
-      <span>Filter</span>
+      <span class="dock-label">Filter</span>
+      <span class="dock-btn-badge" id="dockFilterBadge" style="display:none;">0</span>
     </button>
   </nav>
 

@@ -708,7 +708,8 @@
     const openBtns = [
       document.getElementById('openDrawerBtn'),
       document.getElementById('openDrawerFromCcBtn'),
-      document.getElementById('dockBtnFilter')
+      document.getElementById('dockBtnFilter'),
+      document.getElementById('rightEdgeDrawerTrigger')
     ];
     const closeBtn = document.getElementById('closeDrawerBtn');
 
@@ -819,14 +820,18 @@
     if (filterState.sector !== 'ALL') count++;
 
     const badge = document.getElementById('activeFilterBadge');
-    if (badge) {
-      if (count > 0) {
-        badge.textContent = count;
-        badge.style.display = 'inline-block';
-      } else {
-        badge.style.display = 'none';
+    const rightBadge = document.getElementById('rightTriggerBadge');
+    const dockBadge = document.getElementById('dockFilterBadge');
+    [badge, rightBadge, dockBadge].forEach(b => {
+      if (b) {
+        if (count > 0) {
+          b.textContent = count;
+          b.style.display = 'inline-block';
+        } else {
+          b.style.display = 'none';
+        }
       }
-    }
+    });
   }
 
   // -------------------------------------------------------------
