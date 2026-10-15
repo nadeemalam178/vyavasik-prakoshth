@@ -10,19 +10,27 @@
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Jan Suraaj Signature Theme: #f1c232 */
-  --bg-app: #070b14;
-  --bg-gradient: radial-gradient(at 10% 10%, rgba(241, 194, 50, 0.12) 0%, transparent 45%),
-                 radial-gradient(at 90% 15%, rgba(241, 194, 50, 0.08) 0%, transparent 40%),
-                 radial-gradient(at 50% 90%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
-                 #070b14;
+  --bg-app: #080c16;
+  --bg-pattern: radial-gradient(rgba(241, 194, 50, 0.14) 1.5px, transparent 1.5px);
+  --pattern-size: 30px 30px;
+  --bg-gradient: 
+    radial-gradient(ellipse 1200px 600px at 50% -60px, rgba(241, 194, 50, 0.25) 0%, rgba(212, 163, 23, 0.08) 45%, transparent 75%),
+    radial-gradient(circle 800px at 95% 15%, rgba(241, 194, 50, 0.14) 0%, transparent 55%),
+    radial-gradient(circle 750px at 5% 85%, rgba(16, 185, 129, 0.08) 0%, transparent 60%),
+    radial-gradient(circle 600px at 50% 50%, rgba(241, 194, 50, 0.04) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(8, 12, 22, 0.3) 0%, #080c16 100%),
+    #080c16;
+  --watermark-opacity: 0.045;
+  --watermark-opacity-mobile: 0.035;
+  --watermark-filter: brightness(1.2) drop-shadow(0 0 35px rgba(241, 194, 50, 0.4));
   
-  --glass-surface: rgba(15, 23, 42, 0.78);
-  --glass-elevated: rgba(22, 33, 58, 0.88);
-  --glass-dock: rgba(13, 20, 36, 0.88);
-  --glass-card: rgba(18, 27, 48, 0.65);
-  --glass-card-hover: rgba(26, 38, 68, 0.85);
+  --glass-surface: rgba(15, 23, 42, 0.82);
+  --glass-elevated: rgba(22, 33, 58, 0.9);
+  --glass-dock: rgba(13, 20, 36, 0.9);
+  --glass-card: rgba(18, 27, 48, 0.72);
+  --glass-card-hover: rgba(26, 38, 68, 0.88);
 
-  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glass: rgba(255, 255, 255, 0.09);
   --border-glass-bright: rgba(255, 255, 255, 0.18);
   --border-gold: rgba(241, 194, 50, 0.45);
 
@@ -49,7 +57,7 @@
   --cyan: #06b6d4;
   --cyan-light: #22d3ee;
 
-  --shadow-dock: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 1px 1px rgba(255, 255, 255, 0.1);
+  --shadow-dock: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 1px 1px rgba(241, 194, 50, 0.15);
   --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.25);
   --shadow-drawer: -12px 0 50px rgba(0, 0, 0, 0.6);
 
@@ -65,31 +73,39 @@
   --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Crisp & High Visibility Light Mode */
+/* Authentic Jan Suraaj Prestige Light Mode (Warm Sunrise & Bihar Energy, NOT plain white) */
 [data-theme="light"] {
-  --bg-app: #f8fafc;
-  --bg-gradient: radial-gradient(at 10% 10%, rgba(241, 194, 50, 0.12) 0%, transparent 45%),
-                 radial-gradient(at 90% 15%, rgba(241, 194, 50, 0.08) 0%, transparent 40%),
-                 radial-gradient(at 50% 90%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
-                 #f8fafc;
+  --bg-app: #fbf6e6;
+  --bg-pattern: radial-gradient(rgba(212, 163, 23, 0.22) 1.5px, transparent 1.5px);
+  --pattern-size: 26px 26px;
+  --bg-gradient: 
+    radial-gradient(ellipse 1200px 620px at 50% -60px, rgba(241, 194, 50, 0.45) 0%, rgba(241, 194, 50, 0.18) 45%, transparent 75%),
+    radial-gradient(circle 850px at 92% 12%, rgba(245, 158, 11, 0.22) 0%, transparent 55%),
+    radial-gradient(circle 750px at 8% 80%, rgba(16, 185, 129, 0.12) 0%, transparent 55%),
+    radial-gradient(circle 650px at 50% 50%, rgba(241, 194, 50, 0.09) 0%, transparent 65%),
+    linear-gradient(180deg, rgba(254, 249, 234, 0.5) 0%, #fbf6e6 100%),
+    #fbf6e6;
+  --watermark-opacity: 0.07;
+  --watermark-opacity-mobile: 0.05;
+  --watermark-filter: contrast(1.15) drop-shadow(0 0 35px rgba(241, 194, 50, 0.5));
   
-  --glass-surface: rgba(255, 255, 255, 0.94);
-  --glass-elevated: #ffffff;
-  --glass-dock: rgba(255, 255, 255, 0.96);
-  --glass-card: rgba(255, 255, 255, 0.94);
-  --glass-card-hover: #ffffff;
+  --glass-surface: rgba(255, 252, 242, 0.94);
+  --glass-elevated: rgba(255, 253, 246, 0.96);
+  --glass-dock: rgba(255, 252, 242, 0.96);
+  --glass-card: rgba(255, 253, 245, 0.88);
+  --glass-card-hover: rgba(255, 255, 255, 0.98);
 
-  --border-glass: rgba(148, 163, 184, 0.45);
-  --border-glass-bright: rgba(100, 116, 139, 0.65);
-  --border-gold: rgba(212, 163, 23, 0.6);
+  --border-glass: rgba(212, 163, 23, 0.26);
+  --border-glass-bright: rgba(212, 163, 23, 0.48);
+  --border-gold: rgba(212, 163, 23, 0.7);
 
-  --text-main: #0f172a; /* Ultra crisp dark slate-900 */
+  --text-main: #0b0f19; /* Ultra crisp dark slate-900 */
   --text-muted: #334155; /* Sharp slate-700 */
   --text-dim: #64748b; /* Clear slate-500 */
 
-  --shadow-dock: 0 12px 35px rgba(15, 23, 42, 0.12), 0 0 1px 1px rgba(0, 0, 0, 0.06);
-  --shadow-card: 0 4px 18px rgba(15, 23, 42, 0.08);
-  --shadow-drawer: -12px 0 40px rgba(15, 23, 42, 0.2);
+  --shadow-dock: 0 12px 35px rgba(212, 163, 23, 0.18), 0 0 1px 1px rgba(212, 163, 23, 0.22);
+  --shadow-card: 0 4px 20px rgba(212, 163, 23, 0.1), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-drawer: -12px 0 40px rgba(212, 163, 23, 0.25);
 }
 
 /* Base Reset */
@@ -102,14 +118,55 @@
 
 body {
   font-family: var(--font-body);
-  background: var(--bg-app);
-  background-image: var(--bg-gradient);
-  background-attachment: fixed;
+  background-color: var(--bg-app);
   color: var(--text-main);
   min-height: 100vh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   padding-bottom: 2rem; /* Clean desktop padding */
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Jan Suraaj Signature Ambient Aura & Grid Texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image: var(--bg-pattern), var(--bg-gradient);
+  background-size: var(--pattern-size, 30px 30px), 100% 100%;
+  background-attachment: fixed;
+  background-repeat: repeat, no-repeat;
+}
+
+/* Subtle Fixed Jan Suraaj Official Logo Watermark */
+body::after {
+  content: '';
+  position: fixed;
+  top: 10%;
+  right: -6%;
+  width: 620px;
+  height: 620px;
+  z-index: -1;
+  pointer-events: none;
+  background: url('logo.png') no-repeat center center;
+  background-size: contain;
+  opacity: var(--watermark-opacity, 0.045);
+  filter: var(--watermark-filter);
+  transform: rotate(-6deg);
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  body::after {
+    width: 320px;
+    height: 320px;
+    top: 14%;
+    right: -12%;
+    opacity: var(--watermark-opacity-mobile, 0.035);
+  }
 }
 
 ::selection {
@@ -403,10 +460,10 @@ body {
 }
 
 [data-theme="light"] .btn-glass {
-  background: #ffffff;
-  border-color: rgba(148, 163, 184, 0.5);
+  background: var(--glass-card);
+  border-color: var(--border-glass);
   color: #1e293b;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+  box-shadow: 0 1px 4px rgba(212, 163, 23, 0.08);
 }
 
 .btn-glass:hover {
@@ -464,9 +521,9 @@ body {
 }
 
 [data-theme="light"] .political-context-ticker {
-  background: #ffffff;
-  border-color: rgba(148, 163, 184, 0.5);
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  background: var(--glass-card);
+  border-color: var(--border-glass);
+  box-shadow: 0 2px 10px rgba(212, 163, 23, 0.08);
 }
 
 .ticker-left {
@@ -579,7 +636,7 @@ body {
 }
 
 [data-theme="light"] .sanyojak-apex-slot .sanyojak-glass-card {
-  background: linear-gradient(145deg, rgba(241, 194, 50, 0.1) 0%, #ffffff 60%);
+  background: linear-gradient(145deg, rgba(241, 194, 50, 0.16) 0%, var(--glass-card) 60%);
   border-color: rgba(212, 163, 23, 0.6);
   box-shadow: 0 4px 20px rgba(212, 163, 23, 0.12);
 }
@@ -648,9 +705,9 @@ body {
 }
 
 [data-theme="light"] .sah-sanyojaks-slot {
-  background: #ffffff;
-  border-color: rgba(148, 163, 184, 0.5);
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  background: var(--glass-card);
+  border-color: var(--border-glass);
+  box-shadow: 0 4px 16px rgba(212, 163, 23, 0.08);
 }
 
 .slot-title-bar {
@@ -739,10 +796,10 @@ body {
 }
 
 [data-theme="light"] .hierarchy-pill-btn {
-  background: #ffffff;
-  border-color: rgba(148, 163, 184, 0.5);
+  background: var(--glass-card);
+  border-color: var(--border-glass);
   color: #334155;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+  box-shadow: 0 1px 3px rgba(212, 163, 23, 0.06);
 }
 
 .hierarchy-pill-btn:hover {
@@ -804,8 +861,8 @@ body {
 }
 
 [data-theme="light"] .zone-chip-btn {
-  background: #ffffff;
-  border-color: rgba(148, 163, 184, 0.45);
+  background: var(--glass-card);
+  border-color: var(--border-glass);
   color: #334155;
 }
 
@@ -866,9 +923,9 @@ body {
 }
 
 [data-theme="light"] .cadre-clean-card {
-  background: #ffffff;
-  border-color: rgba(148, 163, 184, 0.45);
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+  background: var(--glass-card);
+  border-color: var(--border-glass);
+  box-shadow: 0 3px 12px rgba(212, 163, 23, 0.08);
 }
 
 .cadre-clean-card:hover {
@@ -1123,8 +1180,8 @@ body {
 }
 
 [data-theme="light"] .clean-search-input {
-  background: #ffffff;
-  border-color: rgba(148, 163, 184, 0.5);
+  background: var(--glass-card);
+  border-color: var(--border-glass);
   color: #0f172a;
 }
 
@@ -1152,8 +1209,8 @@ body {
 }
 
 [data-theme="light"] .view-toggle-btns {
-  background: #ffffff;
-  border-color: rgba(148, 163, 184, 0.45);
+  background: var(--glass-card);
+  border-color: var(--border-glass);
 }
 
 .view-btn {
@@ -1187,8 +1244,9 @@ body {
 }
 
 [data-theme="light"] .glass-table-wrapper {
-  background: #ffffff;
-  border-color: rgba(148, 163, 184, 0.45);
+  background: var(--glass-card);
+  border-color: var(--border-glass);
+  box-shadow: 0 4px 20px rgba(212, 163, 23, 0.08);
 }
 
 .glass-table {
@@ -1359,10 +1417,10 @@ body {
 }
 
 [data-theme="light"] .right-edge-drawer-trigger {
-  background: #ffffff;
+  background: var(--glass-surface);
   border-color: #f1c232;
   color: #92400e;
-  box-shadow: -4px 6px 16px rgba(15, 23, 42, 0.16);
+  box-shadow: -4px 6px 16px rgba(212, 163, 23, 0.2);
 }
 
 .right-edge-drawer-trigger:hover {
@@ -1444,8 +1502,9 @@ body {
 }
 
 [data-theme="light"] .side-drawer-panel {
-  background: #ffffff;
-  border-left-color: rgba(217, 119, 6, 0.5);
+  background: var(--glass-elevated);
+  border-left-color: var(--primary);
+  box-shadow: -12px 0 40px rgba(212, 163, 23, 0.2);
 }
 
 .side-drawer-backdrop.open .side-drawer-panel {
@@ -1498,8 +1557,8 @@ body {
 }
 
 [data-theme="light"] .drawer-select {
-  background: #ffffff;
-  border-color: rgba(148, 163, 184, 0.5);
+  background: var(--glass-card);
+  border-color: var(--border-glass);
   color: #0f172a;
 }
 
@@ -1604,9 +1663,9 @@ body {
 }
 
 [data-theme="light"] .modal-card {
-  background: #ffffff;
-  border-color: rgba(148, 163, 184, 0.6);
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+  background: var(--glass-elevated);
+  border-color: var(--border-glass-bright);
+  box-shadow: 0 20px 50px rgba(212, 163, 23, 0.25);
 }
 
 .modal-backdrop.open .modal-card {
