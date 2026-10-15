@@ -237,7 +237,7 @@
             </div>
             <div class="cadre-mobile-center">
               <div class="cadre-mobile-line-main">
-                <span class="cadre-mobile-name" style="color:var(--gold-light); font-weight:700;">${escapeHtml(sanyojak.name)}</span>
+                <span class="cadre-mobile-name" style="font-weight:800;">${escapeHtml(sanyojak.name)}</span>
                 <span class="political-pill pill-gold pill-compact">Pradesh Sanyojak</span>
               </div>
               <div class="cadre-mobile-line-sub">
@@ -417,7 +417,7 @@
       if (list.length === 0) {
         cardContainer.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-muted);">Selected filter se koi sadasya uplabdh nahi hai.</div>`;
       } else {
-        cardContainer.innerHTML = list.map(m => createMemberCardHtml(m, 'Abhiyan Samiti Sadasya')).join('');
+        cardContainer.innerHTML = list.map(m => createMemberCardHtml(m, 'Campaign Committe Member')).join('');
       }
     }
 
@@ -710,6 +710,7 @@
     if (!post) return '';
     const p = post.trim();
     if (compact) {
+      if (p === 'Campaign Committe Member' || p === 'Campaign Committee Member' || p === 'Abhiyan Samiti Sadasya') return `<span class="political-pill pill-gold pill-compact">Campaign Member</span>`;
       if (p === 'State President') return `<span class="political-pill pill-gold pill-compact">Pradesh Adhyaksh</span>`;
       if (p === 'State Gen Sec') return `<span class="political-pill pill-gold pill-compact">Pradesh Mahasachiv</span>`;
       if (p === 'State VP') return `<span class="political-pill pill-blue pill-compact">Pradesh VP</span>`;
@@ -719,6 +720,7 @@
       if (p === 'State Core Committee') return `<span class="political-pill pill-compact">Core Comm.</span>`;
       return `<span class="political-pill pill-compact">${escapeHtml(p)}</span>`;
     }
+    if (p === 'Campaign Committe Member' || p === 'Campaign Committee Member' || p === 'Abhiyan Samiti Sadasya') return `<span class="political-pill pill-gold">Campaign Committe Member</span>`;
     if (p === 'State President') return `<span class="political-pill pill-gold">Pradesh Adhyaksh</span>`;
     if (p === 'State Gen Sec') return `<span class="political-pill pill-gold">Pradesh Mahasachiv</span>`;
     if (p === 'State VP') return `<span class="political-pill pill-blue">Pradesh VP (Upadhyaksh)</span>`;
@@ -1152,8 +1154,8 @@
     if (!data || !window.Chart) return;
 
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-    const textColor = isLight ? '#334155' : '#94a3b8';
-    const gridColor = isLight ? 'rgba(148, 163, 184, 0.2)' : 'rgba(255, 255, 255, 0.08)';
+    const textColor = isLight ? '#070a12' : '#94a3b8';
+    const gridColor = isLight ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.08)';
 
     Chart.defaults.color = textColor;
     Chart.defaults.font.family = "'Inter', sans-serif";
