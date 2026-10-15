@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>(Vyavasaik Prakoshth - Dashboard) | Jan Suraaj Bihar</title>
+  <meta name="description" content="Jan Suraaj Vyavasaik Prakoshth - Bihar Pradesh Campaign Committee & 12 Zones, 44 Districts Sangathan Cadre Dashboard.">
+  
+  <!-- Modern Clean Typography (Google Fonts Plus Jakarta Sans & Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Frosted Navbar -->
+  <header class="top-navbar" id="topNavbar">
+    <div class="brand-section">
+      <div class="brand-badge" aria-label="Jan Suraaj">JS</div>
+      <div class="brand-headings">
+        <!-- Prominently Highlighted Header Title -->
+        <div class="header-highlight-container">
+          <h1 class="header-highlight-title">
+            <span class="highlight-main-badge">(Vyavasaik Prakoshth - Dashboard)</span>
+          </h1>
+          <span class="tag-badge-bihar">Jan Suraaj &bull; Bihar Pradesh</span>
+        </div>
+        <p class="header-political-subtitle">Campaign Committee &bull; 12 Zones &bull; 44 Sangathanik Zile</p>
+      </div>
+    </div>
+
+    <div class="navbar-tools">
+      <!-- Live Sync Status Chip -->
+      <div class="live-indicator-chip" id="syncStatusChip" title="Google Sheets Live Data Connection">
+        <span class="pulsing-dot"></span>
+        <span id="syncStatusText">Sheets Live Connected</span>
+      </div>
+
+      <button class="btn-glass" id="syncSheetsBtn" title="Sync Fresh Data from Google Sheets">
+        <svg id="syncIcon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+        <span>Sync</span>
+      </button>
+
+      <!-- Side Filter Drawer Trigger Button -->
+      <button class="btn-glass btn-glass-primary" id="openDrawerBtn" title="Sangathanik Chayan & Filter Panel">
+        <span>⚡ Chayan / Filter</span>
+        <span class="filter-badge-counter" id="activeFilterBadge" style="display:none;">0</span>
+      </button>
+
+      <!-- Theme Switcher (Dark/Light) -->
+      <button class="btn-glass btn-icon-btn" id="themeToggleBtn" title="Switch Theme (Light / Dark)">
+        <span id="themeIcon">☀️</span>
+      </button>
+
+      <button class="btn-glass btn-icon-btn" id="exportCsvBtn" title="Download Data List (CSV)">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Desktop Primary Tab Navigation Bar (EXACTLY 2 TABS) -->
+  <nav class="desktop-top-tabs" id="desktopTopTabs" aria-label="Main Sangathanik Tabs">
+    <div class="desktop-tabs-wrapper">
+      <button class="top-tab-btn active" data-tab="tab-campaign">
+        <span class="tab-icon">🏛️</span>
+        <span class="tab-text">1. Campaign Committee (Samast Bihar)</span>
+        <span class="tab-badge">28 Sadasya</span>
+      </button>
+      <button class="top-tab-btn" data-tab="tab-cadre">
+        <span class="tab-icon">👥</span>
+        <span class="tab-text">2. Vyavasik Prakoshth Sangathan / Cadre</span>
+        <span class="tab-badge">423 Pad</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Executive Single-Line Contextual Summary Banner (No KPI Tiles) -->
+  <div class="content-canvas" style="padding-bottom: 0;">
+    <div class="political-context-ticker">
+      <div class="ticker-left">
+        <span class="ticker-dot"></span>
+        <span><strong>Sangathanik Vistar:</strong> Jan Suraaj Vyavasaik Prakoshth Bihar &bull; 12 Zonal Sangathan &bull; 44 Sangathanik Zile (100% Bihar Coverage)</span>
+      </div>
+      <div class="ticker-badges">
+        <span class="political-pill pill-gold">🏛️ 80 Sthaniya Nikay & Panchayat Pratinidhi</span>
+        <span class="political-pill pill-party">52 Purv Congress &bull; 37 Purv BJP &bull; 26 Purv JDU</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Canvas -->
+  <main class="content-canvas">
+
+    <!-- ===================================================================
+         TAB 1: Campaign Committee (Samast Bihar)
+         =================================================================== -->
+    <section class="tab-pane active" id="tab-campaign">
+      
+      <!-- Section 1: State Leadership (Shirsh Netritva) -->
+      <div class="section-headline">
+        <div>
+          <h3>⭐ Rajya Campaign Committee - Shirsh Netritva</h3>
+          <p>Samast Bihar me Vyavasaik Prakoshth Abhiyan ka Margdarshak Netritva Mandal</p>
+        </div>
+      </div>
+
+      <!-- Balanced 2-Column Leadership Showcase (Sanyojak + Sah-Sanyojaks) -->
+      <div class="leadership-executive-layout">
+        <!-- Left: Sanyojak Card -->
+        <div class="sanyojak-apex-slot" id="sanyojakContainer"></div>
+
+        <!-- Right: 3 Sah Sanyojaks Grid -->
+        <div class="sah-sanyojaks-slot">
+          <div class="slot-title-bar">
+            <h4>Sah-Sanyojak Mandal (3 Pramandaliya Sah-Sanyojak)</h4>
+            <span class="political-pill pill-gold">Pramandaliya Samanvay</span>
+          </div>
+          <div class="sah-sanyojaks-stack" id="sahSanyojakContainer"></div>
+        </div>
+      </div>
+
+      <!-- Section 2: Zonal Campaign Committee Members (24 Members across 12 Zones) -->
+      <div class="section-headline" style="margin-top: 2rem;">
+        <div>
+          <h3>🏛️ Zonal Campaign Committee Sadasya (24 Sadasya)</h3>
+          <p>Bihar ke sabhi 12 Zono evam pramukh zilo ka pratinidhitwa karne wale netritva sadasya</p>
+        </div>
+        <div class="view-toggle-btns">
+          <button class="view-btn active" id="ccCardViewBtn" title="Card View">🔲 Card View</button>
+          <button class="view-btn" id="ccTableViewBtn" title="List / Table View">📑 Suchi View</button>
+        </div>
+      </div>
+
+      <!-- Zonal Quick-Distribution Chips Bar -->
+      <div class="zonal-distribution-strip">
+        <div class="zonal-chips-scroll" id="ccZoneChipsContainer"></div>
+      </div>
+
+      <!-- Clean Filter Search for Campaign Members -->
+      <div class="clean-filter-bar">
+        <div class="clean-search-capsule">
+          <span class="clean-search-icon">🔍</span>
+          <input type="text" id="campaignSearchInput" class="clean-search-input" placeholder="Search member by name, district, caste or sector...">
+        </div>
+        <div style="display: flex; gap: 0.6rem;">
+          <button class="btn-glass" id="openDrawerFromCcBtn">⚡ Vistrit Filter</button>
+          <button class="btn-glass" id="resetCcFiltersBtn" style="display: none;">Reset Filter</button>
+        </div>
+      </div>
+
+      <!-- Members Clean Grid -->
+      <div id="campaignMembersCardView" class="members-clean-grid"></div>
+      
+      <!-- Members Table -->
+      <div id="campaignMembersTableView" class="glass-table-wrapper" style="display: none;">
+        <table class="glass-table" id="campaignTable">
+          <thead>
+            <tr>
+              <th>Sr. No.</th>
+              <th>Dayitva / Post</th>
+              <th>Naam</th>
+              <th>Zone</th>
+              <th>Zila</th>
+              <th>Samajik Shreni</th>
+              <th>Jati</th>
+              <th>Purv Dal / Kshetr</th>
+              <th>Sampark</th>
+              <th>Karyawahi</th>
+            </tr>
+          </thead>
+          <tbody id="campaignTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         TAB 2: Vyavasik Prakoshth Sangathan / Cadre (423 Posts Hierarchy)
+         =================================================================== -->
+    <section class="tab-pane" id="tab-cadre">
+      
+      <!-- Hierarchy Level Navigation Deck -->
+      <div class="section-headline">
+        <div>
+          <h3>👥 Vyavasik Prakoshth Sangathan / Cadre Hierarchy</h3>
+          <p>State President &bull; State Gen Sec &bull; State VP &bull; 12 Zonals &bull; 44 District Presidents &bull; 44 District Gen Secs &bull; 7 Core Members per District (308)</p>
+        </div>
+        <div class="view-toggle-btns">
+          <button class="view-btn active" id="cadreCardViewBtn" title="Card View">🔲 Card View</button>
+          <button class="view-btn" id="cadreTableViewBtn" title="List / Table View">📑 Suchi View</button>
+        </div>
+      </div>
+
+      <!-- Level Switcher Pills -->
+      <div class="hierarchy-level-nav" id="hierarchyLevelNav">
+        <button class="hierarchy-pill-btn active" data-level="ALL">
+          <span>All Cadre Hierarchy</span>
+          <span class="pill-count">423 Pad</span>
+        </button>
+        <button class="hierarchy-pill-btn" data-level="STATE_APEX">
+          <span>1. Pradesh Leadership</span>
+          <span class="pill-count">15 Pad</span>
+        </button>
+        <button class="hierarchy-pill-btn" data-level="ZONAL">
+          <span>2. Zonal Prabhari (12 Zones)</span>
+          <span class="pill-count">12 Pad</span>
+        </button>
+        <button class="hierarchy-pill-btn" data-level="DISTRICT_LEADS">
+          <span>3. Zila Leadership (Adhyaksh & Mahasachiv)</span>
+          <span class="pill-count">88 Pad</span>
+        </button>
+        <button class="hierarchy-pill-btn" data-level="CORE_COMMITTEE">
+          <span>4. Pradesh Core Committee (7 Har Zila)</span>
+          <span class="pill-count">308 Pad</span>
+        </button>
+      </div>
+
+      <!-- Quick Cadre Filter Bar -->
+      <div class="clean-filter-bar">
+        <div class="clean-search-capsule">
+          <span class="clean-search-icon">🔍</span>
+          <input type="text" id="cadreSearchInput" class="clean-search-input" placeholder="Search by name, post, phone, district, caste or sector...">
+        </div>
+        <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+          <!-- Quick District Dropdown -->
+          <select id="cadreDistrictQuickSelect" class="drawer-select" style="width: auto; padding: 0.6rem 0.9rem; font-size: 0.82rem;">
+            <option value="ALL">All 44 Sangathanik Zile</option>
+          </select>
+
+          <!-- Quick Zone Dropdown -->
+          <select id="cadreZoneQuickSelect" class="drawer-select" style="width: auto; padding: 0.6rem 0.9rem; font-size: 0.82rem;">
+            <option value="ALL">All 12 Zones</option>
+          </select>
+
+          <!-- Status Filter -->
+          <select id="cadreStatusQuickSelect" class="drawer-select" style="width: auto; padding: 0.6rem 0.9rem; font-size: 0.82rem;">
+            <option value="ALL">All Posts (Niyukt + Rikt)</option>
+            <option value="FILLED">Niyukt Padadhikari Only</option>
+            <option value="VACANT">Rikt Pad Only</option>
+          </select>
+
+          <button class="btn-glass" id="resetAllCadreFiltersBtn">Reset Filters</button>
+        </div>
+      </div>
+
+      <!-- Active Cadre Count Header -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; font-size: 0.82rem; color: var(--text-muted);">
+        <span id="cadreActiveCountLabel">Kul 423 Sangathanik Pad Pradarshit</span>
+        <span id="cadreContextLabel" style="font-weight: 600; color: var(--gold-light);">Hierarchy Level: All</span>
+      </div>
+
+      <!-- Cadre Cards Grid View -->
+      <div id="cadreMembersCardView" class="members-clean-grid"></div>
+
+      <!-- Cadre Master Table View -->
+      <div id="cadreMembersTableView" class="glass-table-wrapper" style="display: none;">
+        <table class="glass-table" id="cadreTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Sangathanik Post / Pad</th>
+              <th>Naam</th>
+              <th>Sthiti</th>
+              <th>Zone</th>
+              <th>Zila</th>
+              <th>Samajik Shreni</th>
+              <th>Jati</th>
+              <th>Purv Dal / Kshetr</th>
+              <th>Sampark</th>
+              <th>Vivaran</th>
+            </tr>
+          </thead>
+          <tbody id="cadreTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================================================================
+       SLIDE-OUT FILTER SIDE PANEL (DRAWER) - ROMAN SCRIPT
+       =================================================================== -->
+  <div class="side-drawer-backdrop" id="sideDrawerBackdrop">
+    <div class="side-drawer-panel" id="sideDrawerPanel">
+      <div class="drawer-header">
+        <h3>⚡ Sangathanik Chayan & Filter</h3>
+        <button class="modal-close-btn" id="closeDrawerBtn" aria-label="Band Karein">&times;</button>
+      </div>
+
+      <div class="drawer-body">
+        <!-- Cadre Post -->
+        <div>
+          <div class="filter-group-title">Sangathanik Pad Star (Post Hierarchy)</div>
+          <select id="drawerPostFilter" class="drawer-select">
+            <option value="ALL">All Post Levels</option>
+            <option value="State President">State President (1)</option>
+            <option value="State Gen Sec">State Gen Sec (1)</option>
+            <option value="State VP">State VP (13)</option>
+            <option value="Zonal">Zonal Prabhari (12)</option>
+            <option value="District President">District President (44)</option>
+            <option value="District Gen Sec">District Gen Sec (44)</option>
+            <option value="State Core Committee">State Core Committee (308)</option>
+          </select>
+        </div>
+
+        <!-- Appointment Status -->
+        <div>
+          <div class="filter-group-title">Niyukti Sthiti (Appointment Status)</div>
+          <select id="drawerStatusFilter" class="drawer-select">
+            <option value="ALL">All (Niyukt evam Rikt Pad)</option>
+            <option value="FILLED">Keval Niyukt Padadhikari</option>
+            <option value="VACANT">Keval Rikt Pad</option>
+          </select>
+        </div>
+
+        <!-- Operational Zone -->
+        <div>
+          <div class="filter-group-title">12 Sangathanik Zones</div>
+          <select id="drawerZoneFilter" class="drawer-select">
+            <option value="ALL">All 12 Zones</option>
+          </select>
+        </div>
+
+        <!-- District -->
+        <div>
+          <div class="filter-group-title">44 Sangathanik Zile</div>
+          <select id="drawerDistrictFilter" class="drawer-select">
+            <option value="ALL">All 44 Districts</option>
+          </select>
+        </div>
+
+        <!-- Social Category -->
+        <div>
+          <div class="filter-group-title">Samajik Shreni (Social Category)</div>
+          <select id="drawerCatFilter" class="drawer-select">
+            <option value="ALL">All Samajik Shreni</option>
+          </select>
+        </div>
+
+        <!-- Political Lineage Cloud -->
+        <div>
+          <div class="filter-group-title">Purv Rajnitik Prishthbhumi</div>
+          <div class="drawer-pills-cloud" id="drawerPartyPills">
+            <button class="drawer-pill-btn active" data-filter="ALL">All</button>
+            <button class="drawer-pill-btn" data-filter="Former BJP">Purv BJP (37)</button>
+            <button class="drawer-pill-btn" data-filter="Former JDU">Purv JDU (26)</button>
+            <button class="drawer-pill-btn" data-filter="Former Congress">Purv Congress (52)</button>
+            <button class="drawer-pill-btn" data-filter="Former RJD">Purv RJD (10)</button>
+            <button class="drawer-pill-btn" data-filter="Former LJP">Purv LJP (7)</button>
+            <button class="drawer-pill-btn" data-filter="Grassroots Elected">Panchayati Raj Pratinidhi (80)</button>
+          </div>
+        </div>
+
+        <!-- Commercial Sector Cloud -->
+        <div>
+          <div class="filter-group-title">Vyavasayik & Aarthik Kshetr</div>
+          <div class="drawer-pills-cloud" id="drawerSectorPills">
+            <button class="drawer-pill-btn" data-filter="Logistics">Transport & Logistics (127)</button>
+            <button class="drawer-pill-btn" data-filter="Trading">Vyapar & Retail (85)</button>
+            <button class="drawer-pill-btn" data-filter="Construction">Nirman & Real Estate (53)</button>
+            <button class="drawer-pill-btn" data-filter="Automobile">Automobile & EV (19)</button>
+            <button class="drawer-pill-btn" data-filter="Hospitality">Hotel & Hospitality (19)</button>
+            <button class="drawer-pill-btn" data-filter="Education">Shiksha & Sansthan (16)</button>
+            <button class="drawer-pill-btn" data-filter="Jewellery">Swarnakar & Aabhushan (14)</button>
+            <button class="drawer-pill-btn" data-filter="Healthcare">Chikitsa & Pharma (13)</button>
+            <button class="drawer-pill-btn" data-filter="Petroleum">Petroleum & Gas (9)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="drawer-footer">
+        <button class="btn-glass" id="drawerResetBtn" style="flex:1;">Reset Karein</button>
+        <button class="btn-glass btn-glass-primary" id="drawerApplyBtn" style="flex:1.5;">Laagu Karein</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       FLOATING BOTTOM DOCK (MOBILE OPTIMIZED - EXACTLY 2 TABS)
+       =================================================================== -->
+  <nav class="floating-bottom-dock" id="floatingBottomDock" aria-label="Mobile Navigation">
+    <button class="dock-btn active" data-tab="tab-campaign" id="dockBtnCampaign" title="Campaign Committee">
+      <span class="dock-icon">🏛️</span>
+      <span>Campaign Committee</span>
+      <span class="dock-btn-badge">28</span>
+    </button>
+    <button class="dock-btn" data-tab="tab-cadre" id="dockBtnCadre" title="Vyavasik Sangathan / Cadre">
+      <span class="dock-icon">👥</span>
+      <span>Sangathan / Cadre</span>
+      <span class="dock-btn-badge">423</span>
+    </button>
+    <button class="dock-btn" id="dockBtnFilter" title="Filter Panel">
+      <span class="dock-icon">⚡</span>
+      <span>Filter</span>
+    </button>
+  </nav>
+
+  <!-- Member Details Modal - Roman Script -->
+  <div class="modal-backdrop" id="memberModal" role="dialog" aria-modal="true" aria-labelledby="modalMemberName">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.85rem;">
+          <div class="cadre-avatar-small" id="modalAvatar">JS</div>
+          <div>
+            <h3 id="modalMemberName" style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--text-main);"></h3>
+            <div id="modalMemberPost" style="font-size: 0.85rem; font-weight: 600; color: var(--primary-light);"></div>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Band Karein">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="pills-flow" id="modalTags" style="margin-bottom: 1.25rem;"></div>
+
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Bhaugolik Karyakshetr</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem;">
+          <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Zone</div>
+            <div id="modalZone" style="font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Zila</div>
+            <div id="modalDistrict" style="font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
+          </div>
+        </div>
+
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Samajik Samikaran & Aayu</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.25rem;">
+          <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Samajik Shreni</div>
+            <div id="modalCategory" style="font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Jati</div>
+            <div id="modalCaste" style="font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Aayu</div>
+            <div id="modalAge" style="font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
+          </div>
+        </div>
+
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Sidha Sampark</div>
+        <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.2); padding: 0.75rem 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span>📱</span>
+            <div id="modalPhone" style="font-family: monospace; font-size: 0.95rem; font-weight: 700;"></div>
+          </div>
+          <div style="display: flex; gap: 0.4rem;">
+            <button class="btn-glass" id="modalCopyPhoneBtn" style="padding: 0.3rem 0.65rem; font-size: 0.75rem;">Copy Karein</button>
+            <a href="#" id="modalCallBtn" class="btn-glass btn-glass-primary" style="padding: 0.3rem 0.65rem; font-size: 0.75rem;">Call Karein</a>
+          </div>
+        </div>
+
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Rajnitik & Vyavasaik Prishthbhumi Vivaran</div>
+        <div class="dossier-full-text" id="modalProfile"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Real-time Toast Notification -->
+  <div class="toast-notification" id="toastNotification">
+    <span id="toastIcon">✅</span>
+    <span id="toastMessage">Data Updated</span>
+  </div>
+
+  <!-- Data Script (Offline Fallback) -->
+  <script src="data.js"></script>
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
