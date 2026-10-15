@@ -429,6 +429,50 @@ def process_all_data(excel_path='data.xlsx'):
     import datetime
     now_iso = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+    # -------------------------------------------------------------
+    # 6. Multilingual Hindi Enrichment
+    # -------------------------------------------------------------
+    try:
+        from translations_data import (
+            transliterate_name, translate_profile,
+            DISTRICTS_HI, ZONES_HI, POSTS_HI, CATEGORIES_HI, CASTES_HI, PRIORITY_TIERS_HI
+        )
+        for m in campaign_committee:
+            if m.get('name'):
+                m['name_hi'] = transliterate_name(m['name'])
+            if m.get('profile'):
+                m['profile_hi'] = translate_profile(m['profile'], m.get('name_hi', ''))
+            m['district_hi'] = DISTRICTS_HI.get(m.get('district'), m.get('district'))
+            m['zone_hi'] = ZONES_HI.get(m.get('zone'), m.get('zone'))
+            m['caste_hi'] = CASTES_HI.get(m.get('caste'), m.get('caste'))
+            m['category_hi'] = CATEGORIES_HI.get(m.get('category'), m.get('category'))
+
+        for m in swg_members:
+            if m.get('name'):
+                m['name_hi'] = transliterate_name(m['name'])
+            if m.get('profile'):
+                m['profile_hi'] = translate_profile(m['profile'], m.get('name_hi', ''))
+            m['district_hi'] = DISTRICTS_HI.get(m.get('district'), m.get('district'))
+            m['zone_hi'] = ZONES_HI.get(m.get('zone'), m.get('zone'))
+            m['post_hi'] = POSTS_HI.get(m.get('post'), m.get('post'))
+            m['caste_hi'] = CASTES_HI.get(m.get('caste'), m.get('caste'))
+            m['category_hi'] = CATEGORIES_HI.get(m.get('category'), m.get('category'))
+
+        for d in districts_list:
+            d['name_hi'] = DISTRICTS_HI.get(d['name'], d['name'])
+            d['zone_hi'] = ZONES_HI.get(d.get('zone'), d.get('zone'))
+            if d.get('district_president'):
+                d['district_president_hi'] = transliterate_name(d['district_president'])
+            if d.get('district_gen_sec'):
+                d['district_gen_sec_hi'] = transliterate_name(d['district_gen_sec'])
+            if d.get('priority_tier'):
+                d['priority_tier_hi'] = PRIORITY_TIERS_HI.get(d['priority_tier'], d['priority_tier'])
+
+        for z in zones_list:
+            z['name_hi'] = ZONES_HI.get(z['name'], z['name'])
+    except Exception as e:
+        print(f"Hindi enrichment warning: {e}")
+
     full_data = {
         'last_updated': now_iso,
         'source_sheet_url': 'https://docs.google.com/spreadsheets/d/1CifDZWm_rhf6abDpKf-5ZH2hLQnFTmJZoaNssKZjA_g/edit',

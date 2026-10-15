@@ -253,8 +253,8 @@
           <p data-i18n="sec_analytics_sub">Real-time visual analysis of 423 Post Holders, 12 Zones, 44 Districts, Social Categories, Castes, Age Cohorts & Political Migrations</p>
         </div>
         <div class="analytics-head-tools">
-          <button class="btn-glass" id="refreshChartsBtn">🔄 Refresh Charts</button>
-          <button class="btn-glass btn-glass-primary" onclick="window.print()">📑 Print / Export</button>
+          <button class="btn-glass" id="refreshChartsBtn" data-i18n="btn_refresh_charts">🔄 Refresh Charts</button>
+          <button class="btn-glass btn-glass-primary" onclick="window.print()" data-i18n="btn_print_export">📑 Print / Export</button>
         </div>
       </div>
 
@@ -426,10 +426,10 @@
         <div class="chart-card" data-chart-cat="social">
           <div class="chart-card-header">
             <div>
-              <div class="chart-card-title">🤝 Top Vaishya & Allied Castes</div>
-              <div class="chart-card-subtitle">Business Community Social Representation in Bihar</div>
+              <div class="chart-card-title" data-i18n="chart_caste_breakdown_title">🤝 Top Vaishya & Allied Castes</div>
+              <div class="chart-card-subtitle" data-i18n="chart_caste_breakdown_sub">Business Community Social Representation in Bihar</div>
             </div>
-            <span class="political-pill pill-emerald chart-type-pill">Caste Breakdown</span>
+            <span class="political-pill pill-emerald chart-type-pill" data-i18n="chart_caste_pill">Caste Breakdown</span>
           </div>
           <div class="chart-canvas-wrapper">
             <canvas id="chartTopCastes"></canvas>
@@ -616,47 +616,47 @@
       <div class="modal-body">
         <div class="pills-flow" id="modalTags" style="margin-bottom: 1.25rem;"></div>
 
-        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Bhaugolik Karyakshetr</div>
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;" data-i18n="modal_geo_title">Bhaugolik Karyakshetr</div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem;">
           <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
-            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Zone</div>
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;" data-i18n="modal_zone_label">Zone</div>
             <div id="modalZone" style="font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
           </div>
           <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
-            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">District</div>
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;" data-i18n="modal_dist_label">District</div>
             <div id="modalDistrict" style="font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
           </div>
         </div>
 
-        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Category, Caste & Age</div>
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;" data-i18n="modal_demo_title">Category, Caste & Age</div>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.25rem;">
           <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
-            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Category</div>
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;" data-i18n="modal_cat_label">Category</div>
             <div id="modalCategory" style="font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
           </div>
           <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
-            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Caste</div>
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;" data-i18n="modal_caste_label">Caste</div>
             <div id="modalCaste" style="font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
           </div>
           <div style="background: rgba(255,255,255,0.03); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
-            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;">Age</div>
+            <div style="font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;" data-i18n="modal_age_label">Age</div>
             <div id="modalAge" style="font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-top: 0.15rem;"></div>
           </div>
         </div>
 
-        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Contact / Number</div>
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;" data-i18n="modal_contact_title">Contact / Number</div>
         <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.2); padding: 0.75rem 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem;">
           <div style="display: flex; align-items: center; gap: 0.5rem;">
             <span>📱</span>
             <div id="modalPhone" style="font-family: monospace; font-size: 0.95rem; font-weight: 700;"></div>
           </div>
           <div style="display: flex; gap: 0.4rem;">
-            <button class="btn-glass" id="modalCopyPhoneBtn" style="padding: 0.3rem 0.65rem; font-size: 0.75rem;">Copy Number</button>
-            <a href="#" id="modalCallBtn" class="btn-glass btn-glass-primary" style="padding: 0.3rem 0.65rem; font-size: 0.75rem;">Call</a>
+            <button class="btn-glass" id="modalCopyPhoneBtn" style="padding: 0.3rem 0.65rem; font-size: 0.75rem;" data-i18n="modal_copy_btn">Copy Number</button>
+            <a href="#" id="modalCallBtn" class="btn-glass btn-glass-primary" style="padding: 0.3rem 0.65rem; font-size: 0.75rem;" data-i18n="modal_call_btn">Call</a>
           </div>
         </div>
 
-        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;">Profile</div>
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem;" data-i18n="modal_profile_title">Profile</div>
         <div class="dossier-full-text" id="modalProfile"></div>
       </div>
     </div>
