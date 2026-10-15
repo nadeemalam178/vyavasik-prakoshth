@@ -198,7 +198,7 @@
               </div>
             </div>
 
-            <div class="cadre-structured-body" style="background:rgba(245,158,11,0.06); border-color:rgba(245,158,11,0.25);">
+            <div class="cadre-structured-body" style="background:rgba(241,194,50,0.08); border-color:rgba(241,194,50,0.3);">
               <div class="cadre-info-row">
                 <span class="info-icon">📍</span>
                 <span class="info-text"><strong>${escapeHtml(sanyojak.district)}, ${escapeHtml(sanyojak.zone)} Zone</strong> (Maharajganj Vidhan Sabha)</span>
@@ -217,7 +217,7 @@
               </div>
             </div>
 
-            <div class="cadre-card-footer" style="margin-top:0.75rem; border-color:rgba(245,158,11,0.25);">
+            <div class="cadre-card-footer" style="margin-top:0.75rem; border-color:rgba(241,194,50,0.3);">
               ${sanyojak.number ? `
                 <a href="tel:${sanyojak.number}" class="cadre-phone-link" onclick="event.stopPropagation();" style="color:var(--gold-light); font-size:0.85rem;">
                   <span>📞</span>
@@ -231,8 +231,8 @@
           </div>
 
           <!-- Mobile Compact Single Line View -->
-          <div class="cadre-card-mobile" style="border: 1px solid rgba(245,158,11,0.4); background: rgba(245,158,11,0.08);">
-            <div class="cadre-mobile-avatar" style="background:linear-gradient(135deg,var(--gold),#d97706); color:#fff; font-size:1.05rem;">
+          <div class="cadre-card-mobile" style="border: 1px solid rgba(241,194,50,0.45); background: rgba(241,194,50,0.08);">
+            <div class="cadre-mobile-avatar" style="background:linear-gradient(135deg, #f1c232, #d4a317); color:#0b0f19; font-size:1.05rem;">
               ⭐
             </div>
             <div class="cadre-mobile-center">
@@ -1177,7 +1177,7 @@
           labels: Object.keys(catData),
           datasets: [{
             data: Object.values(catData),
-            backgroundColor: ['#f59e0b', '#6366f1', '#10b981', '#06b6d4', '#f43f5e', '#a855f7'],
+            backgroundColor: ['#f1c232', '#38bdf8', '#10b981', '#fb7185', '#a855f7', '#d4a317'],
             borderColor: isLight ? '#ffffff' : '#0f172a',
             borderWidth: 2,
             hoverOffset: 6
@@ -1205,7 +1205,7 @@
           labels: postLabels,
           datasets: [{
             data: postValues,
-            backgroundColor: ['#fbbf24', '#34d399', '#3b82f6', '#8b5cf6', '#ec4899'],
+            backgroundColor: ['#f1c232', '#10b981', '#38bdf8', '#a855f7', '#fb7185'],
             borderColor: isLight ? '#ffffff' : '#0f172a',
             borderWidth: 2,
             hoverOffset: 6
@@ -1299,7 +1299,7 @@
           datasets: [{
             label: 'Leaders by Industry',
             data: topSectors.map(s => s[1]),
-            backgroundColor: '#06b6d4',
+            backgroundColor: '#f1c232',
             borderRadius: 6
           }]
         },
@@ -1329,7 +1329,7 @@
           datasets: [{
             label: 'Members in Cohort',
             data: values,
-            backgroundColor: ['#06b6d4', '#6366f1', '#f59e0b', '#10b981'],
+            backgroundColor: ['#f1c232', '#d4a317', '#10b981', '#38bdf8'],
             borderRadius: 6
           }]
         },
@@ -1357,7 +1357,7 @@
           datasets: [{
             label: 'Cadre Members',
             data: topCastes.map(c => c[1]),
-            backgroundColor: '#8b5cf6',
+            backgroundColor: '#f1c232',
             borderRadius: 6
           }]
         },
