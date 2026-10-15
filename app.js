@@ -1,5 +1,5 @@
 /**
- * (Vyavasaik Prakoshth - Dashboard) - Application Logic
+ * Vyavasaik Prakoshth - Dashboard - Application Logic
  * Jan Suraaj Bihar Pradesh • 2 Tabs: Campaign Committee & Cadre Hierarchy
  * Strictly Roman English / Hinglish • Highly Responsive & Clean
  */
