@@ -247,41 +247,91 @@
     <section class="tab-pane" id="tab-analytics">
       
       <!-- Section Headline -->
-      <div class="section-headline">
+      <div class="section-headline analytics-section-headline">
         <div>
           <h3 data-i18n="sec_analytics_title">📊 Comprehensive Sangathanik Analytics & Visual Intelligence</h3>
           <p data-i18n="sec_analytics_sub">Real-time visual analysis of 423 Post Holders, 12 Zones, 44 Districts, Social Categories, Castes, Age Cohorts & Political Migrations</p>
         </div>
-        <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+        <div class="analytics-head-tools">
           <button class="btn-glass" id="refreshChartsBtn">🔄 Refresh Charts</button>
           <button class="btn-glass btn-glass-primary" onclick="window.print()">📑 Print / Export</button>
         </div>
       </div>
 
-      <!-- 4 Executive KPI Intelligence Cards -->
+      <!-- 4 Executive KPI Intelligence Cards (Mobile Responsive) -->
       <div class="analytics-kpi-grid">
-        <div class="analytics-kpi-card">
-          <div class="analytics-kpi-label" data-i18n="kpi_fill_label">Niyukti Vistar (Fill Rate)</div>
-          <div class="analytics-kpi-value" id="kpiFillRate" style="color: var(--gold-light);">78.5%</div>
-          <div class="analytics-kpi-sub" data-i18n="kpi_fill_sub"><strong>332 Niyukt</strong> • 91 Rikt Pad (Kul 423)</div>
+        <div class="analytics-kpi-card" data-cat="hierarchy">
+          <div class="analytics-kpi-top">
+            <span class="analytics-kpi-icon">🎯</span>
+            <div class="analytics-kpi-label" data-i18n="kpi_fill_label">Niyukti Vistar (Fill Rate)</div>
+          </div>
+          <div class="analytics-kpi-value-wrap">
+            <div class="analytics-kpi-value" id="kpiFillRate" style="color: var(--gold-light);">78.5%</div>
+          </div>
+          <div class="analytics-kpi-sub" data-i18n="kpi_fill_sub"><strong>332 Niyukt</strong> • 91 Rikt (Kul 423)</div>
         </div>
 
-        <div class="analytics-kpi-card">
-          <div class="analytics-kpi-label" data-i18n="kpi_geo_label">Bhaugolik Vyapti (Bihar Coverage)</div>
-          <div class="analytics-kpi-value" style="color: var(--emerald-light);">100%</div>
+        <div class="analytics-kpi-card" data-cat="zones">
+          <div class="analytics-kpi-top">
+            <span class="analytics-kpi-icon">🗺️</span>
+            <div class="analytics-kpi-label" data-i18n="kpi_geo_label">Bhaugolik Vyapti</div>
+          </div>
+          <div class="analytics-kpi-value-wrap">
+            <div class="analytics-kpi-value" style="color: var(--emerald-light);">100%</div>
+          </div>
           <div class="analytics-kpi-sub" data-i18n="kpi_geo_sub"><strong>12 Zones & 44 Zile</strong> Sakriya</div>
         </div>
 
-        <div class="analytics-kpi-card">
-          <div class="analytics-kpi-label" data-i18n="kpi_pol_label">Purv Rajnitik Netritva</div>
-          <div class="analytics-kpi-value" style="color: var(--primary-light);">132 Political Profiles</div>
+        <div class="analytics-kpi-card" data-cat="political">
+          <div class="analytics-kpi-top">
+            <span class="analytics-kpi-icon">🏛️</span>
+            <div class="analytics-kpi-label" data-i18n="kpi_pol_label">Purv Rajnitik Netritva</div>
+          </div>
+          <div class="analytics-kpi-value-wrap">
+            <div class="analytics-kpi-value" style="color: var(--primary-light);">132 <span class="analytics-kpi-unit">Profiles</span></div>
+          </div>
           <div class="analytics-kpi-sub">52 Congress • 37 BJP • 26 JDU</div>
         </div>
 
-        <div class="analytics-kpi-card">
-          <div class="analytics-kpi-label" data-i18n="kpi_elected_label">Grassroots Elected Reps</div>
-          <div class="analytics-kpi-value" style="color: var(--cyan-light);">80 Pratinidhi</div>
-          <div class="analytics-kpi-sub">Mukhiya, Parshad & PACS Adhyaksh</div>
+        <div class="analytics-kpi-card" data-cat="political">
+          <div class="analytics-kpi-top">
+            <span class="analytics-kpi-icon">🤝</span>
+            <div class="analytics-kpi-label" data-i18n="kpi_elected_label">Grassroots Elected Reps</div>
+          </div>
+          <div class="analytics-kpi-value-wrap">
+            <div class="analytics-kpi-value" style="color: var(--cyan-light);">80 <span class="analytics-kpi-unit">Leaders</span></div>
+          </div>
+          <div class="analytics-kpi-sub">Mukhiya, Parshad & PACS</div>
+        </div>
+      </div>
+
+      <!-- Analytics Category Filter Navigation (Smooth App Navigation on Mobile) -->
+      <div class="analytics-category-nav-wrapper">
+        <div class="analytics-category-nav" id="analyticsCategoryNav">
+          <button class="analytics-nav-pill active" data-cat="all">
+            <span class="pill-dot"></span><span data-i18n="cat_all">📊 All Analytics</span>
+          </button>
+          <button class="analytics-nav-pill" data-cat="social">
+            <span class="pill-dot"></span><span data-i18n="cat_social">👥 Social & Caste</span>
+          </button>
+          <button class="analytics-nav-pill" data-cat="zones">
+            <span class="pill-dot"></span><span data-i18n="cat_zones">📍 12 Zones</span>
+          </button>
+          <button class="analytics-nav-pill" data-cat="hierarchy">
+            <span class="pill-dot"></span><span data-i18n="cat_hierarchy">🏛️ Posts & Tiers</span>
+          </button>
+          <button class="analytics-nav-pill" data-cat="political">
+            <span class="pill-dot"></span><span data-i18n="cat_political">🏛️ Political Migration</span>
+          </button>
+          <button class="analytics-nav-pill" data-cat="sectors">
+            <span class="pill-dot"></span><span data-i18n="cat_sectors">💼 Business Sectors</span>
+          </button>
+          <button class="analytics-nav-pill" data-cat="age">
+            <span class="pill-dot"></span><span data-i18n="cat_age">🎂 Age Cohorts</span>
+          </button>
+          <button class="analytics-nav-pill" data-cat="matrix">
+            <span class="pill-dot"></span><span data-i18n="cat_matrix">📑 44 Districts Matrix</span>
+          </button>
         </div>
       </div>
 
@@ -289,13 +339,13 @@
       <div class="analytics-charts-grid">
 
         <!-- Chart 1: Social Category (Doughnut / Pie Chart) -->
-        <div class="chart-card">
+        <div class="chart-card" data-chart-cat="social">
           <div class="chart-card-header">
             <div>
               <div class="chart-card-title" data-i18n="chart_caste_title">👥 Caste Distribution</div>
               <div class="chart-card-subtitle" data-i18n="chart_caste_sub">General, OBC, EBC, Minority & SC Representation</div>
             </div>
-            <span class="political-pill pill-gold">Pie / Doughnut</span>
+            <span class="political-pill pill-gold chart-type-pill">Pie / Doughnut</span>
           </div>
           <div class="chart-canvas-wrapper">
             <canvas id="chartSocialCategory"></canvas>
@@ -303,13 +353,13 @@
         </div>
 
         <!-- Chart 2: Appointment Status by Tier (Donut Chart) -->
-        <div class="chart-card">
+        <div class="chart-card" data-chart-cat="hierarchy">
           <div class="chart-card-header">
             <div>
               <div class="chart-card-title" data-i18n="chart_status_title">🏛️ Pad Niyukti evam Riktata</div>
               <div class="chart-card-subtitle" data-i18n="chart_status_sub">Fill Rate Status across 7 Hierarchy Tiers</div>
             </div>
-            <span class="political-pill pill-emerald">Hierarchy Donut</span>
+            <span class="political-pill pill-emerald chart-type-pill">Hierarchy Donut</span>
           </div>
           <div class="chart-canvas-wrapper">
             <canvas id="chartPostFillRate"></canvas>
@@ -317,27 +367,27 @@
         </div>
 
         <!-- Chart 3: 12 Zones Distribution (Stacked Bar Chart) -->
-        <div class="chart-card chart-card-full">
+        <div class="chart-card chart-card-full" data-chart-cat="zones">
           <div class="chart-card-header">
             <div>
               <div class="chart-card-title" data-i18n="chart_zonal_title">📍 12 Sangathanik Zones - Filled vs Gaps</div>
               <div class="chart-card-subtitle" data-i18n="chart_zonal_sub">Comparative Post Holder Strength across all 12 Operational Zones</div>
             </div>
-            <span class="political-pill pill-blue">Stacked Bar Chart</span>
+            <span class="political-pill pill-blue chart-type-pill">Stacked Bar Chart</span>
           </div>
-          <div class="chart-canvas-wrapper" style="height: 320px;">
+          <div class="chart-canvas-wrapper zonal-chart-canvas-wrapper">
             <canvas id="chartZonalDistribution"></canvas>
           </div>
         </div>
 
         <!-- Chart 4: Political Migrations (Horizontal Bar Chart) -->
-        <div class="chart-card">
+        <div class="chart-card" data-chart-cat="political">
           <div class="chart-card-header">
             <div>
               <div class="chart-card-title" data-i18n="chart_pol_title">🏛️ Purv Rajnitik Prishthbhumi</div>
               <div class="chart-card-subtitle" data-i18n="chart_pol_sub">Senior Leaders Migrated to Jan Suraaj by Party</div>
             </div>
-            <span class="political-pill pill-gold">Horizontal Bar</span>
+            <span class="political-pill pill-gold chart-type-pill">Horizontal Bar</span>
           </div>
           <div class="chart-canvas-wrapper">
             <canvas id="chartPoliticalMigration"></canvas>
@@ -345,13 +395,13 @@
         </div>
 
         <!-- Chart 5: Top Business Sectors (Horizontal Bar Chart) -->
-        <div class="chart-card">
+        <div class="chart-card" data-chart-cat="sectors">
           <div class="chart-card-header">
             <div>
               <div class="chart-card-title" data-i18n="chart_sector_title">💼 Vyavasaik Kshetr & Udyog</div>
               <div class="chart-card-subtitle" data-i18n="chart_sector_sub">Key Industries Represented in Business Cell</div>
             </div>
-            <span class="political-pill pill-cyan">Sector Bar</span>
+            <span class="political-pill pill-cyan chart-type-pill">Sector Bar</span>
           </div>
           <div class="chart-canvas-wrapper">
             <canvas id="chartBusinessSectors"></canvas>
@@ -359,13 +409,13 @@
         </div>
 
         <!-- Chart 6: Age Cohorts (Bar Chart) -->
-        <div class="chart-card">
+        <div class="chart-card" data-chart-cat="age">
           <div class="chart-card-header">
             <div>
               <div class="chart-card-title" data-i18n="chart_age_title">🎂 Aayu Varg & Demographics</div>
               <div class="chart-card-subtitle" data-i18n="chart_age_sub">Youth (Under 35), Prime (35-49), Senior (50-59) & Veterans (60+)</div>
             </div>
-            <span class="political-pill pill-gold">Age Distribution</span>
+            <span class="political-pill pill-gold chart-type-pill">Age Distribution</span>
           </div>
           <div class="chart-canvas-wrapper">
             <canvas id="chartAgeCohorts"></canvas>
@@ -373,13 +423,13 @@
         </div>
 
         <!-- Chart 7: Top Castes (Bar Chart) -->
-        <div class="chart-card">
+        <div class="chart-card" data-chart-cat="social">
           <div class="chart-card-header">
             <div>
               <div class="chart-card-title">🤝 Top Vaishya & Allied Castes</div>
               <div class="chart-card-subtitle">Business Community Social Representation in Bihar</div>
             </div>
-            <span class="political-pill pill-emerald">Caste Breakdown</span>
+            <span class="political-pill pill-emerald chart-type-pill">Caste Breakdown</span>
           </div>
           <div class="chart-canvas-wrapper">
             <canvas id="chartTopCastes"></canvas>
@@ -387,18 +437,22 @@
         </div>
 
         <!-- Matrix Card 8: 44 Districts Sangathan Readiness Matrix -->
-        <div class="chart-card chart-card-full">
-          <div class="chart-card-header">
+        <div class="chart-card chart-card-full" data-chart-cat="matrix">
+          <div class="chart-card-header district-matrix-header">
             <div>
               <div class="chart-card-title" data-i18n="matrix_title">📑 44 Sangathanik Zile - Readiness & Action Priority Matrix</div>
               <div class="chart-card-subtitle" data-i18n="matrix_sub">Live tracking of Zila Adhyaksh, Zila Mahasachiv, Core Committee (Target: 7) & Gaps</div>
             </div>
-            <div style="display: flex; gap: 0.5rem; align-items: center;">
-              <input type="text" id="districtReadinessSearch" class="clean-search-input" placeholder="Search District..." style="padding: 0.35rem 0.65rem; font-size: 0.78rem; width: 170px;">
+            <div class="matrix-search-box">
+              <input type="text" id="districtReadinessSearch" class="clean-search-input" placeholder="Search District..." style="padding: 0.35rem 0.65rem; font-size: 0.78rem;">
             </div>
           </div>
+          <div class="mobile-table-scroll-hint">
+            <span class="hint-icon">👉</span>
+            <span data-i18n="matrix_scroll_hint">Swipe left-right to review all 7 district metrics</span>
+          </div>
           <div class="district-readiness-table-wrapper">
-            <table class="glass-table" id="districtReadinessTable">
+            <table class="glass-table district-matrix-table" id="districtReadinessTable">
               <thead>
                 <tr>
                   <th data-i18n="th_district">District</th>

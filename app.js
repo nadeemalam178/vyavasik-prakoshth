@@ -100,6 +100,15 @@
       chart_age_sub: 'Youth (Under 35), Prime (35-49), Senior (50-59) & Veterans (60+)',
       matrix_title: '📑 44 Sangathanik Zile - Readiness & Action Priority Matrix',
       matrix_sub: 'Live tracking of Zila Adhyaksh, Zila Mahasachiv, Core Committee (Target: 7) & Gaps',
+      matrix_scroll_hint: 'Swipe left-right to review all 7 district metrics',
+      cat_all: '📊 All Analytics',
+      cat_social: '👥 Social & Caste',
+      cat_zones: '📍 12 Zones',
+      cat_hierarchy: '🏛️ Posts & Tiers',
+      cat_political: '🏛️ Political Migration',
+      cat_sectors: '💼 Business Sectors',
+      cat_age: '🎂 Age Cohorts',
+      cat_matrix: '📑 44 Districts Matrix',
       drawer_trigger: 'Filter',
       drawer_title: '⚡ Sangathanik Chayan & Filter',
       drawer_post_label: 'Sangathanik Pad Star (Post Hierarchy)',
@@ -185,6 +194,15 @@
       chart_age_sub: 'युवा (35 से कम), मुख्य (35-49), वरिष्ठ (50-59) एवं अनुभवी (60+)',
       matrix_title: '📑 44 सांगठनिक ज़िले - तत्परता एवं कार्य प्राथमिकता मैट्रिक्स',
       matrix_sub: 'ज़िला अध्यक्ष, ज़िला महासचिव, कोर कमेटी (लक्ष्य: 7) एवं रिक्तियों की लाइव ट्रैकिंग',
+      matrix_scroll_hint: 'सभी 7 ज़िला आंकड़े देखने के लिए दाएँ-बाएँ स्वाइप करें',
+      cat_all: '📊 समग्र विश्लेषण',
+      cat_social: '👥 सामाजिक एवं जाति',
+      cat_zones: '📍 12 ज़ोन',
+      cat_hierarchy: '🏛️ पद एवं स्तर',
+      cat_political: '🏛️ राजनीतिक पृष्ठभूमि',
+      cat_sectors: '💼 व्यावसायिक क्षेत्र',
+      cat_age: '🎂 आयु वर्ग',
+      cat_matrix: '📑 44 ज़िला मैट्रिक्स',
       drawer_trigger: 'फ़िल्टर',
       drawer_title: '⚡ सांगठनिक चयन एवं फ़िल्टर',
       drawer_post_label: 'सांगठनिक पद स्तर',
@@ -1192,6 +1210,57 @@
       renderDistrictReadinessMatrix(e.target.value);
     });
 
+    // Analytics Category Filter Navigation & KPI Card Shortcuts
+    const catNav = document.getElementById('analyticsCategoryNav');
+    function selectAnalyticsCategory(selectedCat) {
+      if (catNav) {
+        catNav.querySelectorAll('.analytics-nav-pill').forEach(p => {
+          const isMatch = (p.getAttribute('data-cat') || 'all') === selectedCat;
+          p.classList.toggle('active', isMatch);
+          if (isMatch) {
+            p.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          }
+        });
+      }
+
+      const chartCards = document.querySelectorAll('.analytics-charts-grid .chart-card');
+      chartCards.forEach(card => {
+        const cardCat = card.getAttribute('data-chart-cat');
+        if (selectedCat === 'all' || cardCat === selectedCat) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Resize all visible charts after display toggle
+      setTimeout(() => {
+        Object.keys(chartInstances).forEach(key => {
+          if (chartInstances[key] && typeof chartInstances[key].resize === 'function') {
+            try { chartInstances[key].resize(); } catch (err) {}
+          }
+        });
+      }, 50);
+    }
+
+    if (catNav) {
+      catNav.addEventListener('click', (e) => {
+        const pill = e.target.closest('.analytics-nav-pill');
+        if (!pill) return;
+        const selectedCat = pill.getAttribute('data-cat') || 'all';
+        selectAnalyticsCategory(selectedCat);
+      });
+    }
+
+    // Tapping a KPI card switches to that category
+    document.querySelectorAll('.analytics-kpi-card[data-cat]').forEach(kpi => {
+      kpi.style.cursor = 'pointer';
+      kpi.addEventListener('click', () => {
+        const cat = kpi.getAttribute('data-cat');
+        if (cat) selectAnalyticsCategory(cat);
+      });
+    });
+
     // Campaign Committee Search
     const ccSearch = document.getElementById('campaignSearchInput');
     if (ccSearch) {
@@ -1390,9 +1459,11 @@
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
     const textColor = isLight ? '#070a12' : '#94a3b8';
     const gridColor = isLight ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.08)';
+    const isMobile = window.innerWidth < 768;
 
     Chart.defaults.color = textColor;
     Chart.defaults.font.family = "'Inter', sans-serif";
+    Chart.defaults.font.size = isMobile ? 10.5 : 12;
 
     if (forceRefresh) {
       Object.keys(chartInstances).forEach(key => {
@@ -1423,9 +1494,16 @@
           responsive: true,
           maintainAspectRatio: false,
           plugins: {
-            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 12 } }
+            legend: {
+              position: 'bottom',
+              labels: {
+                boxWidth: isMobile ? 10 : 12,
+                padding: isMobile ? 8 : 12,
+                font: { size: isMobile ? 10 : 11 }
+              }
+            }
           },
-          cutout: '62%'
+          cutout: isMobile ? '50%' : '62%'
         }
       });
     }
@@ -1451,9 +1529,16 @@
           responsive: true,
           maintainAspectRatio: false,
           plugins: {
-            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 12 } }
+            legend: {
+              position: 'bottom',
+              labels: {
+                boxWidth: isMobile ? 10 : 12,
+                padding: isMobile ? 8 : 12,
+                font: { size: isMobile ? 9.5 : 11 }
+              }
+            }
           },
-          cutout: '58%'
+          cutout: isMobile ? '50%' : '58%'
         }
       });
     }
@@ -1485,11 +1570,26 @@
           responsive: true,
           maintainAspectRatio: false,
           scales: {
-            x: { stacked: true, grid: { display: false } },
+            x: {
+              stacked: true,
+              grid: { display: false },
+              ticks: {
+                autoSkip: false,
+                maxRotation: isMobile ? 45 : 30,
+                minRotation: isMobile ? 35 : 0,
+                font: { size: isMobile ? 8.5 : 11 }
+              }
+            },
             y: { stacked: true, grid: { color: gridColor }, beginAtZero: true }
           },
           plugins: {
-            legend: { position: 'top', labels: { boxWidth: 14 } }
+            legend: {
+              position: 'top',
+              labels: {
+                boxWidth: isMobile ? 10 : 14,
+                font: { size: isMobile ? 10 : 12 }
+              }
+            }
           }
         }
       });
@@ -1516,7 +1616,10 @@
           maintainAspectRatio: false,
           scales: {
             x: { grid: { color: gridColor }, beginAtZero: true },
-            y: { grid: { display: false } }
+            y: {
+              grid: { display: false },
+              ticks: { font: { size: isMobile ? 9.5 : 11 } }
+            }
           },
           plugins: { legend: { display: false } }
         }
@@ -1545,7 +1648,10 @@
           maintainAspectRatio: false,
           scales: {
             x: { grid: { color: gridColor }, beginAtZero: true },
-            y: { grid: { display: false } }
+            y: {
+              grid: { display: false },
+              ticks: { font: { size: isMobile ? 9.5 : 11 } }
+            }
           },
           plugins: { legend: { display: false } }
         }
@@ -1573,7 +1679,13 @@
           responsive: true,
           maintainAspectRatio: false,
           scales: {
-            x: { grid: { display: false } },
+            x: {
+              grid: { display: false },
+              ticks: {
+                font: { size: isMobile ? 9 : 11 },
+                maxRotation: isMobile ? 30 : 0
+              }
+            },
             y: { grid: { color: gridColor }, beginAtZero: true }
           },
           plugins: { legend: { display: false } }
@@ -1601,7 +1713,13 @@
           responsive: true,
           maintainAspectRatio: false,
           scales: {
-            x: { grid: { display: false } },
+            x: {
+              grid: { display: false },
+              ticks: {
+                font: { size: isMobile ? 9 : 11 },
+                maxRotation: isMobile ? 30 : 0
+              }
+            },
             y: { grid: { color: gridColor }, beginAtZero: true }
           },
           plugins: { legend: { display: false } }
