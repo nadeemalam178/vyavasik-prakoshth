@@ -53,6 +53,8 @@
       populateDropdowns();
       renderCampaignCommittee();
       renderCadreHierarchy();
+      renderAnalyticsCharts();
+      renderDistrictReadinessMatrix();
       checkSyncStatus();
     }
   }
@@ -73,6 +75,7 @@
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('js_theme', next);
         updateThemeIcon(next);
+        renderAnalyticsCharts(true);
       });
     }
   }
@@ -107,6 +110,13 @@
     document.querySelectorAll('.tab-pane').forEach(pane => {
       pane.classList.toggle('active', pane.id === targetId);
     });
+
+    if (targetId === 'tab-analytics') {
+      setTimeout(() => {
+        renderAnalyticsCharts(true);
+        renderDistrictReadinessMatrix();
+      }, 50);
+    }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -855,6 +865,16 @@
     document.getElementById('cadreSearchInput')?.addEventListener('input', renderCadreHierarchy);
     document.getElementById('resetAllCadreFiltersBtn')?.addEventListener('click', resetAllFilters);
 
+    // Analytics Suite Event Listeners
+    document.getElementById('refreshChartsBtn')?.addEventListener('click', () => {
+      renderAnalyticsCharts(true);
+      showToast('Charts Refreshed');
+    });
+
+    document.getElementById('districtReadinessSearch')?.addEventListener('input', (e) => {
+      renderDistrictReadinessMatrix(e.target.value);
+    });
+
     // Campaign Committee Search
     const ccSearch = document.getElementById('campaignSearchInput');
     if (ccSearch) {
@@ -1040,6 +1060,277 @@
     document.body.removeChild(link);
 
     showToast(`CSV Downloaded: ${filename}`);
+  }
+
+  // -------------------------------------------------------------
+  // COMPREHENSIVE SANGATHANIK ANALYTICS SUITE (CHARTS ENGINE)
+  // -------------------------------------------------------------
+  let chartInstances = {};
+
+  function renderAnalyticsCharts(forceRefresh = false) {
+    if (!data || !window.Chart) return;
+
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const textColor = isLight ? '#334155' : '#94a3b8';
+    const gridColor = isLight ? 'rgba(148, 163, 184, 0.2)' : 'rgba(255, 255, 255, 0.08)';
+
+    Chart.defaults.color = textColor;
+    Chart.defaults.font.family = "'Inter', sans-serif";
+
+    if (forceRefresh) {
+      Object.keys(chartInstances).forEach(key => {
+        if (chartInstances[key]) {
+          try { chartInstances[key].destroy(); } catch (e) {}
+          delete chartInstances[key];
+        }
+      });
+    }
+
+    // 1. Social Category Distribution (Doughnut / Pie Chart)
+    const ctxCat = document.getElementById('chartSocialCategory');
+    if (ctxCat && !chartInstances['category']) {
+      const catData = data.demographics?.categories || { 'OBC': 87, 'General': 69, 'EBC': 64, 'Minority': 9, 'SC': 4 };
+      chartInstances['category'] = new Chart(ctxCat, {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(catData),
+          datasets: [{
+            data: Object.values(catData),
+            backgroundColor: ['#f59e0b', '#6366f1', '#10b981', '#06b6d4', '#f43f5e', '#a855f7'],
+            borderColor: isLight ? '#ffffff' : '#0f172a',
+            borderWidth: 2,
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 12 } }
+          },
+          cutout: '62%'
+        }
+      });
+    }
+
+    // 2. Post Fill Rate by Hierarchy Tier (Doughnut Chart)
+    const ctxPost = document.getElementById('chartPostFillRate');
+    if (ctxPost && !chartInstances['posts']) {
+      const postLabels = ['State Apex (15)', 'Zonals (12)', 'District Presidents (44)', 'District Gen Sec (44)', 'District Core Comm (308)'];
+      const postValues = [15, 12, 42, 36, 227];
+      chartInstances['posts'] = new Chart(ctxPost, {
+        type: 'doughnut',
+        data: {
+          labels: postLabels,
+          datasets: [{
+            data: postValues,
+            backgroundColor: ['#fbbf24', '#34d399', '#3b82f6', '#8b5cf6', '#ec4899'],
+            borderColor: isLight ? '#ffffff' : '#0f172a',
+            borderWidth: 2,
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 12 } }
+          },
+          cutout: '58%'
+        }
+      });
+    }
+
+    // 3. 12 Sangathanik Zones - Filled vs Vacant (Stacked Bar Chart)
+    const ctxZone = document.getElementById('chartZonalDistribution');
+    if (ctxZone && !chartInstances['zones']) {
+      const zonesList = data.zones || [];
+      chartInstances['zones'] = new Chart(ctxZone, {
+        type: 'bar',
+        data: {
+          labels: zonesList.map(z => z.name),
+          datasets: [
+            {
+              label: 'Niyukt Pad (Filled)',
+              data: zonesList.map(z => z.filled_posts),
+              backgroundColor: '#10b981',
+              borderRadius: 4
+            },
+            {
+              label: 'Rikt Pad (Vacant)',
+              data: zonesList.map(z => z.vacant_posts),
+              backgroundColor: 'rgba(244, 63, 94, 0.75)',
+              borderRadius: 4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { stacked: true, grid: { display: false } },
+            y: { stacked: true, grid: { color: gridColor }, beginAtZero: true }
+          },
+          plugins: {
+            legend: { position: 'top', labels: { boxWidth: 14 } }
+          }
+        }
+      });
+    }
+
+    // 4. Political Migrations (Horizontal Bar Chart)
+    const ctxPol = document.getElementById('chartPoliticalMigration');
+    if (ctxPol && !chartInstances['political']) {
+      const polData = data.demographics?.political_migration || { 'Former Congress': 52, 'Former BJP': 37, 'Former JDU': 26, 'Former RJD': 10, 'Former LJP': 7 };
+      chartInstances['political'] = new Chart(ctxPol, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(polData),
+          datasets: [{
+            label: 'Senior Leaders',
+            data: Object.values(polData),
+            backgroundColor: ['#3b82f6', '#f97316', '#10b981', '#15803d', '#a855f7'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { grid: { color: gridColor }, beginAtZero: true },
+            y: { grid: { display: false } }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    // 5. Business Sectors (Horizontal Bar Chart)
+    const ctxSec = document.getElementById('chartBusinessSectors');
+    if (ctxSec && !chartInstances['sectors']) {
+      const secData = data.demographics?.business_sectors || {};
+      const topSectors = Object.entries(secData).slice(0, 8);
+      chartInstances['sectors'] = new Chart(ctxSec, {
+        type: 'bar',
+        data: {
+          labels: topSectors.map(s => s[0]),
+          datasets: [{
+            label: 'Leaders by Industry',
+            data: topSectors.map(s => s[1]),
+            backgroundColor: '#06b6d4',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { grid: { color: gridColor }, beginAtZero: true },
+            y: { grid: { display: false } }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    // 6. Age Cohorts (Bar Chart)
+    const ctxAge = document.getElementById('chartAgeCohorts');
+    if (ctxAge && !chartInstances['age']) {
+      const ageData = data.demographics?.age_cohorts || {};
+      const labels = ['Under 35 (Youth)', '35-49 (Prime)', '50-59 (Senior)', '60+ (Veterans)'];
+      const values = labels.map(l => ageData[l] || 0);
+      chartInstances['age'] = new Chart(ctxAge, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Members in Cohort',
+            data: values,
+            backgroundColor: ['#06b6d4', '#6366f1', '#f59e0b', '#10b981'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { grid: { display: false } },
+            y: { grid: { color: gridColor }, beginAtZero: true }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    // 7. Top Castes (Bar Chart)
+    const ctxCaste = document.getElementById('chartTopCastes');
+    if (ctxCaste && !chartInstances['caste']) {
+      const casteData = data.demographics?.castes || {};
+      const topCastes = Object.entries(casteData).slice(0, 8);
+      chartInstances['caste'] = new Chart(ctxCaste, {
+        type: 'bar',
+        data: {
+          labels: topCastes.map(c => c[0]),
+          datasets: [{
+            label: 'Cadre Members',
+            data: topCastes.map(c => c[1]),
+            backgroundColor: '#8b5cf6',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { grid: { display: false } },
+            y: { grid: { color: gridColor }, beginAtZero: true }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+  }
+
+  function renderDistrictReadinessMatrix(searchQuery = '') {
+    if (!data || !data.districts) return;
+
+    const tbody = document.getElementById('districtReadinessBody');
+    if (!tbody) return;
+
+    const q = (searchQuery || '').trim().toLowerCase();
+    const filtered = data.districts.filter(d => {
+      if (!q) return true;
+      return d.name.toLowerCase().includes(q) ||
+             d.zone.toLowerCase().includes(q) ||
+             (d.district_president && d.district_president.toLowerCase().includes(q));
+    });
+
+    tbody.innerHTML = filtered.map(d => {
+      let tierBadge = 'pill-emerald';
+      if (d.priority_tier === 'Critical') tierBadge = 'pill-rose';
+      else if (d.priority_tier === 'Developing') tierBadge = 'pill-gold';
+
+      return `
+        <tr>
+          <td><strong>${escapeHtml(d.name)}</strong></td>
+          <td><span style="font-size:0.78rem; color:var(--text-muted);">${escapeHtml(d.zone)}</span></td>
+          <td>${d.district_president && d.district_president !== '(Vacant)' ? `<strong>${escapeHtml(d.district_president)}</strong>` : '<span style="color:var(--rose-light); font-style:italic;">(Rikt)</span>'}</td>
+          <td>${d.district_gen_sec && d.district_gen_sec !== '(Vacant)' ? `<span>${escapeHtml(d.district_gen_sec)}</span>` : '<span style="color:var(--rose-light); font-style:italic;">(Rikt)</span>'}</td>
+          <td><span class="political-pill pill-blue">${d.core_committee_count || 0} / 7</span></td>
+          <td>
+            <div style="display:flex; align-items:center; gap:0.5rem; min-width:90px;">
+              <div style="flex:1; background:rgba(255,255,255,0.08); height:6px; border-radius:3px; overflow:hidden;">
+                <div style="background:${d.fill_rate >= 80 ? 'var(--emerald)' : (d.fill_rate >= 50 ? 'var(--gold)' : 'var(--rose)')}; width:${d.fill_rate}%; height:100%;"></div>
+              </div>
+              <span style="font-size:0.75rem; font-weight:700;">${d.fill_rate}%</span>
+            </div>
+          </td>
+          <td><span class="political-pill ${tierBadge}">${escapeHtml(d.priority_tier || 'Active')}</span></td>
+        </tr>
+      `;
+    }).join('');
   }
 
   // -------------------------------------------------------------

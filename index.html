@@ -60,7 +60,7 @@
     </div>
   </header>
 
-  <!-- Desktop Primary Tab Navigation Bar (EXACTLY 2 TABS) -->
+  <!-- Desktop Primary Tab Navigation Bar -->
   <nav class="desktop-top-tabs" id="desktopTopTabs" aria-label="Main Sangathanik Tabs">
     <div class="desktop-tabs-wrapper">
       <button class="top-tab-btn active" data-tab="tab-campaign">
@@ -72,6 +72,11 @@
         <span class="tab-icon">👥</span>
         <span class="tab-text">Vyavasik Prakoshth Sangathan / Cadre</span>
         <span class="tab-badge">423 Pad</span>
+      </button>
+      <button class="top-tab-btn" data-tab="tab-analytics">
+        <span class="tab-icon">📊</span>
+        <span class="tab-text">Sangathanik Analytics</span>
+        <span class="tab-badge">Charts Suite</span>
       </button>
     </div>
   </nav>
@@ -276,6 +281,183 @@
       </div>
     </section>
 
+    <!-- ===================================================================
+         TAB 3: Comprehensive Sangathanik Analytics Suite & Charts
+         =================================================================== -->
+    <section class="tab-pane" id="tab-analytics">
+      
+      <!-- Section Headline -->
+      <div class="section-headline">
+        <div>
+          <h3>📊 Comprehensive Sangathanik Analytics & Visual Intelligence</h3>
+          <p>Real-time visual analysis of 423 Cadre Posts, 12 Zones, 44 Districts, Social Categories, Castes, Age Cohorts & Political Migrations</p>
+        </div>
+        <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+          <button class="btn-glass" id="refreshChartsBtn">🔄 Refresh Charts</button>
+          <button class="btn-glass btn-glass-primary" onclick="window.print()">📑 Print / Export</button>
+        </div>
+      </div>
+
+      <!-- 4 Executive KPI Intelligence Cards -->
+      <div class="analytics-kpi-grid">
+        <div class="analytics-kpi-card">
+          <div class="analytics-kpi-label">Niyukti Vistar (Fill Rate)</div>
+          <div class="analytics-kpi-value" id="kpiFillRate" style="color: var(--gold-light);">78.5%</div>
+          <div class="analytics-kpi-sub"><strong>332 Niyukt</strong> • 91 Rikt Pad (Kul 423)</div>
+        </div>
+
+        <div class="analytics-kpi-card">
+          <div class="analytics-kpi-label">Bhaugolik Vyapti (Bihar Coverage)</div>
+          <div class="analytics-kpi-value" style="color: var(--emerald-light);">100%</div>
+          <div class="analytics-kpi-sub"><strong>12 Zones & 44 Zile</strong> Sakriya</div>
+        </div>
+
+        <div class="analytics-kpi-card">
+          <div class="analytics-kpi-label">Purv Rajnitik Netritva</div>
+          <div class="analytics-kpi-value" style="color: var(--primary-light);">132 Netritva</div>
+          <div class="analytics-kpi-sub">52 Congress • 37 BJP • 26 JDU</div>
+        </div>
+
+        <div class="analytics-kpi-card">
+          <div class="analytics-kpi-label">Grassroots Elected Reps</div>
+          <div class="analytics-kpi-value" style="color: var(--cyan-light);">80 Pratinidhi</div>
+          <div class="analytics-kpi-sub">Mukhiya, Parshad & PACS Adhyaksh</div>
+        </div>
+      </div>
+
+      <!-- Comprehensive Charts Grid (Pie, Doughnut, Stacked Bar, Horizontal Bar, Polar) -->
+      <div class="analytics-charts-grid">
+
+        <!-- Chart 1: Social Category (Doughnut / Pie Chart) -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title">👥 Samajik Shreni Vistar</div>
+              <div class="chart-card-subtitle">General, OBC, EBC, Minority & SC Representation</div>
+            </div>
+            <span class="political-pill pill-gold">Pie / Doughnut</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="chartSocialCategory"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Appointment Status by Tier (Donut Chart) -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title">🏛️ Pad Niyukti evam Riktata</div>
+              <div class="chart-card-subtitle">Fill Rate Status across 7 Hierarchy Tiers</div>
+            </div>
+            <span class="political-pill pill-emerald">Hierarchy Donut</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="chartPostFillRate"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 3: 12 Zones Distribution (Stacked Bar Chart) -->
+        <div class="chart-card chart-card-full">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title">📍 12 Sangathanik Zones - Filled vs Vacant Pad</div>
+              <div class="chart-card-subtitle">Comparative Cadre Strength across all 12 Operational Zones</div>
+            </div>
+            <span class="political-pill pill-blue">Stacked Bar Chart</span>
+          </div>
+          <div class="chart-canvas-wrapper" style="height: 320px;">
+            <canvas id="chartZonalDistribution"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 4: Political Migrations (Horizontal Bar Chart) -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title">🏛️ Purv Rajnitik Prishthbhumi</div>
+              <div class="chart-card-subtitle">Senior Leaders Migrated to Jan Suraaj by Party</div>
+            </div>
+            <span class="political-pill pill-gold">Horizontal Bar</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="chartPoliticalMigration"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 5: Top Business Sectors (Horizontal Bar Chart) -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title">💼 Vyavasaik Kshetr & Udyog</div>
+              <div class="chart-card-subtitle">Key Industries Represented in Business Cell</div>
+            </div>
+            <span class="political-pill pill-cyan">Sector Bar</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="chartBusinessSectors"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 6: Age Cohorts (Bar Chart) -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title">🎂 Aayu Varg & Demographics</div>
+              <div class="chart-card-subtitle">Youth (Under 35), Prime (35-49), Senior (50-59) & Veterans (60+)</div>
+            </div>
+            <span class="political-pill pill-gold">Age Distribution</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="chartAgeCohorts"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 7: Top Castes (Bar Chart) -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title">🤝 Top Vaishya & Allied Castes</div>
+              <div class="chart-card-subtitle">Business Community Social Representation in Bihar</div>
+            </div>
+            <span class="political-pill pill-emerald">Caste Breakdown</span>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="chartTopCastes"></canvas>
+          </div>
+        </div>
+
+        <!-- Matrix Card 8: 44 Districts Sangathan Readiness Matrix -->
+        <div class="chart-card chart-card-full">
+          <div class="chart-card-header">
+            <div>
+              <div class="chart-card-title">📑 44 Sangathanik Zile - Readiness & Action Priority Matrix</div>
+              <div class="chart-card-subtitle">Live tracking of Zila Adhyaksh, Zila Mahasachiv, Core Committee (Target: 7) & Gaps</div>
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <input type="text" id="districtReadinessSearch" class="clean-search-input" placeholder="Search District..." style="padding: 0.35rem 0.65rem; font-size: 0.78rem; width: 170px;">
+            </div>
+          </div>
+          <div class="district-readiness-table-wrapper">
+            <table class="glass-table" id="districtReadinessTable">
+              <thead>
+                <tr>
+                  <th>District</th>
+                  <th>Zone</th>
+                  <th>District President</th>
+                  <th>District Gen Sec</th>
+                  <th>Core Committee</th>
+                  <th>Fill Rate</th>
+                  <th>Priority Tier</th>
+                </tr>
+              </thead>
+              <tbody id="districtReadinessBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <!-- Persistent Right-Edge Side Panel Trigger (Always Available on Right Side) -->
@@ -384,7 +566,7 @@
   </div>
 
   <!-- ===================================================================
-       FLOATING BOTTOM DOCK (MOBILE APP NAVIGATION - EXACTLY 2 TABS + FILTER)
+       FLOATING BOTTOM DOCK (MOBILE APP NAVIGATION - 3 TABS + FILTER)
        =================================================================== -->
   <nav class="floating-bottom-dock" id="floatingBottomDock" aria-label="Mobile Navigation">
     <button class="dock-btn active" data-tab="tab-campaign" id="dockBtnCampaign" title="Campaign Committee">
@@ -396,6 +578,10 @@
       <span class="dock-icon">👥</span>
       <span class="dock-label">Cadre</span>
       <span class="dock-btn-badge">423</span>
+    </button>
+    <button class="dock-btn" data-tab="tab-analytics" id="dockBtnAnalytics" title="Sangathanik Analytics & Charts">
+      <span class="dock-icon">📊</span>
+      <span class="dock-label">Analytics</span>
     </button>
     <button class="dock-btn" id="dockBtnFilter" title="Filter Side Panel">
       <span class="dock-icon">⚡</span>
@@ -473,6 +659,8 @@
     <span id="toastMessage">Data Updated</span>
   </div>
 
+  <!-- Local Chart.js Engine (Offline-Ready & Fast) -->
+  <script src="chart.min.js"></script>
   <!-- Data Script (Offline Fallback) -->
   <script src="data.js"></script>
   <!-- Application Logic -->
