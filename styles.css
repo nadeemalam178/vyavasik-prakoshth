@@ -649,94 +649,163 @@ body::after {
    Leadership Executive Layout (Properly Distributed)
    ========================================================================== */
 .leadership-executive-layout {
-  display: grid;
-  grid-template-columns: 1fr 1.35fr;
+  display: flex;
+  flex-direction: column;
   gap: 1.25rem;
   margin-bottom: 2rem;
-  align-items: stretch;
 }
 
-@media (max-width: 1024px) {
-  .leadership-executive-layout {
-    grid-template-columns: 1fr;
-  }
+.executive-leadership-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
 }
 
+.leadership-tier-block {
+  background: var(--glass-card);
+  backdrop-filter: var(--blur-base);
+  -webkit-backdrop-filter: var(--blur-base);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  padding: 1.15rem 1.25rem 1.25rem;
+}
+
+[data-theme="light"] .leadership-tier-block {
+  background: var(--glass-card);
+  border-color: var(--border-glass);
+  box-shadow: 0 4px 16px rgba(212, 163, 23, 0.08);
+}
+
+.sanyojak-cards-grid,
 .sanyojak-apex-slot {
-  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+  width: 100%;
 }
 
-.sanyojak-apex-slot .sanyojak-glass-card {
-  height: 100%;
-  background: linear-gradient(145deg, rgba(241, 194, 50, 0.12) 0%, var(--glass-card) 60%, rgba(241, 194, 50, 0.06) 100%);
+.sah-sanyojaks-grid,
+.sah-sanyojaks-stack {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 0.95rem;
+  width: 100%;
+}
+
+.sanyojak-glass-card {
+  height: auto;
+  min-height: auto;
+  background: linear-gradient(145deg, rgba(241, 194, 50, 0.1) 0%, var(--glass-card) 60%, rgba(241, 194, 50, 0.04) 100%);
   backdrop-filter: var(--blur-deep);
   -webkit-backdrop-filter: var(--blur-deep);
   border: 1.5px solid rgba(241, 194, 50, 0.45);
-  border-radius: var(--radius-xl);
-  padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(241, 194, 50, 0.12);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem 1.2rem;
+  box-shadow: 0 4px 16px rgba(241, 194, 50, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
   transition: var(--transition);
+  box-sizing: border-box;
 }
 
-[data-theme="light"] .sanyojak-apex-slot .sanyojak-glass-card {
-  background: linear-gradient(145deg, rgba(241, 194, 50, 0.16) 0%, var(--glass-card) 60%);
-  border-color: rgba(212, 163, 23, 0.6);
-  box-shadow: 0 4px 20px rgba(212, 163, 23, 0.12);
+[data-theme="light"] .sanyojak-glass-card {
+  background: linear-gradient(145deg, rgba(241, 194, 50, 0.14) 0%, var(--glass-card) 60%);
+  border-color: rgba(212, 163, 23, 0.55);
+  box-shadow: 0 4px 16px rgba(212, 163, 23, 0.1);
 }
 
-.sanyojak-apex-slot .sanyojak-glass-card:hover {
+.sanyojak-glass-card:hover {
   transform: translateY(-2px);
   border-color: rgba(241, 194, 50, 0.75);
-  box-shadow: 0 16px 40px rgba(241, 194, 50, 0.22);
+  box-shadow: 0 8px 24px rgba(241, 194, 50, 0.18);
 }
 
+.sanyojak-avatar-compact,
 .sanyojak-avatar {
-  width: 60px;
-  height: 60px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-full);
   background: linear-gradient(135deg, #f1c232 0%, #d4a317 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 800;
   color: #0b0f19;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 20px rgba(241, 194, 50, 0.35);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 10px rgba(241, 194, 50, 0.3);
   flex-shrink: 0;
+}
+
+.sanyojak-card-title {
+  margin: 0.2rem 0 0.1rem;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sanyojak-card-subtitle {
+  font-size: 0.75rem;
+  color: var(--gold-light);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sanyojak-details h2 {
   font-family: var(--font-heading);
-  font-size: 1.35rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-main);
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
 }
 
 .badge-sanyojak {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 0.2rem 0.65rem;
+  padding: 0.18rem 0.6rem;
   border-radius: var(--radius-full);
   background: rgba(241, 194, 50, 0.2);
   color: #f1c232;
   border: 1px solid rgba(241, 194, 50, 0.45);
+  display: inline-block;
 }
 
 [data-theme="light"] .badge-sanyojak {
   background: rgba(241, 194, 50, 0.2);
   color: #92400e;
   border-color: rgba(212, 163, 23, 0.6);
+}
+
+.badge-sah-sanyojak {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  letter-spacing: 0.04em;
+  background: rgba(241, 194, 50, 0.12);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(241, 194, 50, 0.3);
+  display: inline-block;
+}
+
+[data-theme="light"] .badge-sah-sanyojak {
+  color: #92400e;
+  background: rgba(212, 163, 23, 0.15);
+  border-color: rgba(212, 163, 23, 0.4);
 }
 
 /* Sah Sanyojaks Slot & Stack */
@@ -748,7 +817,7 @@ body::after {
   -webkit-backdrop-filter: var(--blur-base);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-xl);
-  padding: 1.25rem 1.4rem;
+  padding: 1.15rem 1.25rem 1.25rem;
 }
 
 [data-theme="light"] .sah-sanyojaks-slot {
@@ -762,41 +831,50 @@ body::after {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.85rem;
-  padding-bottom: 0.65rem;
+  padding-bottom: 0.55rem;
   border-bottom: 1px solid var(--border-glass);
 }
 
 .slot-title-bar h4 {
   font-family: var(--font-heading);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
 }
 
-.sah-sanyojaks-stack {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.85rem;
-  flex: 1;
+.badge-role-count {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+  background: rgba(241, 194, 50, 0.18);
+  color: var(--gold-light);
+  border: 1px solid rgba(241, 194, 50, 0.35);
 }
 
-@media (max-width: 768px) {
-  .sah-sanyojaks-stack {
-    grid-template-columns: 1fr;
-  }
+[data-theme="light"] .badge-role-count {
+  background: rgba(212, 163, 23, 0.18);
+  color: #92400e;
+  border-color: rgba(212, 163, 23, 0.4);
 }
 
 .sah-glass-card {
+  height: auto;
+  min-height: auto;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(241, 194, 50, 0.3);
   border-radius: var(--radius-lg);
-  padding: 1rem;
+  padding: 1rem 1.15rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   transition: var(--transition);
   cursor: pointer;
   box-shadow: var(--shadow-card);
+  box-sizing: border-box;
 }
 
 [data-theme="light"] .sah-glass-card {
@@ -2269,7 +2347,7 @@ body::after {
     margin-bottom: 1.25rem;
   }
 
-  .sah-sanyojak-stack {
+  .sah-sanyojak-stack, .sah-sanyojaks-stack, .sah-sanyojaks-grid, .sanyojak-cards-grid {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -2446,7 +2524,7 @@ body::after {
   }
 
   /* Compact Mobile Card Container (One-Line App Card) */
-  .cadre-clean-card, .sah-glass-card {
+  .cadre-clean-card, .sah-glass-card, .sanyojak-glass-card {
     padding: 0 !important;
     border-radius: 12px;
     background: var(--glass-card);

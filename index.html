@@ -91,24 +91,31 @@
         </div>
       </div>
 
-      <!-- Balanced 2-Column Leadership Showcase (Sanyojak + Sah-Sanyojaks) -->
-      <div class="leadership-executive-layout">
-        <!-- Left: Sanyojak Card -->
-        <div class="sanyojak-apex-slot" id="sanyojakContainer"></div>
-
-        <!-- Right: 3 Sah Sanyojaks Grid -->
-        <div class="sah-sanyojaks-slot">
+      <!-- Executive Tier: Top Leadership (Pradesh Sanyojak & Sah-Sanyojaks) -->
+      <div class="executive-leadership-section">
+        <!-- Top Tier: Pradesh Sanyojak -->
+        <div class="leadership-tier-block">
           <div class="slot-title-bar">
-            <h4 data-i18n="sec_sah_sanyojak_title">Pradesh Sah - Sanyojak</h4>
+            <h4><span class="gold-accent">⭐</span> <span data-i18n="sec_sanyojak_title">प्रदेश संयोजक (Pradesh Sanyojak)</span></h4>
+            <span class="badge-role-count" id="sanyojakCountBadge">3</span>
           </div>
-          <div class="sah-sanyojaks-stack" id="sahSanyojakContainer"></div>
+          <div class="sanyojak-cards-grid" id="sanyojakContainer"></div>
+        </div>
+
+        <!-- Tier 2: Pradesh Sah Sanyojaks -->
+        <div class="leadership-tier-block">
+          <div class="slot-title-bar">
+            <h4><span class="gold-accent">★</span> <span data-i18n="sec_sah_sanyojak_title">प्रदेश सह - संयोजक (Sah - Sanyojak)</span></h4>
+            <span class="badge-role-count" id="sahCountBadge">6</span>
+          </div>
+          <div class="sah-sanyojaks-grid" id="sahSanyojakContainer"></div>
         </div>
       </div>
 
-      <!-- Section 2: Zonal Campaign Committee Members (24 Members across 12 Zones) -->
+      <!-- Section 2: Zonal Campaign Committee Members -->
       <div class="section-headline" style="margin-top: 2rem;">
         <div>
-          <h3 data-i18n="sec_zonal_cc_title">🏛️ Zonal Campaign Committee Sadasya (24 Sadasya)</h3>
+          <h3 id="secZonalCcTitle" data-i18n="sec_zonal_cc_title">🏛️ Zonal Campaign Committee Sadasya</h3>
           <p data-i18n="sec_zonal_cc_sub">Bihar ke sabhi 12 Zono evam pramukh zilo ka pratinidhitwa karne wale netritva sadasya</p>
         </div>
         <div class="view-toggle-btns">
