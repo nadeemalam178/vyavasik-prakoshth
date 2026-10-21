@@ -1897,6 +1897,22 @@
 
     // CSV Export Button
     document.getElementById('exportCsvBtn')?.addEventListener('click', exportCurrentViewCsv);
+
+    // Responsive orientation & resize handler for charts
+    let lastIsMobile = window.innerWidth < 768;
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const currentIsMobile = window.innerWidth < 768;
+        if (currentIsMobile !== lastIsMobile) {
+          lastIsMobile = currentIsMobile;
+          if (currentTab === 'tab-analytics') {
+            renderAnalyticsCharts(true);
+          }
+        }
+      }, 150);
+    });
   }
 
   // -------------------------------------------------------------
@@ -2071,18 +2087,18 @@
             legend: {
               position: 'bottom',
               labels: {
-                boxWidth: isMobile ? 10 : 12,
-                padding: isMobile ? 8 : 12,
-                font: { size: isMobile ? 9.5 : 11 }
+                boxWidth: isMobile ? 8 : 12,
+                padding: isMobile ? 5 : 12,
+                font: { size: isMobile ? 8.5 : 11 }
               }
             }
           },
-          cutout: isMobile ? '50%' : '58%'
+          cutout: isMobile ? '45%' : '58%'
         }
       });
     }
 
-    // 3. 12 Sangathanik Zones - Filled vs Vacant (Stacked Bar Chart)
+    // 3. 12 Sangathanik Zones - Filled vs Vacant (Stacked Bar Chart, Horizontal on Mobile)
     const ctxZone = document.getElementById('chartZonalDistribution');
     if (ctxZone && !chartInstances['zones']) {
       const zonesList = data.zones || [];
@@ -2106,26 +2122,32 @@
           ]
         },
         options: {
+          indexAxis: isMobile ? 'y' : 'x',
           responsive: true,
           maintainAspectRatio: false,
           scales: {
             x: {
               stacked: true,
-              grid: { display: false },
+              grid: { color: isMobile ? gridColor : 'transparent' },
               ticks: {
                 autoSkip: false,
-                maxRotation: isMobile ? 45 : 30,
-                minRotation: isMobile ? 35 : 0,
-                font: { size: isMobile ? 8.5 : 11 }
+                maxRotation: 0,
+                font: { size: isMobile ? 9.5 : 11 }
               }
             },
-            y: { stacked: true, grid: { color: gridColor }, beginAtZero: true }
+            y: {
+              stacked: true,
+              grid: { color: isMobile ? 'transparent' : gridColor },
+              ticks: { font: { size: isMobile ? 10 : 11 } },
+              beginAtZero: true
+            }
           },
           plugins: {
             legend: {
               position: 'top',
               labels: {
                 boxWidth: isMobile ? 10 : 14,
+                padding: isMobile ? 6 : 10,
                 font: { size: isMobile ? 10 : 12 }
               }
             }
@@ -2233,7 +2255,7 @@
       });
     }
 
-    // 7. Top Castes (Bar Chart)
+    // 7. Top Castes (Bar Chart, Horizontal on Mobile)
     const ctxCaste = document.getElementById('chartTopCastes');
     if (ctxCaste && !chartInstances['caste']) {
       const casteData = data.demographics?.castes || {};
@@ -2250,17 +2272,22 @@
           }]
         },
         options: {
+          indexAxis: isMobile ? 'y' : 'x',
           responsive: true,
           maintainAspectRatio: false,
           scales: {
             x: {
-              grid: { display: false },
+              grid: { color: isMobile ? gridColor : 'transparent' },
               ticks: {
-                font: { size: isMobile ? 9 : 11 },
-                maxRotation: isMobile ? 30 : 0
-              }
+                font: { size: isMobile ? 9.5 : 11 },
+                maxRotation: 0
+              },
+              beginAtZero: true
             },
-            y: { grid: { color: gridColor }, beginAtZero: true }
+            y: {
+              grid: { color: isMobile ? 'transparent' : gridColor },
+              ticks: { font: { size: isMobile ? 10 : 11 } }
+            }
           },
           plugins: { legend: { display: false } }
         }

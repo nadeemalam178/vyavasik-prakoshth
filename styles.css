@@ -2628,8 +2628,18 @@ body::after {
   .analytics-section-headline {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
+    gap: 0.65rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .analytics-section-headline h3 {
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+
+  .analytics-section-headline p {
+    font-size: 0.76rem;
+    line-height: 1.35;
   }
 
   .analytics-head-tools {
@@ -2641,7 +2651,7 @@ body::after {
   .analytics-head-tools .btn-glass {
     flex: 1;
     justify-content: center;
-    padding: 0.5rem 0.65rem;
+    padding: 0.45rem 0.65rem;
     font-size: 0.78rem;
   }
 
@@ -2652,11 +2662,13 @@ body::after {
   }
 
   .analytics-kpi-card {
-    padding: 0.75rem 0.8rem;
+    padding: 0.75rem 0.75rem;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-height: 105px;
+    box-sizing: border-box;
   }
 
   .analytics-kpi-top {
@@ -2665,24 +2677,26 @@ body::after {
   }
 
   .analytics-kpi-icon {
-    font-size: 0.95rem;
+    font-size: 1rem;
+    flex-shrink: 0;
   }
 
   .analytics-kpi-label {
-    font-size: 0.65rem;
-    line-height: 1.15;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 0.72rem;
+    line-height: 1.2;
+    white-space: normal;
+    word-break: break-word;
+    font-weight: 600;
   }
 
   .analytics-kpi-value-wrap {
-    margin-bottom: 0.2rem;
+    margin: 0.2rem 0;
     gap: 0.25rem;
   }
 
   .analytics-kpi-value {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
+    font-weight: 800;
     line-height: 1.1;
   }
 
@@ -2694,19 +2708,40 @@ body::after {
     font-size: 0.68rem;
     line-height: 1.25;
     opacity: 0.92;
+    white-space: normal;
+    word-break: break-word;
   }
 
-  /* Pinned Category Filter Bar on Mobile */
+  /* Pinned / Scrollable Category Filter Bar on Mobile */
   .analytics-category-nav-wrapper {
-    top: 56px;
+    position: relative;
+    top: auto;
     margin-bottom: 1rem;
-    padding: 0.3rem 0;
+    padding: 0.25rem 0;
+    background: transparent;
+  }
+
+  .analytics-category-nav {
+    display: flex;
+    gap: 0.45rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.2rem 0.1rem;
+  }
+
+  .analytics-category-nav::-webkit-scrollbar {
+    display: none;
   }
 
   .analytics-nav-pill {
-    padding: 0.38rem 0.75rem;
-    font-size: 0.75rem;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    padding: 0.42rem 0.85rem;
+    font-size: 0.76rem;
     gap: 0.35rem;
+    border-radius: 999px;
   }
 
   .analytics-charts-grid {
@@ -2727,12 +2762,13 @@ body::after {
   }
 
   .chart-card-title {
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     line-height: 1.25;
+    font-weight: 700;
   }
 
   .chart-card-subtitle {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     margin-top: 0.15rem;
     line-height: 1.25;
   }
@@ -2743,11 +2779,16 @@ body::after {
   }
 
   .chart-canvas-wrapper {
-    height: 220px !important;
+    height: 260px !important;
   }
 
   .zonal-chart-canvas-wrapper {
-    height: 270px !important;
+    height: 420px !important;
+  }
+
+  .sectors-chart-canvas-wrapper,
+  .caste-chart-canvas-wrapper {
+    height: 310px !important;
   }
 
   /* Mobile Swipe Hint */
@@ -2783,10 +2824,18 @@ body::after {
 
   .district-readiness-table-wrapper {
     max-height: 480px;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     border: 1px solid var(--border-glass);
+    background: var(--glass-card);
+  }
+
+  .district-matrix-table th,
+  .district-matrix-table td {
+    padding: 0.55rem 0.65rem;
+    font-size: 0.76rem;
+    white-space: nowrap;
   }
 
   /* Sticky First Column (District Name) for Easy Horizontal Tracking */
@@ -2797,8 +2846,8 @@ body::after {
     z-index: 2;
     background: #0f172a;
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.45);
-    min-width: 110px;
-    max-width: 125px;
+    min-width: 95px;
+    max-width: 105px;
     white-space: normal;
     word-break: break-word;
     font-weight: 700;
