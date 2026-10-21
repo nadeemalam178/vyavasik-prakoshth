@@ -654,7 +654,7 @@
   }
 
   // -------------------------------------------------------------
-  // INITIALIZATION & DATA FETCHING
+  // INITIALIZATION & REAL-TIME DYNAMIC DATA FETCHING
   // -------------------------------------------------------------
   async function init() {
     setupTheme();
@@ -663,27 +663,58 @@
     setupSideDrawer();
     setupEventListeners();
 
-    // Check if DASHBOARD_DATA script fallback exists
+    // 1. Immediate Render using window.DASHBOARD_DATA fallback (zero delay)
     if (window.DASHBOARD_DATA) {
       data = window.DASHBOARD_DATA;
-    }
-
-    try {
-      const res = await fetch('/api/data');
-      if (res.ok) {
-        data = await res.json();
-      }
-    } catch (e) {
-      console.log('Using local offline dataset');
-    }
-
-    if (data) {
       populateDropdowns();
       renderCampaignCommittee();
       renderCadreHierarchy();
       renderAnalyticsCharts();
       renderDistrictReadinessMatrix();
-      checkSyncStatus();
+      updateDynamicBadges();
+    }
+
+    // 2. Real-Time Dynamic Sync with Live Google Sheets
+    if (window.LiveSheetsSync) {
+      window.LiveSheetsSync.startAutoSync((freshData, isChanged) => {
+        data = freshData;
+        populateDropdowns();
+        renderCampaignCommittee();
+        renderCadreHierarchy();
+        renderAnalyticsCharts(true);
+        renderDistrictReadinessMatrix();
+        updateDynamicBadges();
+        if (isChanged) {
+          showToast('Live Google Sheets data updated!');
+        }
+      }, 20000);
+    }
+  }
+
+  function updateDynamicBadges() {
+    if (!data) return;
+    const isHi = currentLang === 'hi';
+
+    // Tab 1 & 2 Badges
+    const ccBadge = document.querySelector('[data-tab="tab-campaign"] .tab-badge');
+    if (ccBadge && data.campaign_committee) {
+      ccBadge.textContent = `${data.campaign_committee.length} ${isHi ? 'सदस्य' : 'Sadasya'}`;
+    }
+
+    const cadreBadge = document.querySelector('[data-tab="tab-cadre"] .tab-badge');
+    if (cadreBadge && data.swg_members) {
+      cadreBadge.textContent = `${data.swg_members.length} ${isHi ? 'पद' : 'Pad'}`;
+    }
+
+    // Analytics KPIs
+    const kpiFill = document.getElementById('kpiFillRate');
+    if (kpiFill && data.summary) {
+      kpiFill.textContent = `${data.summary.overall_fill_rate || 0}%`;
+    }
+
+    const fillSub = document.querySelector('[data-cat="hierarchy"] .analytics-kpi-sub');
+    if (fillSub && data.summary) {
+      fillSub.innerHTML = `<strong>${data.summary.filled_positions || 0} ${isHi ? 'नियुक्त' : 'Niyukt'}</strong> • ${data.summary.vacant_positions || 0} ${isHi ? 'रिक्त' : 'Rikt'} (${isHi ? 'कुल' : 'Kul'} ${data.summary.total_positions || 0})`;
     }
   }
 
@@ -707,6 +738,7 @@
           renderCadreHierarchy();
           renderAnalyticsCharts(true);
           renderDistrictReadinessMatrix();
+          updateDynamicBadges();
         }
         if (currentModalMember && document.getElementById('memberModal')?.classList.contains('open')) {
           openModal(currentModalMember);
@@ -1092,7 +1124,7 @@
 
     let html = `
       <button class="zone-chip-btn ${selectedCcZone === 'ALL' ? 'active' : ''}" onclick="window.dashboard.filterCcByZone('ALL')">
-        <span>${isHi ? 'सभी 24 सदस्य' : 'All 24 Members'}</span>
+        <span>${isHi ? 'सभी' : 'All'} ${members.length} ${isHi ? 'सदस्य' : 'Members'}</span>
         <span class="chip-count">${members.length}</span>
       </button>
     `;
@@ -1855,59 +1887,30 @@
       }
     });
 
-    // Sync Button
-    document.getElementById('syncSheetsBtn')?.addEventListener('click', syncWithGoogleSheets);
-
     // CSV Export Button
     document.getElementById('exportCsvBtn')?.addEventListener('click', exportCurrentViewCsv);
   }
 
   // -------------------------------------------------------------
-  // DYNAMIC LIVE SYNC WITH GOOGLE SHEETS
+  // REAL-TIME DYNAMIC SYNC DELEGATION
   // -------------------------------------------------------------
   async function syncWithGoogleSheets() {
-    const syncBtn = document.getElementById('syncSheetsBtn');
-    const syncIcon = document.getElementById('syncIcon');
-    if (syncIcon) syncIcon.classList.add('spinning');
-    if (syncBtn) syncBtn.disabled = true;
-
-    showToast('Syncing latest data from Google Sheets...');
-
-    try {
-      const res = await fetch('/api/sync');
-      if (res.ok) {
-        const payload = await res.json();
-        data = payload.data || payload;
+    if (window.LiveSheetsSync) {
+      window.LiveSheetsSync.syncNow((freshData, isChanged) => {
+        data = freshData;
         populateDropdowns();
         renderCampaignCommittee();
         renderCadreHierarchy();
-        showToast('Google Sheets data synchronized successfully!');
-      } else {
-        showToast('Sync completed.');
-      }
-    } catch (err) {
-      console.log('Sync network error, keeping existing data.');
-      showToast('Data refreshed.');
-    } finally {
-      if (syncIcon) syncIcon.classList.remove('spinning');
-      if (syncBtn) syncBtn.disabled = false;
-      checkSyncStatus();
+        renderAnalyticsCharts(true);
+        renderDistrictReadinessMatrix();
+        updateDynamicBadges();
+        showToast('Sheets refreshed.');
+      });
     }
   }
 
   async function checkSyncStatus() {
-    try {
-      const res = await fetch('/api/status');
-      if (res.ok) {
-        const status = await res.json();
-        const chipText = document.getElementById('syncStatusText');
-        if (chipText && status.last_updated) {
-          chipText.textContent = `Sheets Live: ${status.last_updated.split(' ')[1] || 'Synced'}`;
-        }
-      }
-    } catch (e) {
-      // offline mode
-    }
+    // Handled automatically by window.LiveSheetsSync
   }
 
   // -------------------------------------------------------------

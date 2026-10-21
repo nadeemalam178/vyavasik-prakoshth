@@ -14,14 +14,22 @@ def process_all_data(excel_path='data.xlsx'):
     current_role = 'Members'
     current_zone = ''
 
-    for r in range(1, 40):
+    for r in range(1, ws_cc.max_row + 1):
         val_a = ws_cc.cell(r, 1).value
         val_a_str = str(val_a).strip() if val_a is not None else ''
         
-        if val_a_str in ['Sanyojak', 'Sah Sanyojak', 'Members']:
-            current_role = val_a_str
+        lower_a = val_a_str.lower()
+        if any(kw in lower_a for kw in ['sanyojak', 'members', 'committee']):
+            if 'kshetriya' in lower_a:
+                current_role = 'Kshetriya Sanyojak'
+            elif 'sah' in lower_a:
+                current_role = 'Sah Sanyojak'
+            elif 'sanyojak' in lower_a:
+                current_role = 'Sanyojak'
+            else:
+                current_role = val_a_str
             continue
-        if val_a_str == 'Sr No':
+        if lower_a in ['sr no', 'sr. no', 'sr_no', 's no']:
             continue
         
         sr = ws_cc.cell(r, 1).value
@@ -106,21 +114,22 @@ def process_all_data(excel_path='data.xlsx'):
     # -------------------------------------------------------------
     ws_gap = wb['GAP Report']
     gap_by_district = {}
-    for r in range(4, 48):
+    for r in range(4, ws_gap.max_row + 1):
         d_name = ws_gap.cell(r, 2).value
+        if not d_name or str(d_name).strip().lower() == 'total':
+            break
         target = ws_gap.cell(r, 3).value
         achieved = ws_gap.cell(r, 4).value
         gap = ws_gap.cell(r, 5).value
         poc = ws_gap.cell(r, 6).value
-        if d_name and str(d_name).strip() != 'Total':
-            clean_name = str(d_name).strip().replace('\n', '').strip()
-            gap_by_district[clean_name.lower()] = {
-                'district': clean_name,
-                'target': int(target) if target else 0,
-                'achieved': int(achieved) if achieved else 0,
-                'gap': int(gap) if gap else 0,
-                'poc': str(poc).strip() if poc else ''
-            }
+        clean_name = str(d_name).strip().replace('\n', '').strip()
+        gap_by_district[clean_name.lower()] = {
+            'district': clean_name,
+            'target': int(target) if target else 0,
+            'achieved': int(achieved) if achieved else 0,
+            'gap': int(gap) if gap else 0,
+            'poc': str(poc).strip() if poc else ''
+        }
 
     # -------------------------------------------------------------
     # 3. Parse Vyvsaik SWG+DPGS
@@ -129,12 +138,27 @@ def process_all_data(excel_path='data.xlsx'):
     swg_members = []
     rows_swg = list(ws_swg.iter_rows(values_only=True))
 
-    for idx in range(1, 424):
-        if idx >= len(rows_swg): break
-        r = rows_swg[idx]
+    rank_map = {
+        'State President': 1,
+        'State Gen Sec': 2,
+        'State VP': 3,
+        'Zonal': 4,
+        'District President': 5,
+        'District Gen Sec': 6,
+        'State Core Committee': 7
+    }
+
+    for idx, r in enumerate(rows_swg[1:], start=1):
         if not any(r): continue
         
-        sr, zone, dist, post, name, num, age, cat, caste, prof = r[:10]
+        row_vals = (list(r) + [None] * 12)[:11]
+        sr, zone, dist, post, _col_rank, name, num, age, cat, caste, prof = row_vals
+        
+        post_str = str(post).strip() if post else ''
+        if post_str not in rank_map:
+            continue
+        if str(sr).strip().lower() in ['sr no', 'sr. no', 'sr_no', 's no']:
+            continue
         
         zone_str = str(zone).strip() if zone else ''
         dist_str = str(dist).strip() if dist else ''
@@ -164,15 +188,6 @@ def process_all_data(excel_path='data.xlsx'):
         elif 'kalwar' in caste_clean.lower(): caste_clean = 'Kalwar'
         elif 'brahmin' in caste_clean.lower() or 'bhraman' in caste_clean.lower(): caste_clean = 'Brahmin'
             
-        rank_map = {
-            'State President': 1,
-            'State Gen Sec': 2,
-            'State VP': 3,
-            'Zonal': 4,
-            'District President': 5,
-            'District Gen Sec': 6,
-            'State Core Committee': 7
-        }
         rank = rank_map.get(post_str, 99)
         
         # Profile Intelligence Extraction
@@ -223,7 +238,7 @@ def process_all_data(excel_path='data.xlsx'):
     tirhut_calls = []
     calling_status_counts = Counter()
 
-    for r in range(2, 60):
+    for r in range(2, ws_tirhut.max_row + 1):
         sr = ws_tirhut.cell(r, 1).value
         if not sr: continue
         d_name = ws_tirhut.cell(r, 2).value
@@ -373,26 +388,27 @@ def process_all_data(excel_path='data.xlsx'):
     # 6. Deep Analytics & Reasoning Aggregations
     # -------------------------------------------------------------
     filled_members = [m for m in swg_members if not m['is_vacant']]
+    all_active_members = filled_members + [m for m in campaign_committee if not m['is_vacant']]
     
-    # Category and Caste
-    category_counts = Counter(m['category'] for m in filled_members if m['category'])
-    caste_counts = Counter(m['caste'] for m in filled_members if m['caste'])
+    # Category and Caste (from all active members)
+    category_counts = Counter(m['category'] for m in all_active_members if m['category'])
+    caste_counts = Counter(m['caste'] for m in all_active_members if m['caste'])
     
     # Political Migrations
     political_migration_counts = Counter()
-    for m in filled_members:
-        for p in m['parties']:
+    for m in all_active_members:
+        for p in m.get('parties', []):
             political_migration_counts[p] += 1
             
     # Business Sectors
     sector_counts = Counter()
-    for m in filled_members:
-        for s in m['sectors']:
+    for m in all_active_members:
+        for s in m.get('sectors', []):
             sector_counts[s] += 1
             
     # Age Cohorts
     age_cohorts = {'Under 35 (Youth)': 0, '35-49 (Prime)': 0, '50-59 (Senior)': 0, '60+ (Veterans)': 0, 'Unspecified': 0}
-    for m in filled_members:
+    for m in all_active_members:
         a = m['age']
         if a:
             if a < 35: age_cohorts['Under 35 (Youth)'] += 1

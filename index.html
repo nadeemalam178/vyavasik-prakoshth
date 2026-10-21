@@ -32,16 +32,11 @@
     </div>
 
     <div class="navbar-tools">
-      <!-- Live Sync Status Chip -->
-      <div class="live-indicator-chip" id="syncStatusChip" title="Google Sheets Live Data Connection">
+      <!-- Live Sync Status Chip (Real-Time Auto Updating) -->
+      <div class="live-indicator-chip" id="syncStatusChip" title="Live Google Sheets Connection Active">
         <span class="pulsing-dot"></span>
         <span id="syncStatusText" data-i18n="sync_live">Sheets Live Connected</span>
       </div>
-
-      <button class="btn-glass" id="syncSheetsBtn" title="Sync Fresh Data from Google Sheets">
-        <svg id="syncIcon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
-        <span data-i18n="sync_btn">Sync</span>
-      </button>
 
       <!-- Language Option (Hindi / English) -->
       <button class="btn-glass lang-toggle-btn" id="langToggleBtn" title="Switch Language / भाषा बदलें" aria-label="Switch Language">
@@ -670,8 +665,10 @@
 
   <!-- Local Chart.js Engine (Offline-Ready & Fast) -->
   <script src="chart.min.js"></script>
-  <!-- Data Script (Offline Fallback) -->
+  <!-- Data Script (Offline Fallback Snapshot) -->
   <script src="data.js"></script>
+  <!-- Live Google Sheets Real-Time Engine -->
+  <script src="live_sync.js"></script>
   <!-- Application Logic -->
   <script src="app.js"></script>
 </body>
