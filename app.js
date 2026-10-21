@@ -938,95 +938,98 @@
   // -------------------------------------------------------------
   // TAB 1: CAMPAIGN COMMITTEE (SAMAST BIHAR)
   // -------------------------------------------------------------
+  // TAB 1: CAMPAIGN COMMITTEE RENDERING
+  // -------------------------------------------------------------
   function renderCampaignCommittee() {
     if (!data || !data.campaign_committee) return;
     const allMembers = data.campaign_committee;
     const isHi = currentLang === 'hi';
 
-    // 1. Pradesh Sanyojak (State Convenor - Hero Card)
-    const sanyojak = allMembers.find(m => m.role === 'Sanyojak');
+    // 1. Pradesh Sanyojak (State Convenors)
+    const sanyojaks = allMembers.filter(m => m.role === 'Sanyojak');
     const sanyojakContainer = document.getElementById('sanyojakContainer');
-    if (sanyojak && sanyojakContainer) {
-      const sanyojakName = getDisplayName(sanyojak);
-      const sanyojakDist = getDisplayDistrict(sanyojak.district);
-      const sanyojakZone = getDisplayZone(sanyojak.zone);
-      const sanyojakCaste = getDisplayCaste(sanyojak.caste);
-      const sanyojakCategory = getDisplayCategory(sanyojak.category);
+    if (sanyojakContainer && sanyojaks.length > 0) {
+      sanyojakContainer.innerHTML = sanyojaks.map((sanyojak, sIdx) => {
+        const sanyojakName = getDisplayName(sanyojak);
+        const sanyojakDist = getDisplayDistrict(sanyojak.district);
+        const sanyojakZone = getDisplayZone(sanyojak.zone);
+        const sanyojakCaste = getDisplayCaste(sanyojak.caste);
+        const sanyojakCategory = getDisplayCategory(sanyojak.category);
+        const bgList = [...(sanyojak.parties || []).map(getDisplayParty), ...(sanyojak.sectors || []).map(getDisplaySector)];
+        const bgSummary = bgList.length > 0 ? bgList.slice(0, 2).join(' • ') : (isHi ? 'व्यापारिक एवं सांगठनिक नेतृत्व' : 'Vyaparik & Sangathanik Netritva');
 
-      sanyojakContainer.innerHTML = `
-        <div class="sanyojak-glass-card" onclick="window.dashboard.openModal(${JSON.stringify(sanyojak).replace(/"/g, '&quot;')})">
-          <!-- Desktop View -->
-          <div class="cadre-card-desktop">
-            <div style="display:flex; align-items:center; gap:0.9rem; margin-bottom:0.75rem;">
-              <div class="sanyojak-avatar">⭐</div>
-              <div>
-                <span class="badge-sanyojak">${isHi ? 'प्रदेश संयोजक' : 'Pradesh Sanyojak (State Convenor)'}</span>
-                <h2 style="margin: 0.2rem 0 0.1rem; font-size: 1.35rem; color: var(--text-main);">
-                  ${escapeHtml(sanyojakName)}
-                </h2>
-                <div style="font-size:0.75rem; color:var(--gold-light); font-weight:600;">
-                  ${isHi ? 'समस्त बिहार व्यावसायिक प्रकोष्ठ अभियान प्रमुख' : 'Samast Bihar Vyavasaik Prakoshth Abhiyan Pramukh'}
+        return `
+          <div class="sanyojak-glass-card" style="${sIdx > 0 ? 'margin-top: 1rem;' : ''}" onclick="window.dashboard.openCcMember(${sanyojak.sr})">
+            <!-- Desktop View -->
+            <div class="cadre-card-desktop">
+              <div style="display:flex; align-items:center; gap:0.9rem; margin-bottom:0.75rem;">
+                <div class="sanyojak-avatar">⭐</div>
+                <div>
+                  <span class="badge-sanyojak">${isHi ? 'प्रदेश संयोजक' : 'Pradesh Sanyojak (State Convenor)'}</span>
+                  <h2 style="margin: 0.2rem 0 0.1rem; font-size: 1.35rem; color: var(--text-main);">
+                    ${escapeHtml(sanyojakName)}
+                  </h2>
+                  <div style="font-size:0.75rem; color:var(--gold-light); font-weight:600;">
+                    ${isHi ? 'समस्त बिहार व्यावसायिक प्रकोष्ठ अभियान प्रमुख' : 'Samast Bihar Vyavasaik Prakoshth Abhiyan Pramukh'}
+                  </div>
                 </div>
               </div>
+
+              <div class="cadre-structured-body" style="background:rgba(241,194,50,0.08); border-color:rgba(241,194,50,0.3);">
+                <div class="cadre-info-row">
+                  <span class="info-icon">📍</span>
+                  <span class="info-text"><strong>${escapeHtml(sanyojakDist)}${sanyojakDist && sanyojakZone ? ', ' : ''}${escapeHtml(sanyojakZone)} ${isHi ? 'ज़ोन' : 'Zone'}</strong></span>
+                </div>
+                <div class="cadre-info-row">
+                  <span class="info-icon">👥</span>
+                  <span class="info-text"><strong>${escapeHtml(sanyojakCaste || (isHi ? 'समाज' : 'Samaj'))}</strong> &bull; ${escapeHtml(sanyojakCategory || (isHi ? 'सामान्य' : 'General'))}${sanyojak.age ? ` &bull; ${isHi ? 'उम्र' : 'Age'}: ${sanyojak.age}` : ''}</span>
+                </div>
+                ${bgSummary ? `
+                <div class="cadre-info-row">
+                  <span class="info-icon">💼</span>
+                  <span class="info-text">${escapeHtml(bgSummary)}</span>
+                </div>` : ''}
+              </div>
+
+              <div class="cadre-card-footer" style="margin-top:0.75rem; border-color:rgba(241,194,50,0.3);">
+                ${sanyojak.number ? `
+                  <a href="tel:${sanyojak.number}" class="cadre-phone-link" onclick="event.stopPropagation();" style="color:var(--gold-light); font-size:0.85rem;">
+                    <span>📞</span>
+                    <span>${escapeHtml(sanyojak.number)}</span>
+                  </a>
+                ` : `<span style="color:var(--text-dim);">${isHi ? 'संपर्क उपलब्ध' : 'Sampark Uplabdh'}</span>`}
+                <button class="btn-glass btn-glass-primary" style="padding:0.35rem 0.85rem; font-size:0.78rem;" onclick="event.stopPropagation(); window.dashboard.openCcMember(${sanyojak.sr})">
+                  ${isHi ? 'प्रोफ़ाइल' : 'Profile'} &rarr;
+                </button>
+              </div>
             </div>
 
-            <div class="cadre-structured-body" style="background:rgba(241,194,50,0.08); border-color:rgba(241,194,50,0.3);">
-              <div class="cadre-info-row">
-                <span class="info-icon">📍</span>
-                <span class="info-text"><strong>${escapeHtml(sanyojakDist)}, ${escapeHtml(sanyojakZone)} ${isHi ? 'ज़ोन' : 'Zone'}</strong> (${isHi ? 'महाराजगंज विधानसभा' : 'Maharajganj Vidhan Sabha'})</span>
+            <!-- Mobile Compact Single Line View -->
+            <div class="cadre-card-mobile" style="border: 1px solid rgba(241,194,50,0.45); background: rgba(241,194,50,0.08);">
+              <div class="cadre-mobile-avatar" style="background:linear-gradient(135deg, #f1c232, #d4a317); color:#0b0f19; font-size:1.05rem;">
+                ⭐
               </div>
-              <div class="cadre-info-row">
-                <span class="info-icon">👥</span>
-                <span class="info-text"><strong>${escapeHtml(sanyojakCaste)}</strong> &bull; ${escapeHtml(sanyojakCategory)} &bull; ${isHi ? 'उम्र' : 'Age'}: ${sanyojak.age || '68'}</span>
+              <div class="cadre-mobile-center">
+                <div class="cadre-mobile-line-main">
+                  <span class="cadre-mobile-name" style="font-weight:800;">${escapeHtml(sanyojakName)}</span>
+                  <span class="political-pill pill-gold pill-compact">${isHi ? 'प्रदेश संयोजक' : 'Pradesh Sanyojak'}</span>
+                </div>
+                <div class="cadre-mobile-line-sub">
+                  <span>📍 ${escapeHtml(sanyojakDist || sanyojakZone)}</span>
+                  ${sanyojakCaste ? `<span>&bull; ${escapeHtml(sanyojakCaste)}</span>` : ''}
+                  ${sanyojak.age ? `<span>&bull; ${sanyojak.age} yr</span>` : ''}
+                </div>
               </div>
-              <div class="cadre-info-row">
-                <span class="info-icon">🏛️</span>
-                <span class="info-text">${isHi ? 'पूर्व कांग्रेस वरिष्ठ नेता (1988-2022) • स्वतंत्रता सेनानी सुपुत्र' : 'Purv Congress Senior Leader (1988-2022) • Swatantrata Senani Suputra'}</span>
+              <div class="cadre-mobile-action">
+                <span class="cadre-mobile-pill" style="border-color:var(--gold); color:var(--gold-light);">${isHi ? 'प्रोफ़ाइल' : 'Profile'} &rarr;</span>
               </div>
-              <div class="cadre-info-row">
-                <span class="info-icon">💼</span>
-                <span class="info-text">${isHi ? '3 महाविद्यालय निदेशक • पेट्रोलियम एवं व्यापारिक संस्थान' : '3 Mahavidyalaya Director • Petroleum & Vyaparik Sansthan'}</span>
-              </div>
-            </div>
-
-            <div class="cadre-card-footer" style="margin-top:0.75rem; border-color:rgba(241,194,50,0.3);">
-              ${sanyojak.number ? `
-                <a href="tel:${sanyojak.number}" class="cadre-phone-link" onclick="event.stopPropagation();" style="color:var(--gold-light); font-size:0.85rem;">
-                  <span>📞</span>
-                  <span>${escapeHtml(sanyojak.number)}</span>
-                </a>
-              ` : `<span style="color:var(--text-dim);">${isHi ? 'संपर्क उपलब्ध' : 'Sampark Uplabdh'}</span>`}
-              <button class="btn-glass btn-glass-primary" style="padding:0.35rem 0.85rem; font-size:0.78rem;" onclick="event.stopPropagation(); window.dashboard.openModal(${JSON.stringify(sanyojak).replace(/"/g, '&quot;')})">
-                ${isHi ? 'प्रोफ़ाइल' : 'Profile'} &rarr;
-              </button>
             </div>
           </div>
-
-          <!-- Mobile Compact Single Line View -->
-          <div class="cadre-card-mobile" style="border: 1px solid rgba(241,194,50,0.45); background: rgba(241,194,50,0.08);">
-            <div class="cadre-mobile-avatar" style="background:linear-gradient(135deg, #f1c232, #d4a317); color:#0b0f19; font-size:1.05rem;">
-              ⭐
-            </div>
-            <div class="cadre-mobile-center">
-              <div class="cadre-mobile-line-main">
-                <span class="cadre-mobile-name" style="font-weight:800;">${escapeHtml(sanyojakName)}</span>
-                <span class="political-pill pill-gold pill-compact">${isHi ? 'प्रदेश संयोजक' : 'Pradesh Sanyojak'}</span>
-              </div>
-              <div class="cadre-mobile-line-sub">
-                <span>📍 ${escapeHtml(sanyojakDist)} (${escapeHtml(sanyojakZone)})</span>
-                <span>&bull; ${escapeHtml(sanyojakCaste)}</span>
-                <span>&bull; ${sanyojak.age || '68'} yr</span>
-              </div>
-            </div>
-            <div class="cadre-mobile-action">
-              <span class="cadre-mobile-pill" style="border-color:var(--gold); color:var(--gold-light);">${isHi ? 'प्रोफ़ाइल' : 'Profile'} &rarr;</span>
-            </div>
-          </div>
-        </div>
-      `;
+        `;
+      }).join('');
     }
 
-    // 2. Sah Sanyojaks (3 Columns in Stack)
+    // 2. Sah Sanyojaks (Stack)
     const sahSanyojaks = allMembers.filter(m => m.role === 'Sah Sanyojak');
     const sahContainer = document.getElementById('sahSanyojakContainer');
     if (sahContainer) {
@@ -1040,7 +1043,7 @@
         const mCat = getDisplayCategory(m.category);
 
         return `
-          <div class="sah-glass-card" onclick="window.dashboard.openModal(${JSON.stringify(m).replace(/"/g, '&quot;')})">
+          <div class="sah-glass-card" onclick="window.dashboard.openCcMember(${m.sr})">
             <!-- Desktop Sah Sanyojak Card -->
             <div class="cadre-card-desktop">
               <div>
@@ -1158,10 +1161,10 @@
     }
 
     if (filterState.zone !== 'ALL') {
-      list = list.filter(m => m.zone.toLowerCase() === filterState.zone.toLowerCase());
+      list = list.filter(m => (m.zone || '').toLowerCase() === filterState.zone.toLowerCase());
     }
     if (filterState.category !== 'ALL') {
-      list = list.filter(m => m.category.toLowerCase() === filterState.category.toLowerCase());
+      list = list.filter(m => (m.category || '').toLowerCase() === filterState.category.toLowerCase());
     }
     if (filterState.party !== 'ALL') {
       const pf = filterState.party.toLowerCase();
@@ -1211,9 +1214,9 @@
         const bgList = [...(m.parties || []).map(getDisplayParty), ...(m.sectors || []).map(getDisplaySector)];
         const bgSummary = bgList.length > 0 ? bgList.slice(0, 2).join(' • ') : '-';
         return `
-          <tr class="table-row-clickable" onclick="window.dashboard.openModal(${JSON.stringify(m).replace(/"/g, '&quot;')})">
+          <tr class="table-row-clickable" onclick="window.dashboard.openCcMember(${m.sr || (idx + 1)})">
             <td>${m.sr || (idx + 1)}</td>
-            <td><span class="political-pill pill-gold">${escapeHtml(getDisplayRole(m.role || 'Members'))}</span></td>
+            <td><span class="political-pill pill-gold">${escapeHtml(getDisplayRole(m.role || 'Kshetriya Sanyojak'))}</span></td>
             <td><strong>${escapeHtml(getDisplayName(m))}</strong></td>
             <td>${escapeHtml(getDisplayZone(m.zone))}</td>
             <td>${escapeHtml(getDisplayDistrict(m.district))}</td>
@@ -1428,8 +1431,10 @@
     const bgParts = [...(m.parties || []).map(getDisplayParty), ...(m.sectors || []).map(getDisplaySector)];
     const bgText = bgParts.length > 0 ? bgParts.slice(0, 2).join(' • ') : '';
 
+    const clickHandler = m.sr ? `window.dashboard.openCcMember(${m.sr})` : (m.id ? `window.dashboard.openCadreMember(${m.id})` : `window.dashboard.openModal(${JSON.stringify(m).replace(/"/g, '&quot;')})`);
+
     return `
-      <div class="cadre-clean-card ${isVacant ? 'is-vacant' : ''}" onclick="window.dashboard.openModal(${JSON.stringify(m).replace(/"/g, '&quot;')})">
+      <div class="cadre-clean-card ${isVacant ? 'is-vacant' : ''}" onclick="${clickHandler}">
         <!-- Desktop Multi-Row Structured Card -->
         <div class="cadre-card-desktop">
           <div class="cadre-header-row">
@@ -2349,6 +2354,18 @@
   window.dashboard = {
     openModal,
     closeModal,
+    openCcMember: function(sr) {
+      if (data && data.campaign_committee) {
+        const m = data.campaign_committee.find(x => x.sr === sr);
+        if (m) openModal(m);
+      }
+    },
+    openCadreMember: function(id) {
+      if (data && data.swg_members) {
+        const m = data.swg_members.find(x => x.id === id);
+        if (m) openModal(m);
+      }
+    },
     filterCcByZone,
     syncWithGoogleSheets
   };

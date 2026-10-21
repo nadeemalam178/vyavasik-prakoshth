@@ -100,11 +100,21 @@
   }
 
   async function fetchCsvByGid(gid) {
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${gid}&_t=${Date.now()}`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP ${res.status} fetching GID ${gid}`);
-    const text = await res.text();
-    return parseCSV(text);
+    try {
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}&_t=${Date.now()}`;
+      const res = await fetch(url);
+      if (res.ok) {
+        const text = await res.text();
+        if (text && text.length > 20) return parseCSV(text);
+      }
+    } catch (e) {
+      // fallback to gviz
+    }
+    const gvizUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${gid}&_t=${Date.now()}`;
+    const res2 = await fetch(gvizUrl);
+    if (!res2.ok) throw new Error(`HTTP ${res2.status} fetching GID ${gid}`);
+    const text2 = await res2.text();
+    return parseCSV(text2);
   }
 
   async function fetchDirectFromSheets() {
@@ -116,23 +126,41 @@
 
     // 1. Campaign Committee
     const campaignCommittee = [];
-    let currentRole = 'Members';
+    let currentRole = 'Sanyojak';
     let currentZone = '';
 
     for (let r = 0; r < ccRows.length; r++) {
       const row = ccRows[r];
       if (!row || !row.length) continue;
       const valA = (row[0] || '').trim();
+      const valB = (row[1] || '').trim();
       const lowerA = valA.toLowerCase();
+      const lowerB = valB.toLowerCase();
 
-      if (['sanyojak', 'members', 'committee'].some(kw => lowerA.includes(kw))) {
-        if (lowerA.includes('kshetriya')) currentRole = 'Kshetriya Sanyojak';
-        else if (lowerA.includes('sah')) currentRole = 'Sah Sanyojak';
-        else if (lowerA.includes('sanyojak')) currentRole = 'Sanyojak';
-        else currentRole = valA;
+      // Check for section headers
+      if (lowerA === 'sanyojak' || (lowerA.includes('sanyojak') && !lowerA.includes('sr') && !lowerA.includes('sah') && !lowerA.includes('kshetriya'))) {
+        currentRole = 'Sanyojak';
         continue;
       }
-      if (['sr no', 'sr. no', 'sr_no', 's no', 'sanyojak sr no'].some(kw => lowerA.includes(kw))) {
+      if (lowerA.includes('sah sanyojak') || lowerA === 'sah-sanyojak') {
+        currentRole = 'Sah Sanyojak';
+        continue;
+      }
+      if (lowerA.includes('kshetriya') || lowerA.includes('zonal')) {
+        currentRole = 'Kshetriya Sanyojak';
+        continue;
+      }
+
+      // Check for table header row
+      if (['sr no', 'sr. no', 'sr_no', 's no', 'sanyojak sr no'].some(kw => lowerA === kw || lowerA.includes(kw))) {
+        continue;
+      }
+      if (lowerB === 'zone' && (row[2] || '').toLowerCase().includes('district')) {
+        if (currentRole === 'Sanyojak' && campaignCommittee.some(m => m.role === 'Sanyojak')) {
+          currentRole = 'Sah Sanyojak';
+        } else if (currentRole === 'Sah Sanyojak' && campaignCommittee.some(m => m.role === 'Sah Sanyojak')) {
+          currentRole = 'Kshetriya Sanyojak';
+        }
         continue;
       }
 
@@ -148,8 +176,7 @@
 
       if (zone) currentZone = zone;
 
-      if (name || district || (!isNaN(parseInt(sr, 10)) && parseInt(sr, 10) > 0)) {
-        const isVacant = !name || name === '-' || name.toLowerCase().includes('vacant');
+      if (name && name !== '-' && !name.toLowerCase().includes('vacant') && name.toLowerCase() !== 'name') {
         const { parties, sectors } = extractProfileTags(profile);
 
         let catClean = category;
@@ -166,8 +193,8 @@
           role_tier: currentRole === 'Sanyojak' ? 1 : (currentRole === 'Sah Sanyojak' ? 2 : 3),
           zone: currentZone,
           district,
-          name: isVacant ? '(Vacant / To be Appointed)' : name,
-          is_vacant: isVacant,
+          name,
+          is_vacant: false,
           number: cleanPhone(number),
           age: cleanAge(age),
           category: catClean,

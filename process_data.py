@@ -19,7 +19,7 @@ def process_all_data(excel_path='data.xlsx'):
         val_a_str = str(val_a).strip() if val_a is not None else ''
         
         lower_a = val_a_str.lower()
-        if any(kw in lower_a for kw in ['sanyojak', 'members', 'committee']):
+        if lower_a in ['sanyojak', 'sah sanyojak', 'kshetriya sanyojak', 'members'] or (any(kw in lower_a for kw in ['sanyojak', 'members', 'committee']) and not any(kw in lower_a for kw in ['sr', 'no'])):
             if 'kshetriya' in lower_a:
                 current_role = 'Kshetriya Sanyojak'
             elif 'sah' in lower_a:
@@ -29,7 +29,7 @@ def process_all_data(excel_path='data.xlsx'):
             else:
                 current_role = val_a_str
             continue
-        if lower_a in ['sr no', 'sr. no', 'sr_no', 's no']:
+        if any(kw in lower_a for kw in ['sr no', 'sr. no', 'sr_no', 's no', 'sanyojak sr no']):
             continue
         
         sr = ws_cc.cell(r, 1).value
@@ -45,7 +45,8 @@ def process_all_data(excel_path='data.xlsx'):
         if zone:
             current_zone = str(zone).strip()
             
-        if name or district or (sr and isinstance(sr, (int, float))):
+        name_str = str(name).strip() if name is not None else ''
+        if name_str and name_str.lower() not in ['name', '-', 'none', 'vacant']:
             phone_clean = ''
             if number:
                 if isinstance(number, (int, float)):
